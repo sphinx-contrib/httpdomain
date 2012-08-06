@@ -80,6 +80,7 @@ class AutoflaskDirective(Directive):
     required_arguments = 1
     option_spec = {'endpoints': str,
                    'undoc-endpoints': str,
+                   'undoc-blueprints': str,
                    'undoc-static': str,
                    'include-empty-docstring': str}
 
@@ -100,9 +101,24 @@ class AutoflaskDirective(Directive):
             return frozenset()
         return frozenset(endpoints)
 
+    @property
+    def undoc_blueprints(self):
+        try:
+            blueprints = re.split(r'\s*,\s*', self.options['undoc-blueprints'])
+        except KeyError:
+            return frozenset()
+        return frozenset(blueprints)
+
     def make_rst(self):
         app = import_object(self.arguments[0])
         for method, path, endpoint in get_routes(app):
+            try:
+                blueprint, endpoint_internal = endpoint.split('.')
+                if blueprint in self.undoc_blueprints:
+                    continue
+            except ValueError:
+                pass  # endpoint is not within a blueprint
+
             if self.endpoints and endpoint not in self.endpoints:
                 continue
             if endpoint in self.undoc_endpoints:

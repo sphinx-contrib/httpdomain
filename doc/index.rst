@@ -389,6 +389,9 @@ will be rendered as:
 
          .. _undoc-members: http://sphinx.pocoo.org/ext/autodoc.html#directive-automodule
 
+   ``undoc-blueprints``
+      Excludes specified blueprints from generated references.
+
    ``undoc-static``
       Excludes a view function that serves static files, which is included
       in Flask by default.
