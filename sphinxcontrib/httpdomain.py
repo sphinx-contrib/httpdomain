@@ -442,6 +442,11 @@ class HTTPLexer(RegexLexer):
         yield match.start(5), Literal, match.group(5)
         yield match.start(6), Text, match.group(6)
 
+    def continuous_header_callback(self, match):
+        yield match.start(1), Text, match.group(1)
+        yield match.start(2), Literal, match.group(2)
+        yield match.start(3), Text, match.group(3)
+
     def content_callback(self, match):
         content_type = getattr(self, 'content_type', None)
         content = match.group()
@@ -472,6 +477,7 @@ class HTTPLexer(RegexLexer):
         ],
         'headers': [
             (r'([^\s:]+)( *)(:)( *)([^\r\n]+)(\r?\n|$)', header_callback),
+            (r'([\t ]+)([^\r\n]+)(\r?\n|$)', continuous_header_callback),
             (r'\r?\n', Text, 'content')
         ],
         'content': [
