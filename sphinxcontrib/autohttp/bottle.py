@@ -1,11 +1,11 @@
 """
-    sphinxcontrib.autohttp.flask
+    sphinxcontrib.autohttp.bottle
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    The sphinx.ext.autodoc-style HTTP API reference builder (from Flask)
+    The sphinx.ext.autodoc-style HTTP API reference builder (from Bottle)
     for sphinxcontrib.httpdomain.
 
-    :copyright: Copyright 2011 by Hong Minhee
+    :copyright: Copyright 2012 by Jameel Al-Aziz
     :license: BSD, see LICENSE for details.
 
 """
@@ -29,38 +29,39 @@ from sphinxcontrib import httpdomain
 from sphinxcontrib import autohttp
 
 
-def translate_werkzeug_rule(rule):
-    from werkzeug.routing import parse_rule
+def translate_bottle_rule(app, rule):
     buf = StringIO.StringIO()
-    for conv, arg, var in parse_rule(rule):
-        if conv:
+    for name, filter, conf in app.router.parse_rule(rule):
+        if filter:
             buf.write('(')
-            if conv != 'default':
-                buf.write(conv)
+            buf.write(name)
+            if filter != app.router.default_filter or conf:
                 buf.write(':')
-            buf.write(var)
+                buf.write(filter)
+            if conf:
+                buf.write(':')
+                buf.write(conf)
             buf.write(')')
         else:
-            buf.write(var)
+            buf.write(name)
     return buf.getvalue()
 
 
 def get_routes(app):
-    for rule in app.url_map.iter_rules():
-        methods = rule.methods.difference(['OPTIONS', 'HEAD'])
-        for method in methods:
-            path = translate_werkzeug_rule(rule.rule)
-            yield method, path, rule.endpoint
+    for rule, methods in app.router.rules.iteritems():
+        for method, target in methods.iteritems():
+            if method in ('OPTIONS', 'HEAD'):
+                continue
+            path = translate_bottle_rule(app, rule)
+            yield method, path, target
 
 
-class AutoflaskDirective(Directive):
+class AutobottleDirective(Directive):
 
     has_content = True
     required_arguments = 1
     option_spec = {'endpoints': str,
                    'undoc-endpoints': str,
-                   'undoc-blueprints': str,
-                   'undoc-static': str,
                    'include-empty-docstring': str}
 
     @property
@@ -80,36 +81,15 @@ class AutoflaskDirective(Directive):
             return frozenset()
         return frozenset(endpoints)
 
-    @property
-    def undoc_blueprints(self):
-        try:
-            blueprints = re.split(r'\s*,\s*', self.options['undoc-blueprints'])
-        except KeyError:
-            return frozenset()
-        return frozenset(blueprints)
-
     def make_rst(self):
         app = autohttp.import_object(self.arguments[0])
-        for method, path, endpoint in get_routes(app):
-            try:
-                blueprint, endpoint_internal = endpoint.split('.')
-                if blueprint in self.undoc_blueprints:
-                    continue
-            except ValueError:
-                pass  # endpoint is not within a blueprint
-
+        for method, path, target in get_routes(app):
+            endpoint = target.name or target.callback.__name__
             if self.endpoints and endpoint not in self.endpoints:
                 continue
             if endpoint in self.undoc_endpoints:
                 continue
-            try:
-                static_url_path = app.static_url_path # Flask 0.7 or higher
-            except AttributeError:
-                static_url_path = app.static_path # Flask 0.6 or under
-            if ('undoc-static' in self.options and endpoint == 'static' and
-                path == static_url_path + '/(path:filename)'):
-                continue
-            view = app.view_functions[endpoint]
+            view = target.callback
             docstring = view.__doc__ or ''
             if not isinstance(docstring, unicode):
                 analyzer = ModuleAnalyzer.for_module(view.__module__)
@@ -125,7 +105,7 @@ class AutoflaskDirective(Directive):
         node.document = self.state.document
         result = ViewList()
         for line in self.make_rst():
-            result.append(line, '<autoflask>')
+            result.append(line, '<autobottle>')
         nested_parse_with_titles(self.state, result, node)
         return node.children
 
@@ -133,5 +113,5 @@ class AutoflaskDirective(Directive):
 def setup(app):
     if 'http' not in app.domains:
         httpdomain.setup(app)
-    app.add_directive('autoflask', AutoflaskDirective)
+    app.add_directive('autobottle', AutobottleDirective)
 
