@@ -246,7 +246,7 @@ def http_statuscode_role(name, rawtext, text, lineno, inliner,
         try:
             code, status = re.split(r'\s', text.strip(), 1)
             code = int(code)
-        except Value:
+        except ValueError:
             msg = inliner.reporter.error(
                 'HTTP status code must be an integer (e.g. `200`) or '
                 'start with an integer (e.g. `200 OK`); %r is invalid' %
