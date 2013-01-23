@@ -148,6 +148,8 @@ class HTTPResource(ObjectDescription):
                      names=('queryparameter', 'queryparam', 'qparam', 'query')),
         GroupedField('formparameter', label='Form Parameters',
                      names=('formparameter', 'formparam', 'fparam', 'form')),
+        GroupedField('jsonparameter', label='Json Parameters',
+                     names=('jsonparameter', 'jsonparam', 'json')),
         GroupedField('statuscode', label='Status Codes',
                      rolename='statuscode',
                      names=('statuscode', 'status', 'code'))

@@ -192,6 +192,10 @@ nicely:
    :mimetype:`application/x-www-form-urlencoded` or
    :mimetype:`multipart/form-data`.
 
+``jsonparameter``, ``jsonparam``, ``json``
+   Description of a parameter passed by request content body, encoded in
+   :mimetype:`application/json`.
+
 ``statuscode``, ``status``, ``code``
    Description of response status code.
 
