@@ -132,6 +132,10 @@ class AutoflaskDirective(Directive):
                 continue
             view = app.view_functions[endpoint]
             docstring = view.__doc__ or ''
+            if hasattr(view, 'view_class'):
+                meth_func = getattr(view.view_class, method.lower(), None)
+                if meth_func and meth_func.__doc__:
+                    docstring = meth_func.__doc__
             if not isinstance(docstring, unicode):
                 analyzer = ModuleAnalyzer.for_module(view.__module__)
                 docstring = force_decode(docstring, analyzer.encoding)
