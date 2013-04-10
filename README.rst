@@ -6,5 +6,4 @@ for describing RESTful HTTP APIs.
 
 You can find the documentation from the following URL:
 
-http://packages.python.org/sphinxcontrib-httpdomain/
-
+http://pythonhosted.org/sphinxcontrib-httpdomain/
