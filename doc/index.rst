@@ -196,6 +196,8 @@ nicely:
    Description of a parameter passed by request content body, encoded in
    :mimetype:`application/json`.
 
+   .. versionadded:: 1.1.8
+
 ``statuscode``, ``status``, ``code``
    Description of response status code.
 
@@ -315,6 +317,8 @@ Roles
 :mod:`sphinxcontrib.autohttp.flask` --- Exporting API reference from Flask app
 ------------------------------------------------------------------------------
 
+.. versionadded:: 1.1
+
 It generates RESTful HTTP API reference documentation from a Flask_
 application's routing table, similar to :mod:`sphinx.ext.autodoc`.
 
@@ -336,6 +340,8 @@ will be rendered as:
        :undoc-static:
 
 .. rst:directive:: .. autoflask:: module:app
+
+   .. versionadded:: 1.1
 
    Generates HTTP API references from a Flask application. It takes an
    import name, like::
@@ -373,6 +379,8 @@ will be rendered as:
       For compatibility, omitting this option will produce the same effect
       like above.
 
+      .. versionadded:: 1.1.8
+
    ``undoc-endpoints``
       Excludes specified endpoints from generated references.
 
@@ -396,6 +404,8 @@ will be rendered as:
    ``undoc-blueprints``
       Excludes specified blueprints from generated references.
 
+      .. versionadded:: 1.1.8
+
    ``undoc-static``
       Excludes a view function that serves static files, which is included
       in Flask by default.
@@ -403,6 +413,8 @@ will be rendered as:
    ``include-empty-docstring``
       View functions that don't have docstring (:attr:`__doc__`) are excluded
       by default. If this flag option has given, they become included also.
+
+      .. versionadded:: 1.1.2
 
 .. _Flask: http://flask.pocoo.org/
 
@@ -426,3 +438,108 @@ the repository).
 .. _Hong Minhee: http://dahlia.kr/
 __ https://bitbucket.org/birkenfeld/sphinx-contrib
 
+
+Changelog
+---------
+
+Version 1.1.8
+`````````````
+
+Released on April 10, 2013.
+
+- Added better support for docstrings in :class:`flask.views.MethodView`.
+  [:pull:`26` by Simon Metson]
+- Added ``jsonparameter`` along side ``form`` and ``query`` parameters.
+  [:pull:`25` by Adam Lowry]
+- Fixed issue with undefined ``Value`` and ``umethod`` variables.
+  [:pull:`23` by Sebastian Kalinowski and :pull:`24` by Viktor Haag]
+- Now ``http`` Pygments lexer can Handle continuous header lines well.
+- Added ``undoc-blueprints`` flag option to :rst:dir:`autoflask` directive.
+  [:pull:`21` by Roman Podolyaka]
+- Fixed :issue:`29`, a bug that :rst:dir:`autoflask` directive raised
+  :exc:`UnicodeDecodeError` when it contains non-ASCII characters.
+  [:issue:`29` and :pull:`18` by Eunchong Yu]
+- Added ``endpoints`` flag option to :rst:dir:`autoflask` directive.
+  [:pull:`17` by Eunchong Yu]
+
+Version 1.1.7
+`````````````
+
+Released on March 28, 2012.
+
+- Added :http:method:`PATCH` method support.  See :rst:role:`http:patch` role
+  and :rst:dir:`http:patch` directive.
+  [:pull:`9` and :pull:`10` by Jeffrey Finkelstein]
+- The HTTP routing table can be grouped based on prefix by specifying
+  :data:`http_index_ignore_prefixes` config in list of common prefixes to
+  ignore.  [:pull:`7` and :pull:`8` by Andrey Popp]
+- The order of HTTP routing table now provides sorting by path as key.
+  Previously it was sorted by HTTP method and then by path, which is
+  non-intuitive.  [:pull:`7` and :pull:`8` by Andrey Popp]
+
+
+Version 1.1.6
+`````````````
+
+Released on December 16, 2011.
+
+- Added ``http`` custom lexer for Pygments so that HTTP sessions can be
+  highlighted in :rst:dir:`code-block` or :rst:dir:`sourcecode` directives.
+
+Version 1.1.5
+`````````````
+
+Released on July 6, 2011.
+
+- Flask 0.6--0.7 compatibility.  Flask renamed
+  :attr:`~flask.Flask.static_path` attribute to
+  :attr:`~flask.Flask.static_url_path`, so :rst:dir:`autoflask` also reflect
+  the change.
+  [:pull:`1` by Jeffrey Finkelstein]
+
+
+Version 1.1.4
+`````````````
+
+Released on June 8, 2011.
+
+- CPython compatibility
+- PyPy compatibility
+
+
+Version 1.1.3
+`````````````
+
+Released on June 8, 2011.
+
+- PyPy compatibility
+
+
+Version 1.1.2
+`````````````
+
+Released on June 4, 2011.
+
+- Added ``:include-empty-docstring:`` flag option. (v1.1.2)
+
+
+Version 1.1.1
+`````````````
+
+Released on June 4, 2011.
+
+- Fixed a backward incompatibility bug.
+
+
+Version 1.1
+```````````
+
+Released on June 4, 2011.
+
+- Added :rst:dir:`autoflask` directive.
+
+
+Version 1.0
+```````````
+
+Released on June 2, 2011.  The first release.

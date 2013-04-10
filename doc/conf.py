@@ -26,7 +26,8 @@ sys.path.insert(0, os.path.abspath('.'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinxcontrib.httpdomain', 'sphinxcontrib.autohttp.flask']
+extensions = ['sphinxcontrib.httpdomain', 'sphinxcontrib.autohttp.flask',
+              'sphinx.ext.extlinks']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -242,3 +243,10 @@ texinfo_documents = [
 
 # How to display URL addresses: 'footnote', 'no', or 'inline'.
 #texinfo_show_urls = 'footnote'
+
+extlinks = {
+    'pull': ('https://bitbucket.org/birkenfeld/sphinx-contrib/pull-request/%s/',
+             'pull request #'),
+    'issue': ('https://bitbucket.org/birkenfeld/sphinx-contrib/issue/%s/',
+              'issue #')
+}
