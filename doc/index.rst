@@ -68,6 +68,11 @@ HTTP resources.
       :query sort: one of ``hit``, ``created-at``
       :query offset: offset number. default is 0
       :query limit: limit number. default is 30
+      :reqheader Accept: the response content type depends on
+                         :mailheader:`Accept` header
+      :reqheader Authorization: optional OAuth token to authenticate
+      :resheader Content-Type: this depends on :mailheader:`Accept`
+                               header of request
       :statuscode 200: no error
       :statuscode 404: there's no user
 
@@ -111,6 +116,11 @@ will be rendered as:
        :query sort: one of ``hit``, ``created-at``
        :query offset: offset number. default is 0
        :query limit: limit number. default is 30
+       :reqheader Accept: the response content type depends on
+                          :mailheader:`Accept` header
+       :reqheader Authorization: optional OAuth token to authenticate
+       :resheader Content-Type: this depends on :mailheader:`Accept`
+                                header of request
        :statuscode 200: no error
        :statuscode 404: there's no user
 
@@ -198,6 +208,16 @@ nicely:
 
    .. versionadded:: 1.1.8
 
+``requestheader``, ``reqheader``
+   Description of request header field.
+
+   .. versionadded:: 1.1.9
+
+``responseheader``, ``resheader``
+   Description of response header field.
+
+   .. versionadded:: 1.1.9
+
 ``statuscode``, ``status``, ``code``
    Description of response status code.
 
@@ -213,6 +233,11 @@ For example:
       :type post_id: int
       :form email: author email address
       :form body: comment body
+      :reqheader Accept: the response content type depends on
+                         :mailheader:`Accept` header
+      :reqheader Authorization: optional OAuth token to authenticate
+      :resheader Content-Type: this depends on :mailheader:`Accept`
+                               header of request
       :status 302: and then redirects to :http:get:`/posts/(int:post_id)`
       :status 400: when form parameters are missing
 
@@ -226,6 +251,11 @@ It will render like this:
        :type post_id: int
        :form email: author email address
        :form body: comment body
+       :reqheader Accept: the response content type depends on
+                          :mailheader:`Accept` header
+       :reqheader Authorization: optional OAuth token to authenticate
+       :resheader Content-Type: this depends on :mailheader:`Accept`
+                                header of request
        :status 302: and then redirects to :http:get:`/posts/(int:post_id)`
        :status 400: when form parameters are missing
 
@@ -445,6 +475,8 @@ Changelog
 Version 1.1.9
 `````````````
 To be released.
+
+- Added ``:reqheader:`` and ``:resheader:`` option flags.
 
 
 Version 1.1.8
