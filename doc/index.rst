@@ -449,17 +449,17 @@ Released on April 10, 2013.
 
 - Added better support for docstrings in :class:`flask.views.MethodView`.
   [:pull:`26` by Simon Metson]
-- Added ``jsonparameter`` along side ``form`` and ``query`` parameters.
+- Added ``:jsonparameter:`` along side ``:form:`` and ``:query:`` flag options.
   [:pull:`25` by Adam Lowry]
 - Fixed issue with undefined ``Value`` and ``umethod`` variables.
   [:pull:`23` by Sebastian Kalinowski and :pull:`24` by Viktor Haag]
 - Now ``http`` Pygments lexer can Handle continuous header lines well.
-- Added ``undoc-blueprints`` flag option to :rst:dir:`autoflask` directive.
+- Added ``:undoc-blueprints:`` flag option to :rst:dir:`autoflask` directive.
   [:pull:`21` by Roman Podolyaka]
 - Fixed :issue:`29`, a bug that :rst:dir:`autoflask` directive raised
   :exc:`UnicodeDecodeError` when it contains non-ASCII characters.
   [:issue:`29` and :pull:`18` by Eunchong Yu]
-- Added ``endpoints`` flag option to :rst:dir:`autoflask` directive.
+- Added ``:endpoints:`` flag option to :rst:dir:`autoflask` directive.
   [:pull:`17` by Eunchong Yu]
 
 Version 1.1.7
@@ -520,7 +520,7 @@ Version 1.1.2
 
 Released on June 4, 2011.
 
-- Added ``:include-empty-docstring:`` flag option. (v1.1.2)
+- Added ``:include-empty-docstring:`` flag option.
 
 
 Version 1.1.1
