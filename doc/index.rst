@@ -13,13 +13,14 @@ domain for describing RESTful HTTP APIs.
 
 .. seealso::
 
-   If your webapp is powered by Flask_? See :mod:`sphinxcontrib.autohttp.flask`
-   also.
+   We might support reflection for web framework your webapp depends on.
+   See the following :mod:`sphinxcontrib.auttohttp` modules:
 
-   Or
+   Module :mod:`sphinxcontrib.autohttp.flask`
+      Reflection for Flask_ webapps.
 
-   If your webapp is powered by Bottle_? See :mod:`sphinxcontrib.autohttp.bottle`
-   also.
+   Module :mod:`sphinxcontrib.autohttp.bottle`
+      Reflection for Bottle_ webapps.
 
 In order to use it, add :mod:`sphinxcontrib.httpdomain` into
 :data:`extensions` list of your Sphinx configuration file (:file:`conf.py`)::
@@ -570,7 +571,12 @@ Version 1.1.9
 `````````````
 To be released.
 
+- Now Bottle_ apps can be loaded by :mod:`~sphinxcontrib.autohttp`.
+  See :mod:`sphinxcontrib.autohttp.bottle` module.
+  [patch_ by Jameel Al-Aziz]
 - Added ``:reqheader:`` and ``:resheader:`` option flags.
+
+.. _patch: https://github.com/jalaziz/sphinxcontrib-httpdomain
 
 
 Version 1.1.8
