@@ -26,7 +26,7 @@ from sphinx.util.docstrings import prepare_docstring
 from sphinx.pycode import ModuleAnalyzer
 
 from sphinxcontrib import httpdomain
-from sphinxcontrib import autohttp
+from sphinxcontrib.autohttp.common import http_directive, import_object
 
 
 def translate_werkzeug_rule(rule):
@@ -89,7 +89,7 @@ class AutoflaskDirective(Directive):
         return frozenset(blueprints)
 
     def make_rst(self):
-        app = autohttp.import_object(self.arguments[0])
+        app = import_object(self.arguments[0])
         for method, path, endpoint in get_routes(app):
             try:
                 blueprint, endpoint_internal = endpoint.split('.')
@@ -121,7 +121,7 @@ class AutoflaskDirective(Directive):
             if not docstring and 'include-empty-docstring' not in self.options:
                 continue
             docstring = prepare_docstring(docstring)
-            for line in autohttp.http_directive(method, path, docstring):
+            for line in http_directive(method, path, docstring):
                 yield line
 
     def run(self):

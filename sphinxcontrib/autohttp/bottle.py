@@ -26,7 +26,7 @@ from sphinx.util.docstrings import prepare_docstring
 from sphinx.pycode import ModuleAnalyzer
 
 from sphinxcontrib import httpdomain
-from sphinxcontrib import autohttp
+from sphinxcontrib.autohttp.common import http_directive, import_object
 
 
 def translate_bottle_rule(app, rule):
@@ -82,7 +82,7 @@ class AutobottleDirective(Directive):
         return frozenset(endpoints)
 
     def make_rst(self):
-        app = autohttp.import_object(self.arguments[0])
+        app = import_object(self.arguments[0])
         for method, path, target in get_routes(app):
             endpoint = target.name or target.callback.__name__
             if self.endpoints and endpoint not in self.endpoints:
@@ -97,7 +97,7 @@ class AutobottleDirective(Directive):
             if not docstring and 'include-empty-docstring' not in self.options:
                 continue
             docstring = prepare_docstring(docstring)
-            for line in autohttp.http_directive(method, path, docstring):
+            for line in http_directive(method, path, docstring):
                 yield line
 
     def run(self):
