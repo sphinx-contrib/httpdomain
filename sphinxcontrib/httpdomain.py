@@ -27,6 +27,9 @@ from sphinx.util.nodes import make_refnode
 from sphinx.util.docfields import GroupedField, TypedField
 
 
+GroupedTypedField = type('GroupedTypedField', (TypedField, GroupedField), {})
+
+
 class DocRef(object):
     """Represents a link to an RFC which defines an HTTP method."""
 
@@ -148,8 +151,9 @@ class HTTPResource(ObjectDescription):
                      names=('queryparameter', 'queryparam', 'qparam', 'query')),
         GroupedField('formparameter', label='Form Parameters',
                      names=('formparameter', 'formparam', 'fparam', 'form')),
-        GroupedField('jsonparameter', label='Json Parameters',
-                     names=('jsonparameter', 'jsonparam', 'json')),
+        GroupedTypedField('jsonparameter', label='Json Parameters',
+                          names=('jsonparameter', 'jsonparam', 'json'),
+                          typerolename='obj', typenames=('paramtype', 'type')),
         GroupedField('requestheader', label='Request Headers',
                      rolename='mailheader',
                      names=('reqheader', 'requestheader')),
