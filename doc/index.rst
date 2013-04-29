@@ -214,6 +214,16 @@ nicely:
 
    .. versionadded:: 1.1.8
 
+   .. versionchanged:: 1.1.9
+
+      It can be typed e.g.:
+      
+      .. sourcecode:: rst
+         
+         :jsonparam string title: the post title
+         :jsonparam string body: the post body
+         :jsonparam boolean sticky: whether it's sticky or not
+
 ``requestheader``, ``reqheader``
    Description of request header field.
 
@@ -575,6 +585,7 @@ To be released.
   See :mod:`sphinxcontrib.autohttp.bottle` module.
   [patch_ by Jameel Al-Aziz]
 - Added ``:reqheader:`` and ``:resheader:`` option flags.
+- ``:jsonparameter:`` can be typed.  [:pull:`31` by Chuck Harmston]
 
 .. _patch: https://github.com/jalaziz/sphinxcontrib-httpdomain
 
