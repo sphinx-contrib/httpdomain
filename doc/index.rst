@@ -217,9 +217,9 @@ nicely:
    .. versionchanged:: 1.1.9
 
       It can be typed e.g.:
-      
+
       .. sourcecode:: rst
-         
+
          :jsonparam string title: the post title
          :jsonparam string body: the post body
          :jsonparam boolean sticky: whether it's sticky or not
@@ -446,6 +446,11 @@ will be rendered as:
          nothing to do with docstrings. It just excludes specified endpoints.
 
          .. _undoc-members: http://sphinx.pocoo.org/ext/autodoc.html#directive-automodule
+
+   ``blueprints``
+      Only include specified blueprints in generated references.
+
+      .. versionadded:: 1.1.9
 
    ``undoc-blueprints``
       Excludes specified blueprints from generated references.

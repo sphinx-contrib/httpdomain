@@ -59,6 +59,7 @@ class AutoflaskDirective(Directive):
     has_content = True
     required_arguments = 1
     option_spec = {'endpoints': directives.unchanged,
+                   'blueprints': directives.unchanged,
                    'undoc-endpoints': directives.unchanged,
                    'undoc-blueprints': directives.unchanged,
                    'undoc-static': directives.unchanged,
@@ -79,6 +80,13 @@ class AutoflaskDirective(Directive):
         return frozenset(re.split(r'\s*,\s*', undoc_endpoints))
 
     @property
+    def blueprints(self):
+        blueprints = self.options.get('blueprints', None)
+        if not blueprints:
+            return None
+        return frozenset(re.split(r'\s*,\s*', blueprints))
+
+    @property
     def undoc_blueprints(self):
         undoc_blueprints = self.options.get('undoc-blueprints', None)
         if not undoc_blueprints:
@@ -90,6 +98,8 @@ class AutoflaskDirective(Directive):
         for method, path, endpoint in get_routes(app):
             try:
                 blueprint, endpoint_internal = endpoint.split('.')
+                if self.blueprints and blueprint not in self.blueprints:
+                    continue
                 if blueprint in self.undoc_blueprints:
                     continue
             except ValueError:
