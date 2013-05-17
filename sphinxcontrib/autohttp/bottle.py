@@ -17,6 +17,7 @@ except ImportError:
     import StringIO
 
 from docutils import nodes
+from docutils.parsers.rst import directives
 from docutils.statemachine import ViewList
 
 from sphinx.util import force_decode
@@ -60,26 +61,23 @@ class AutobottleDirective(Directive):
 
     has_content = True
     required_arguments = 1
-    option_spec = {'endpoints': str,
-                   'undoc-endpoints': str,
-                   'include-empty-docstring': str}
+    option_spec = {'endpoints': directives.unchanged,
+                   'undoc-endpoints': directives.unchanged,
+                   'include-empty-docstring': directives.unchanged}
 
     @property
     def endpoints(self):
-        try:
-            endpoints = re.split(r'\s*,\s*', self.options['endpoints'])
-        except KeyError:
-            # means 'endpoints' option was missing
+        endpoints = self.options.get('endpoints', None)
+        if not endpoints:
             return None
-        return frozenset(endpoints)
+        return frozenset(re.split(r'\s*,\s*', endpoints))
 
     @property
     def undoc_endpoints(self):
-        try:
-            endpoints = re.split(r'\s*,\s*', self.options['undoc-endpoints'])
-        except KeyError:
+        undoc_endpoints = self.options.get('undoc-endpoints', None)
+        if not undoc_endpoints:
             return frozenset()
-        return frozenset(endpoints)
+        return frozenset(re.split(r'\s*,\s*', undoc_endpoints))
 
     def make_rst(self):
         app = import_object(self.arguments[0])

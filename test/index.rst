@@ -112,6 +112,15 @@ Basic option
 .. autoflask:: autoflask_sampleapp:app
    :undoc-static:
 
+Basic option with empty args
+............................
+
+.. autoflask:: autoflask_sampleapp:app
+   :undoc-static:
+   :endpoints:
+   :undoc-endpoints:
+   :undoc-blueprints:
+
 Filter some endpoints
 ......................
 
