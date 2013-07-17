@@ -342,8 +342,7 @@ class HTTPIndex(Index):
                 method.upper() + ' ' + path, 0, info[0],
                 http_resource_anchor(method, path), '', '', info[1]
             ])
-        content = content.items()
-        sorted(content, key=lambda k: k[0])
+        content = sorted(content.items(), key=lambda k: k[0])
         return (content, True)
 
 
