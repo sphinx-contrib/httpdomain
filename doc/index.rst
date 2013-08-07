@@ -595,6 +595,15 @@ __ https://bitbucket.org/birkenfeld/sphinx-contrib
 Changelog
 ---------
 
+
+Version 1.2.0
+`````````````
+
+To be released.
+
+- Python 3 support!  [:pull:`34` by murchik]
+
+
 Version 1.1.9
 `````````````
 
