@@ -597,7 +597,8 @@ Changelog
 
 Version 1.1.9
 `````````````
-To be released.
+
+Released on August 8, 2013.
 
 - Now Bottle_ apps can be loaded by :mod:`~sphinxcontrib.autohttp`.
   See :mod:`sphinxcontrib.autohttp.bottle` module.
