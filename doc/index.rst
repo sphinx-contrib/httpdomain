@@ -591,6 +591,9 @@ To be released.
   [patch_ by Jameel Al-Aziz]
 - Added ``:reqheader:`` and ``:resheader:`` option flags.
 - ``:jsonparameter:`` can be typed.  [:pull:`31` by Chuck Harmston]
+- :rst:dir:`autoflask` and :rst:dir:`autobottle` directives now allow
+  empty ``:endpoints:``, ``:undoc-endpoints:``, and ``:blueprints:``
+  arguments.
 
 .. _patch: https://github.com/jalaziz/sphinxcontrib-httpdomain
 
