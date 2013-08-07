@@ -203,6 +203,19 @@ nicely:
 ``queryparameter``, ``queryparam``, ``qparam``, ``query``
    Description of parameter passed by request query string.
 
+   It optionally can be typed, all the query parameters will have obviously
+   string types though.  But it's useful if there's conventions for it.
+
+   .. versionchanged:: 1.1.9
+
+      It can be typed e.g.:
+
+      .. sourcecode:: rst
+
+         :query string title: the post title
+         :query string body: the post body
+         :query boolean sticky: whether it's sticky or not
+
 ``formparameter``, ``formparam``, ``fparam``, ``form``
    Description of parameter passed by request content body, encoded in
    :mimetype:`application/x-www-form-urlencoded` or
@@ -591,6 +604,7 @@ To be released.
   [patch_ by Jameel Al-Aziz]
 - Added ``:reqheader:`` and ``:resheader:`` option flags.
 - ``:jsonparameter:`` can be typed.  [:pull:`31` by Chuck Harmston]
+- ``:queryparameter:`` can be types.  [:pull:`37` by Viktor Haag]
 - :rst:dir:`autoflask` and :rst:dir:`autobottle` directives now allow
   empty ``:endpoints:``, ``:undoc-endpoints:``, and ``:blueprints:``
   arguments.
