@@ -608,7 +608,7 @@ Released on August 8, 2013.
 - ``:queryparameter:`` can be types.  [:pull:`37` by Viktor Haag]
 - :rst:dir:`autoflask` and :rst:dir:`autobottle` directives now allow
   empty ``:endpoints:``, ``:undoc-endpoints:``, and ``:blueprints:``
-  arguments.
+  arguments.  [:pull:`33` by Michael Twomey]
 
 .. _patch: https://github.com/jalaziz/sphinxcontrib-httpdomain
 
