@@ -614,7 +614,7 @@ Released on August 8, 2013.
   [patch_ by Jameel Al-Aziz]
 - Added ``:reqheader:`` and ``:resheader:`` option flags.
 - ``:jsonparameter:`` can be typed.  [:pull:`31` by Chuck Harmston]
-- ``:queryparameter:`` can be types.  [:pull:`37` by Viktor Haag]
+- ``:queryparameter:`` can be typed.  [:pull:`37` by Viktor Haag]
 - :rst:dir:`autoflask` and :rst:dir:`autobottle` directives now allow
   empty ``:endpoints:``, ``:undoc-endpoints:``, and ``:blueprints:``
   arguments.  [:pull:`33` by Michael Twomey]
