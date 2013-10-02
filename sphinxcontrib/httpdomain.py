@@ -407,7 +407,7 @@ class HTTPDomain(Domain):
 
     def clear_doc(self, docname):
         for typ, routes in self.routes.items():
-            for path, info in routes.items():
+            for path, info in list(routes.items()):
                 if info[0] == docname:
                     del routes[path]
 
