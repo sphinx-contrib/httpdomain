@@ -688,6 +688,8 @@ Version 1.2.0
 To be released.
 
 - Python 3 support!  [:pull:`34` by murchik, :pull:`39` Donald Stufft]
+- Added support for Tornado webapps. (:mod:`sphinxcontrib.autohttp.tornado`)
+  [:pull:`38` by Rodrigo Machado]
 
 
 Version 1.1.9
