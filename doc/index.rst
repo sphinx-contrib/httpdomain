@@ -601,7 +601,7 @@ Version 1.2.0
 
 To be released.
 
-- Python 3 support!  [:pull:`34` by murchik]
+- Python 3 support!  [:pull:`34` by murchik, :pull:`39` Donald Stufft]
 
 
 Version 1.1.9
