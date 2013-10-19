@@ -22,6 +22,10 @@ domain for describing RESTful HTTP APIs.
    Module :mod:`sphinxcontrib.autohttp.bottle`
       Reflection for Bottle_ webapps.
 
+   Module :mod:`sphinxcontrib.autohttp.tornado`
+      Reflection for Tornado_ webapps.
+
+
 In order to use it, add :mod:`sphinxcontrib.httpdomain` into
 :data:`extensions` list of your Sphinx configuration file (:file:`conf.py`)::
 
@@ -570,6 +574,88 @@ will be rendered as:
       by default. If this flag option has given, they become included also.
 
 .. _Bottle: http://bottlepy.org/
+
+
+.. module:: sphinxcontrib.autohttp.tornado
+
+:mod:`sphinxcontrib.autohttp.tornado` --- Exporting API reference from Tornado app
+----------------------------------------------------------------------------------
+
+It generates RESTful HTTP API reference documentation from a Tornado_
+application's routing table, similar to :mod:`sphinx.ext.autodoc`.
+
+In order to use it, add :mod:`sphinxcontrib.autohttp.tornado` into
+:data:`extensions` list of your Sphinx configuration (:file:`conf.py`) file::
+
+    extensions = ['sphinxcontrib.autohttp.tornado']
+
+For example:
+
+.. sourcecode:: rst
+
+   .. autotornado:: autotornado_sampleapp:app
+
+will be rendered as:
+
+    .. autotornado:: autotornado_sampleapp:app
+
+.. rst:directive:: .. autotornado:: module:app
+
+   Generates HTTP API references from a Tornado application. It takes an
+   import name, like::
+
+       your.webapplication.module:app
+
+   Colon character (``:``) separates module path and application variable.
+
+   It takes several flag options as well.
+
+   ``endpoints``
+      Endpoints to generate a reference.
+
+      .. sourcecode:: rst
+
+         .. autotornado:: yourwebapp:app
+            :endpoints: user, post, friends
+
+      will document :func:`user`, :func:`post`, and :func:`friends`
+      view functions, and
+
+      .. sourcecode:: rst
+
+         .. autotornado:: yourwebapp:app
+            :endpoints:
+
+      will document all endpoints in the flask app.
+
+      For compatibility, omitting this option will produce the same effect
+      like above.
+
+   ``undoc-endpoints``
+      Excludes specified endpoints from generated references.
+
+      For example:
+
+      .. sourcecode:: rst
+
+         .. autotornado:: yourwebapp:app
+            :undoc-endpoints: admin, admin_login
+
+      will exclude :func:`admin`, :func:`admin_login` view functions.
+
+      .. note::
+
+         While the `undoc-members`_ flag of :mod:`sphinx.ext.autodoc` extension
+         includes members without docstrings, ``undoc-endpoints`` option has
+         nothing to do with docstrings. It just excludes specified endpoints.
+
+         .. _undoc-members: http://sphinx.pocoo.org/ext/autodoc.html#directive-automodule
+
+   ``include-empty-docstring``
+      View functions that don't have docstring (:attr:`__doc__`) are excluded
+      by default. If this flag option has given, they become included also.
+
+.. _Tornado: http://www.tornadoweb.org/
 
 
 Author and License
