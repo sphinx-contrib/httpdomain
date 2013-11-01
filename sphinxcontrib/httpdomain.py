@@ -44,7 +44,7 @@ class DocRef(object):
         location of the RFC which defines some HTTP method.
 
         """
-        return '{}#{}{}'.format(self.base_url, self.anchor, self.section)
+        return '{0}#{1}{2}'.format(self.base_url, self.anchor, self.section)
 
 
 #: The URL of the HTTP/1.1 RFC which defines the HTTP methods OPTIONS, GET,
