@@ -687,6 +687,8 @@ Version 1.2.1
 
 To be released.
 
+- Fixed broken Python 2.6 compatibility.  [:pull:`41` by Kien Pham]
+
 
 Version 1.2.0
 `````````````
