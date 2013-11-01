@@ -144,7 +144,7 @@ class HTTPResource(ObjectDescription):
         TypedField('parameter', label='Parameters',
                    names=('param', 'parameter', 'arg', 'argument'),
                    typerolename='obj', typenames=('paramtype', 'type')),
-        TypedField('jsonparameter', label='Json Parameters',
+        TypedField('jsonparameter', label='JSON Parameters',
                    names=('jsonparameter', 'jsonparam', 'json'),
                    typerolename='obj', typenames=('jsonparamtype', 'jsontype')),
         TypedField('queryparameter', label='Query Parameters',
