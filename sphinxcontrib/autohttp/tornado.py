@@ -29,7 +29,7 @@ from sphinxcontrib.autohttp.common import http_directive, import_object
 
 
 def translate_tornado_rule(app, rule):
-    buf = six.String()
+    buf = six.StringIO()
     for name, filter, conf in app.router.parse_rule(rule):
         if filter:
             buf.write('(')
