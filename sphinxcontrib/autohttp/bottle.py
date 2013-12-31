@@ -11,10 +11,7 @@
 """
 
 import re
-try:
-    import cStringIO as StringIO
-except ImportError:
-    import StringIO
+import six
 
 from docutils import nodes
 from docutils.parsers.rst import directives
@@ -31,7 +28,7 @@ from sphinxcontrib.autohttp.common import http_directive, import_object
 
 
 def translate_bottle_rule(app, rule):
-    buf = StringIO.StringIO()
+    buf = six.StringIO()
     for name, filter, conf in app.router.parse_rule(rule):
         if filter:
             buf.write('(')
@@ -89,7 +86,7 @@ class AutobottleDirective(Directive):
                 continue
             view = target.callback
             docstring = view.__doc__ or ''
-            if not isinstance(docstring, unicode):
+            if not isinstance(docstring, six.text_type):
                 analyzer = ModuleAnalyzer.for_module(view.__module__)
                 docstring = force_decode(docstring, analyzer.encoding)
             if not docstring and 'include-empty-docstring' not in self.options:

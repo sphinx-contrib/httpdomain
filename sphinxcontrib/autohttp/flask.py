@@ -12,18 +12,7 @@
 """
 
 import re
-
-# Python 3 Changes
-# StringIO is now in module 'io'
-PY_VER = 2
-try:
-    from io import StringIO
-    PY_VER = 3
-except ImportError:
-    try:
-        import cStringIO as StringIO
-    except ImportError:
-        import StringIO
+import six
 
 from docutils import nodes
 from docutils.parsers.rst import directives
@@ -41,10 +30,7 @@ from sphinxcontrib.autohttp.common import http_directive, import_object
 
 def translate_werkzeug_rule(rule):
     from werkzeug.routing import parse_rule
-    if PY_VER == 2:
-        buf = StringIO.StringIO()
-    else:
-        buf = StringIO()
+    buf = six.StringIO()
     for conv, arg, var in parse_rule(rule):
         if conv:
             buf.write('(')
@@ -134,14 +120,10 @@ class AutoflaskDirective(Directive):
                 meth_func = getattr(view.view_class, method.lower(), None)
                 if meth_func and meth_func.__doc__:
                     docstring = meth_func.__doc__
-            if PY_VER == 2:
-                if not isinstance(docstring, unicode):
-                    analyzer = ModuleAnalyzer.for_module(view.__module__)
-                    docstring = force_decode(docstring, analyzer.encoding)
-            else:
-                if not isinstance(docstring, str):
-                    analyzer = ModuleAnalyzer.for_module(view.__module__)
-                    docstring = force_decode(docstring, analyzer.encoding)                    
+            if not isinstance(docstring, six.text_type):
+                analyzer = ModuleAnalyzer.for_module(view.__module__)
+                docstring = force_decode(docstring, analyzer.encoding)
+    
             if not docstring and 'include-empty-docstring' not in self.options:
                 continue
             docstring = prepare_docstring(docstring)

@@ -12,10 +12,7 @@
 
 import inspect
 import re
-try:
-    import cStringIO as StringIO
-except ImportError:
-    import StringIO
+import six
 
 from docutils import nodes
 from docutils.parsers.rst import directives
@@ -32,7 +29,7 @@ from sphinxcontrib.autohttp.common import http_directive, import_object
 
 
 def translate_tornado_rule(app, rule):
-    buf = StringIO.StringIO()
+    buf = six.String()
     for name, filter, conf in app.router.parse_rule(rule):
         if filter:
             buf.write('(')
