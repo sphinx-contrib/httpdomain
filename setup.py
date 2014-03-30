@@ -11,7 +11,10 @@ You can find the documentation from the following URL:
 http://pythonhosted.org/sphinxcontrib-httpdomain/
 '''
 
-requires = ['Sphinx>=1.0']
+requires = [
+    'Sphinx >= 1.0',
+    'six'
+]
 
 setup(
     name='sphinxcontrib-httpdomain',
