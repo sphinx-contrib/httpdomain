@@ -49,19 +49,17 @@ def translate_tornado_rule(app, rule):
 def get_routes(app):
     for spec in app.handlers[0][1]:
         handler = spec.handler_class
-        methods = inspect.getmembers(handler, predicate=inspect.ismethod)
-
         doc_methods = list(handler.SUPPORTED_METHODS)
         if 'HEAD' in doc_methods:
             doc_methods.remove('HEAD')
         if 'OPTIONS' in doc_methods:
             doc_methods.remove('OPTIONS')
 
-        for method in methods:
-            if method[0].upper() not in doc_methods:
-                continue
-            path = spec.regex.pattern
-            yield method[0], path, handler
+        for method in doc_methods:
+            maybe_method = getattr(handler, method.lower(), None)
+            if (inspect.isfunction(maybe_method) or
+                    inspect.ismethod(maybe_method)):
+                yield method.lower(), spec.regex.pattern, handler
 
 
 def normalize_path(path):
