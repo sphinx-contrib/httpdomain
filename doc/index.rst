@@ -681,6 +681,14 @@ __ https://bitbucket.org/birkenfeld/sphinx-contrib
 Changelog
 ---------
 
+Version 1.2.2
+`````````````
+
+To be released.
+
+- Fix Python 3 incompatibility of :mod:`autohttp.tornado`.
+  [:pull:`61` by Dave Shawley]
+
 
 Version 1.2.1
 `````````````
