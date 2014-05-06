@@ -29,11 +29,16 @@ from sphinxcontrib.autohttp.common import http_directive, import_object
 
 def translate_bottle_rule(app, rule):
     buf = six.StringIO()
-    for name, filter, conf in app.router.parse_rule(rule):
+    if hasattr(app.router, "parse_rule"):
+        iterator = app.router.parse_rule(rule)  # bottle 0.11
+    else:
+        iterator = app.router._itertokens(rule)  # bottle 0.12
+    for name, filter, conf in iterator:
         if filter:
             buf.write('(')
             buf.write(name)
-            if filter != app.router.default_filter or conf:
+            if (filter != app.router.default_filter and filter != 'default')\
+                    or conf:
                 buf.write(':')
                 buf.write(filter)
             if conf:
@@ -46,12 +51,9 @@ def translate_bottle_rule(app, rule):
 
 
 def get_routes(app):
-    for rule, methods in app.router.rules.iteritems():
-        for method, target in methods.iteritems():
-            if method in ('OPTIONS', 'HEAD'):
-                continue
-            path = translate_bottle_rule(app, rule)
-            yield method, path, target
+    for route in app.routes:
+        path = translate_bottle_rule(app, route.rule)
+        yield route.method, path, route
 
 
 class AutobottleDirective(Directive):
