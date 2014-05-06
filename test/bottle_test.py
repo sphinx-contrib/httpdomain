@@ -46,7 +46,8 @@ class BottleTest(unittest.TestCase):
 
     def test_get_routes(self):
         routes = list(get_routes(create_app()))
-        routes = sorted(routes)  # order is not deterministic
+        # order is not deterministic:
+        routes = sorted(routes, key=lambda x: x[1])
 
         self.assertEqual(len(routes), 2)
 
@@ -64,16 +65,16 @@ class BottleTest(unittest.TestCase):
 
     def test_get_routes_mount(self):
         routes = list(get_routes(create_app_mount()))
-        routes = sorted(routes)
+        routes = sorted(routes, key=lambda x: x[1])
 
         self.assertEqual(len(routes), 3)
 
         # not sure about this:
-        self.assertEqual(routes[0][1], "/mount/(:re:.*)")
+        self.assertEqual(routes[2][1], "/mount/(:re:.*)")
 
     def test_get_routes_filter(self):
         routes = list(get_routes(create_app_filter()))
-        routes = sorted(routes)
+        routes = sorted(routes, key=lambda x: x[1])
 
         self.assertEqual(len(routes), 1)
 
