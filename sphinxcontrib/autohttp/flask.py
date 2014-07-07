@@ -1,4 +1,3 @@
-
 """
     sphinxcontrib.autohttp.flask
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -95,7 +94,7 @@ class AutoflaskDirective(Directive):
         app = import_object(self.arguments[0])
         for method, path, endpoint in get_routes(app):
             try:
-                blueprint, endpoint_internal = endpoint.split('.')
+                blueprint, _, endpoint_internal = endpoint.rpartition('.')
                 if self.blueprints and blueprint not in self.blueprints:
                     continue
                 if blueprint in self.undoc_blueprints:
