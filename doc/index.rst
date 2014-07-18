@@ -458,6 +458,12 @@ will be rendered as:
 
       .. note::
 
+         It is worth noting that the names of endpoints that are applied to
+         blueprints are prefixed with the blueprint's name (e.g.
+         blueprint.endpoint).
+
+      .. note::
+
          While the `undoc-members`_ flag of :mod:`sphinx.ext.autodoc` extension
          includes members without docstrings, ``undoc-endpoints`` option has
          nothing to do with docstrings. It just excludes specified endpoints.
