@@ -416,6 +416,7 @@ Roles
    - :http:header:`Content-MD5`
    - :http:header:`Content-Range`
    - :http:header:`Content-Type`
+   - :http:header:`Cookie`
    - :http:header:`Date`
    - :http:header:`ETag`
    - :http:header:`Expect`
@@ -437,6 +438,7 @@ Roles
    - :http:header:`Referer`
    - :http:header:`Retry-After`
    - :http:header:`Server`
+   - :http:header:`Set-Cookie`
    - :http:header:`TE`
    - :http:header:`Trailer`
    - :http:header:`Transfer-Encoding`
