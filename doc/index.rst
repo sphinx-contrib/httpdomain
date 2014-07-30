@@ -883,7 +883,7 @@ Changelog
 Version 1.3.0
 `````````````
 
-To be released.
+Released on July 31, 2014.
 
 - ``jsonparameter``/``jsonparam``/``json`` became deprecated and split
   into ``reqjsonobj``/``reqjson``/``<jsonobj``/``<json`` and
