@@ -38,16 +38,16 @@ Additional Configuration
 - ``http_index_ignore_prefixes`` - strips the leading segments from the endpoint
   paths by given list of prefixes::
 
-  http_index_ignore_prefixes = ["/internal", "/_proxy"]
+    http_index_ignore_prefixes = ["/internal", "/_proxy"]
 
 - ``http_index_shortname`` - short name of the index which will appears on every
   page::
 
-  http_index_shortname = "api"
+    http_index_shortname = "api"
 
 - ``http_index_localname`` - full index name which is used on index page::
 
-  http_index_shortname = "My Project HTTP API"
+    http_index_shortname = "My Project HTTP API"
 
 Basic usage
 -----------
@@ -221,7 +221,7 @@ Directives
    context. It can also be referred by :rst:role:`http:any` role.
 
 Options
-^^^^^^^
+```````
 
 Additionally, you may specify custom options to the directives:
 
