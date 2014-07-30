@@ -681,7 +681,7 @@ __ https://bitbucket.org/birkenfeld/sphinx-contrib
 Changelog
 ---------
 
-Version 1.2.2
+Version 1.3.0
 `````````````
 
 To be released.
