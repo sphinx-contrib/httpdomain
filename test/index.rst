@@ -15,6 +15,7 @@ Directives
 .. http:delete:: /users/(int:user_id)/posts/(tag)
 .. http:trace:: /users/(int:user_id)/posts/(tag)
 .. http:connect:: /users/(int:user_id)/posts/(tag)
+.. http:copy:: /users/(int:user_id)/posts/(tag)
 
 Sourcecode
 ~~~~~~~~~~
@@ -54,6 +55,29 @@ Resource fields
    :query resource: description for ``resource``
    :statuscode 200: description for 200
    :statuscode 404: description for 404
+
+.. http:get:: /short-syntax
+
+   :<header Accept: :mimetype:`application/json`
+   :<json string foo: Foo key value
+   :<json number bar: Bar key value
+   :>header Content-Type: :mimetype:`application/json`
+   :>jsonarr string baz: Some baz field
+   :code 200: Success
+
+
+Options
+~~~~~~~
+
+.. http:get:: /bar
+   :noindex:
+
+.. http:put:: /baz
+   :synopsis: Something special
+
+.. http:post:: /baz
+   :deprecated:
+   :synopsis: Something special, but use PUT instead
 
 Roles
 ~~~~~

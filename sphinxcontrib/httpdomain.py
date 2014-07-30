@@ -16,64 +16,129 @@ from docutils.parsers.rst.roles import set_classes
 
 from pygments.lexer import RegexLexer, bygroups
 from pygments.lexers import get_lexer_by_name
-from pygments.token import Literal, Text,  Operator, Keyword, Name, Number
+from pygments.token import Literal, Text, Operator, Keyword, Name, Number
 from pygments.util import ClassNotFound
 
 from sphinx import addnodes
 from sphinx.roles import XRefRole
 from sphinx.domains import Domain, ObjType, Index
-from sphinx.directives import ObjectDescription
+from sphinx.directives import ObjectDescription, directives
 from sphinx.util.nodes import make_refnode
 from sphinx.util.docfields import GroupedField, TypedField
 
 
 class DocRef(object):
-    """Represents a link to an RFC which defines an HTTP method."""
+    """Represents a reference to an abstract specification."""
 
     def __init__(self, base_url, anchor, section):
-        """Stores the specified attributes which represent a URL which links to
-        an RFC which defines an HTTP method.
-
-        """
         self.base_url = base_url
         self.anchor = anchor
         self.section = section
 
     def __repr__(self):
-        """Returns the URL which this object represents, which points to the
-        location of the RFC which defines some HTTP method.
-
-        """
+        """Returns the URL onto related specification section for the related
+        object."""
         return '{0}#{1}{2}'.format(self.base_url, self.anchor, self.section)
 
 
-#: The URL of the HTTP/1.1 RFC which defines the HTTP methods OPTIONS, GET,
-#: HEAD, POST, PUT, DELETE, TRACE, and CONNECT.
-RFC2616 = 'http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html'
+class RFC2616Ref(DocRef):
+    """Represents a reference to RFC2616."""
 
-#: The name to use for section anchors in RFC2616.
-RFC2616ANCHOR = 'sec'
+    def __init__(self, section):
+        url = 'http://www.w3.org/Protocols/rfc2616/rfc2616-sec{0:d}.html'
+        url = url.format(int(section))
+        super(RFC2616Ref, self).__init__(url, 'sec', section)
 
-#: The URL of the RFC which defines the HTTP PATCH method.
-RFC5789 = 'http://tools.ietf.org/html/rfc5789'
 
-#: The name to use for section anchors in RFC5789.
-RFC5789ANCHOR = 'section-'
+class IETFRef(DocRef):
+    """Represents a reference to the specific IETF RFC."""
+
+    def __init__(self, rfc, section):
+        url = 'http://tools.ietf.org/html/rfc{0:d}'.format(rfc)
+        super(IETFRef, self).__init__(url, 'section-', section)
+
+
+class EventSourceRef(DocRef):
+
+    def __init__(self, section):
+        url = 'http://www.w3.org/TR/eventsource/'
+        super(EventSourceRef, self).__init__(url, section, '')
+
 
 #: Mapping from lowercase HTTP method name to :class:`DocRef` object which
 #: maintains the URL which points to the section of the RFC which defines that
 #: HTTP method.
-DOCREFS = {
-    'patch': DocRef(RFC5789, RFC5789ANCHOR, 2),
-    'options': DocRef(RFC2616, RFC2616ANCHOR, 9.2),
-    'get': DocRef(RFC2616, RFC2616ANCHOR, 9.3),
-    'head': DocRef(RFC2616, RFC2616ANCHOR, 9.4),
-    'post': DocRef(RFC2616, RFC2616ANCHOR, 9.5),
-    'put': DocRef(RFC2616, RFC2616ANCHOR, 9.6),
-    'delete': DocRef(RFC2616, RFC2616ANCHOR, 9.7),
-    'trace': DocRef(RFC2616, RFC2616ANCHOR, 9.8),
-    'connect': DocRef(RFC2616, RFC2616ANCHOR, 9.9)
+METHOD_REFS = {
+    'patch': IETFRef(5789, 2),
+    'options': RFC2616Ref(9.2),
+    'get': RFC2616Ref(9.3),
+    'head': RFC2616Ref(9.4),
+    'post': RFC2616Ref(9.5),
+    'put': RFC2616Ref(9.6),
+    'delete': RFC2616Ref(9.7),
+    'trace': RFC2616Ref(9.8),
+    'connect': RFC2616Ref(9.9),
+    'copy': IETFRef(2518, 8.8),
+    'any': ''
 }
+
+
+#: Mapping from HTTP header name to :class:`DocRef` object which
+#: maintains the URL which points to the related section of the RFC.
+HEADER_REFS = {
+    'Accept': RFC2616Ref(14.1),
+    'Accept-Charset': RFC2616Ref(14.2),
+    'Accept-Encoding': RFC2616Ref(14.3),
+    'Accept-Language': RFC2616Ref(14.4),
+    'Accept-Ranges': RFC2616Ref(14.5),
+    'Age': RFC2616Ref(14.6),
+    'Allow': RFC2616Ref(14.7),
+    'Authorization': RFC2616Ref(14.8),
+    'Cache-Control': RFC2616Ref(14.9),
+    'Connection': RFC2616Ref(14.10),
+    'Content-Encoding': RFC2616Ref(14.11),
+    'Content-Language': RFC2616Ref(14.12),
+    'Content-Length': RFC2616Ref(14.13),
+    'Content-Location': RFC2616Ref(14.14),
+    'Content-MD5': RFC2616Ref(14.15),
+    'Content-Range': RFC2616Ref(14.16),
+    'Content-Type': RFC2616Ref(14.17),
+    'Cookie': IETFRef(2109, '4.3.4'),
+    'Date': RFC2616Ref(14.18),
+    'Destination': IETFRef(2518, 9.3),
+    'ETag': RFC2616Ref(14.19),
+    'Expect': RFC2616Ref(14.20),
+    'Expires': RFC2616Ref(14.21),
+    'From': RFC2616Ref(14.22),
+    'Host': RFC2616Ref(14.23),
+    'If-Match': RFC2616Ref(14.24),
+    'If-Modified-Since': RFC2616Ref(14.25),
+    'If-None-Match': RFC2616Ref(14.26),
+    'If-Range': RFC2616Ref(14.27),
+    'If-Unmodified-Since': RFC2616Ref(14.28),
+    'Last-Event-ID': EventSourceRef('last-event-id'),
+    'Last-Modified': RFC2616Ref(14.29),
+    'Location': RFC2616Ref(14.30),
+    'Max-Forwards': RFC2616Ref(14.31),
+    'Pragma': RFC2616Ref(14.32),
+    'Proxy-Authenticate': RFC2616Ref(14.33),
+    'Proxy-Authorization': RFC2616Ref(14.34),
+    'Range': RFC2616Ref(14.35),
+    'Referer': RFC2616Ref(14.36),
+    'Retry-After': RFC2616Ref(14.37),
+    'Server': RFC2616Ref(14.38),
+    'Set-Cookie': IETFRef(2109, '4.2.2'),
+    'TE': RFC2616Ref(14.39),
+    'Trailer': RFC2616Ref(14.40),
+    'Transfer-Encoding': RFC2616Ref(14.41),
+    'Upgrade': RFC2616Ref(14.42),
+    'User-Agent': RFC2616Ref(14.43),
+    'Vary': RFC2616Ref(14.44),
+    'Via': RFC2616Ref(14.45),
+    'Warning': RFC2616Ref(14.46),
+    'WWW-Authenticate': RFC2616Ref(14.47)
+}
+
 
 HTTP_STATUS_CODES = {
     100: 'Continue',
@@ -133,8 +198,19 @@ http_sig_param_re = re.compile(r'\((?:(?P<type>[^:)]+):)?(?P<name>[\w_]+)\)',
                                re.VERBOSE)
 
 
+def sort_by_method(entries):
+    def cmp(item):
+        order = ['HEAD', 'GET', 'POST', 'PUT', 'DELETE', 'PATCH',
+                 'OPTIONS', 'TRACE', 'CONNECT', 'COPY', 'ANY']
+        method = item[0].split(' ', 1)[0]
+        if method in order:
+            return order.index(method)
+        return 100
+    return sorted(entries, key=cmp)
+
+
 def http_resource_anchor(method, path):
-    path = re.sub(r'[<>:/]', '-', path)
+    path = re.sub(r'[{}]', '', re.sub(r'[<>:/]', '-', path))
     return method.lower() + '-' + path
 
 
@@ -147,21 +223,42 @@ class HTTPResource(ObjectDescription):
         TypedField('jsonparameter', label='JSON Parameters',
                    names=('jsonparameter', 'jsonparam', 'json'),
                    typerolename='obj', typenames=('jsonparamtype', 'jsontype')),
+        TypedField('requestjsonobject', label='Request JSON Object',
+                   names=('reqjsonobj', 'reqjson', '<jsonobj', '<json'),
+                   typerolename='obj', typenames=('reqjsonobj', '<jsonobj')),
+        TypedField('requestjsonarray', label='Request JSON Array of Objects',
+                   names=('reqjsonarr', '<jsonarr'),
+                   typerolename='obj',
+                   typenames=('reqjsonarrtype', '<jsonarrtype')),
+        TypedField('responsejsonobject', label='Response JSON Object',
+                   names=('resjsonobj', 'resjson', '>jsonobj', '>json'),
+                   typerolename='obj', typenames=('resjsonobj', '>jsonobj')),
+        TypedField('responsejsonarray', label='Response JSON Array of Objects',
+                   names=('resjsonarr', '>jsonarr'),
+                   typerolename='obj',
+                   typenames=('resjsonarrtype', '>jsonarrtype')),
         TypedField('queryparameter', label='Query Parameters',
-                     names=('queryparameter', 'queryparam', 'qparam', 'query'),
-                     typerolename='obj', typenames=('queryparamtype', 'querytype', 'qtype')),
+                   names=('queryparameter', 'queryparam', 'qparam', 'query'),
+                   typerolename='obj',
+                   typenames=('queryparamtype', 'querytype', 'qtype')),
         GroupedField('formparameter', label='Form Parameters',
                      names=('formparameter', 'formparam', 'fparam', 'form')),
         GroupedField('requestheader', label='Request Headers',
                      rolename='mailheader',
-                     names=('reqheader', 'requestheader')),
+                     names=('<header', 'reqheader', 'requestheader')),
         GroupedField('responseheader', label='Response Headers',
                      rolename='mailheader',
-                     names=('resheader', 'responseheader')),
+                     names=('>header', 'resheader', 'responseheader')),
         GroupedField('statuscode', label='Status Codes',
                      rolename='statuscode',
                      names=('statuscode', 'status', 'code'))
     ]
+
+    option_spec = {
+        'deprecated': directives.flag,
+        'noindex': directives.flag,
+        'synopsis': lambda x: x,
+    }
 
     method = NotImplemented
 
@@ -169,13 +266,14 @@ class HTTPResource(ObjectDescription):
         method = self.method.upper() + ' '
         signode += addnodes.desc_name(method, method)
         offset = 0
+        path = None
         for match in http_sig_param_re.finditer(sig):
             path = sig[offset:match.start()]
             signode += addnodes.desc_name(path, path)
             params = addnodes.desc_parameterlist()
             typ = match.group('type')
             if typ:
-                typ = typ + ': '
+                typ += ': '
                 params += addnodes.desc_annotation(typ, typ)
             name = match.group('name')
             params += addnodes.desc_parameter(name, name)
@@ -184,6 +282,7 @@ class HTTPResource(ObjectDescription):
         if offset < len(sig):
             path = sig[offset:len(sig)]
             signode += addnodes.desc_name(path, path)
+        assert path is not None, 'no matches for sig: %s' % sig
         fullname = self.method.upper() + ' ' + path
         signode['method'] = self.method
         signode['path'] = sig
@@ -195,7 +294,11 @@ class HTTPResource(ObjectDescription):
 
     def add_target_and_index(self, name_cls, sig, signode):
         signode['ids'].append(http_resource_anchor(*name_cls[1:]))
-        self.env.domaindata['http'][self.method][sig] = (self.env.docname, '')
+        if 'noindex' not in self.options:
+            self.env.domaindata['http'][self.method][sig] = (
+                self.env.docname,
+                self.options.get('synopsis', ''),
+                'deprecated' in self.options)
 
     def get_index_text(self, modname, name):
         return ''
@@ -241,8 +344,27 @@ class HTTPTrace(HTTPResource):
     method = 'trace'
 
 
+class HTTPConnect(HTTPResource):
+
+    method = 'connect'
+
+
+class HTTPCopy(HTTPResource):
+
+    method = 'copy'
+
+
+class HTTPAny(HTTPResource):
+
+    method = 'any'
+
+
 def http_statuscode_role(name, rawtext, text, lineno, inliner,
-                         options={}, content=[]):
+                         options=None, content=None):
+    if options is None:
+        options = {}
+    if content is None:
+        content = []
     if text.isdigit():
         code = int(text)
         try:
@@ -268,11 +390,10 @@ def http_statuscode_role(name, rawtext, text, lineno, inliner,
     nodes.reference(rawtext)
     if code == 226:
         url = 'http://www.ietf.org/rfc/rfc3229.txt'
-    if code == 418:
+    elif code == 418:
         url = 'http://www.ietf.org/rfc/rfc2324.txt'
-    if code == 449:
-        url = 'http://msdn.microsoft.com/en-us/library' \
-              '/dd891478(v=prot.10).aspx'
+    elif code == 449:
+        url = 'http://msdn.microsoft.com/en-us/library/dd891478(v=prot.10).aspx'
     elif code in HTTP_STATUS_CODES:
         url = 'http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html' \
               '#sec10.' + ('%d.%d' % (code // 100, 1 + code % 100))
@@ -285,15 +406,42 @@ def http_statuscode_role(name, rawtext, text, lineno, inliner,
 
 
 def http_method_role(name, rawtext, text, lineno, inliner,
-                     options={}, content=[]):
+                     options=None, content=None):
+    if options is None:
+        options = {}
+    if content is None:
+        content = []
     method = str(text).lower()
-    if method not in DOCREFS:
+    if method not in METHOD_REFS:
         msg = inliner.reporter.error('%s is not valid HTTP method' % method,
                                      lineno=lineno)
         prb = inliner.problematic(rawtext, rawtext, msg)
         return [prb], [msg]
-    url = str(DOCREFS[method])
+    url = str(METHOD_REFS[method])
+    if not url:
+        return [nodes.emphasis(text, text)], []
     node = nodes.reference(rawtext, method.upper(), refuri=url, **options)
+    return [node], []
+
+
+def http_header_role(name, rawtext, text, lineno, inliner,
+                     options=None, content=None):
+    if options is None:
+        options = {}
+    if content is None:
+        content = []
+    header = str(text)
+    if header not in HEADER_REFS:
+        header = header.title()
+    if header not in HEADER_REFS:
+        if header.startswith('X-'):  # skip custom headers
+            return [nodes.strong(header, header)], []
+        msg = inliner.reporter.error('%s is not unknown HTTP header' % header,
+                                     lineno=lineno)
+        prb = inliner.problematic(rawtext, rawtext, msg)
+        return [prb], [msg]
+    url = str(HEADER_REFS[header])
+    node = nodes.reference(rawtext, header, refuri=url, **options)
     return [node], []
 
 
@@ -320,9 +468,16 @@ class HTTPIndex(Index):
     def __init__(self, *args, **kwargs):
         super(HTTPIndex, self).__init__(*args, **kwargs)
 
-        self.ignore = [[l for l in x.split('/') if l]
+        self.ignore = [
+            [l for l in x.split('/') if l]
             for x in self.domain.env.config['http_index_ignore_prefixes']]
-        self.ignore.sort(key=lambda x: -len(x))
+        self.ignore.sort(reverse=True)
+
+        # During HTML generation these values pick from class,
+        # not from instance so we have a little hack the system
+        cls = self.__class__
+        cls.shortname = self.domain.env.config['http_index_shortname']
+        cls.localname = self.domain.env.config['http_index_localname']
 
     def grouping_prefix(self, path):
         letters = [x for x in path.split('/') if x]
@@ -334,17 +489,21 @@ class HTTPIndex(Index):
     def generate(self, docnames=None):
         content = {}
         items = ((method, path, info)
-            for method, routes in self.domain.routes.items()
-            for path, info in routes.items())
+                 for method, routes in self.domain.routes.items()
+                 for path, info in routes.items())
         items = sorted(items, key=lambda item: item[1])
         for method, path, info in items:
             entries = content.setdefault(self.grouping_prefix(path), [])
             entries.append([
                 method.upper() + ' ' + path, 0, info[0],
-                http_resource_anchor(method, path), '', '', info[1]
+                http_resource_anchor(method, path),
+                '', 'Deprecated' if info[2] else '', info[1]
             ])
-        content = sorted(content.items(), key=lambda k: k[0])
-        return (content, True)
+        items = sorted(
+            (path, sort_by_method(entries))
+            for path, entries in content.items()
+        )
+        return (items, True)
 
 
 class HTTPDomain(Domain):
@@ -361,7 +520,10 @@ class HTTPDomain(Domain):
         'put': ObjType('put', 'put', 'obj'),
         'patch': ObjType('patch', 'patch', 'obj'),
         'delete': ObjType('delete', 'delete', 'obj'),
-        'trace': ObjType('trace', 'trace', 'obj')
+        'trace': ObjType('trace', 'trace', 'obj'),
+        'connect': ObjType('connect', 'connect', 'obj'),
+        'copy': ObjType('copy', 'copy', 'obj'),
+        'any': ObjType('any', 'any', 'obj')
     }
 
     directives = {
@@ -372,7 +534,10 @@ class HTTPDomain(Domain):
         'put': HTTPPut,
         'patch': HTTPPatch,
         'delete': HTTPDelete,
-        'trace': HTTPTrace
+        'trace': HTTPTrace,
+        'connect': HTTPConnect,
+        'copy': HTTPCopy,
+        'any': HTTPAny
     }
 
     roles = {
@@ -384,19 +549,26 @@ class HTTPDomain(Domain):
         'patch': HTTPXRefRole('patch'),
         'delete': HTTPXRefRole('delete'),
         'trace': HTTPXRefRole('trace'),
+        'connect': HTTPXRefRole('connect'),
+        'copy': HTTPXRefRole('copy'),
+        'any': HTTPXRefRole('any'),
         'statuscode': http_statuscode_role,
-        'method': http_method_role
+        'method': http_method_role,
+        'header': http_header_role
     }
 
     initial_data = {
-        'options': {}, # path: (docname, synopsis)
+        'options': {},  # path: (docname, synopsis)
         'head': {},
         'post': {},
         'get': {},
         'put': {},
         'patch': {},
         'delete': {},
-        'trace': {}
+        'trace': {},
+        'connect': {},
+        'copy': {},
+        'any': {}
     }
 
     indices = [HTTPIndex]
@@ -416,7 +588,13 @@ class HTTPDomain(Domain):
         try:
             info = self.data[str(typ)][target]
         except KeyError:
-            return
+            text = contnode.rawsource
+            if typ == 'statuscode':
+                return http_statuscode_role(None, text, text, None, None)[0][0]
+            elif typ == 'mailheader':
+                return http_header_role(None, text, text, None, None)[0][0]
+            else:
+                return nodes.emphasis(text, text)
         else:
             anchor = http_resource_anchor(typ, target)
             title = typ.upper() + ' ' + target
@@ -474,7 +652,7 @@ class HTTPLexer(RegexLexer):
 
     tokens = {
         'root': [
-            (r'(GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS|TRACE)( +)([^ ]+)( +)'
+            (r'(GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS|TRACE|COPY)( +)([^ ]+)( +)'
              r'(HTTPS?)(/)(1\.[01])(\r?\n|$)',
              bygroups(Name.Function, Text, Name.Namespace, Text,
                       Keyword.Reserved, Operator, Number, Text),
@@ -502,4 +680,5 @@ def setup(app):
     except ClassNotFound:
         app.add_lexer('http', HTTPLexer())
     app.add_config_value('http_index_ignore_prefixes', [], None)
-
+    app.add_config_value('http_index_shortname', 'routing table', True)
+    app.add_config_value('http_index_localname', 'HTTP Routing Table', True)

@@ -32,6 +32,28 @@ In order to use it, add :mod:`sphinxcontrib.httpdomain` into
     extensions = ['sphinxcontrib.httpdomain']
 
 
+Additional Configuration
+------------------------
+
+.. versionadded:: 1.3.0
+
+``http_index_ignore_prefixes``
+   Strips the leading segments from the endpoint paths by given list
+   of prefixes::
+
+       http_index_ignore_prefixes = ['/internal', '/_proxy']
+
+``http_index_shortname``
+   Short name of the index which will appears on every page::
+
+       http_index_shortname = 'api'
+
+``http_index_localname``
+   Full index name which is used on index page::
+
+       http_index_shortname = "My Project HTTP API"
+
+
 Basic usage
 -----------
 
@@ -191,6 +213,54 @@ Directives
    Describes a HTTP resource's :http:method:`TRACE` method.
    It can also be referred by :rst:role:`http:trace` role.
 
+.. rst:directive:: .. http:copy:: path
+
+   Describes a HTTP resource's :http:method:`COPY` method.
+   It can also be referred by :rst:role:`http:copy` role.
+
+   .. versionadded:: 1.3.0
+
+.. rst:directive:: .. http:any:: path
+
+   Describes a HTTP resource's which accepts requests with
+   :http:method:`ANY` method. Useful for cases when requested resource
+   proxying the request to some other location keeping original request
+   context. It can also be referred by :rst:role:`http:any` role.
+
+   .. versionadded:: 1.3.0
+
+
+Options
+```````
+
+.. versionadded:: 1.3.0
+
+Additionally, you may specify custom options to the directives:
+
+``noindex``
+   Excludes specific directive from HTTP routing table.
+
+   .. sourcecode:: rst
+
+      .. http:get:: /users/(int:user_id)/posts/(tag)
+         :noindex:
+
+``deprecated``
+   Marks the method as deprecated in HTTP routing table.
+
+   .. sourcecode:: rst
+
+      .. http:get:: /users/(int:user_id)/tagged_posts
+         :deprecated:
+
+``synopsis``
+   Adds short description for HTTP routing table.
+
+   .. sourcecode:: rst
+
+      .. http:get:: /users/(int:user_id)/posts/(tag)
+         :synopsis: Returns posts by the specified tag for the user
+
 
 .. _resource-fields:
 
@@ -229,6 +299,10 @@ nicely:
    Description of a parameter passed by request content body, encoded in
    :mimetype:`application/json`.
 
+   .. deprecated:: 1.3.0
+      Use ``reqjsonobj``/``reqjson``/``<jsonobj``/``<json`` and
+      ``reqjsonarr``/``<jsonarr`` instead.
+
    .. versionadded:: 1.1.8
 
    .. versionchanged:: 1.1.9
@@ -241,12 +315,62 @@ nicely:
          :jsonparam string body: the post body
          :jsonparam boolean sticky: whether it's sticky or not
 
-``requestheader``, ``reqheader``
+``reqjsonobj``, ``reqjson``, ``<jsonobj``, ``<json``
+   Description of a single field of JSON object passed by request body,
+   encoded in :mimetype:`application/json`. The key difference from ``json`` is
+   explicitly defined use-case (request/response) of the described object.
+
+   .. sourcecode:: rst
+
+      :<json string title: the post title
+      :<json string body: the post body
+      :<json boolean sticky: whether it's sticky or not
+
+   .. versionadded:: 1.3.0
+
+``resjsonobj``, ``resjson``, ``>jsonobj``, ``>json``
+   Description of a single field of JSON object returned with response body,
+   encoded in :mimetype:`application/json`.
+
+   .. sourcecode:: rst
+
+      :>json boolean ok: Operation status
+
+   .. versionadded:: 1.3.0
+
+``reqjsonarr``, ``<jsonarr``
+``resjsonarr``, ``>jsonarr``
+
+   Similar to ``<json`` and ``>json`` respectively, but uses for describing
+   objects schema inside of returned array.
+
+   Let's say, the response contains the following data:
+
+   .. sourcecode:: javascript
+
+      [{"id": "foo", "ok": true}, {"id": "bar", "error": "forbidden", "reason": "sorry"}]
+
+   Then we can describe it in the following way:
+
+   .. sourcecode:: rst
+
+      :>jsonarr boolean ok: Operation status. Not present in case of error
+      :>jsonarr string id: Object ID
+      :>jsonarr string error: Error type
+      :>jsonarr string reason: Error reason
+
+   .. versionadded:: 1.3.0
+
+.. sourcecode:: rst
+
+      :>json boolean status: Operation status
+
+``requestheader``, ``reqheader``, ``>header``
    Description of request header field.
 
    .. versionadded:: 1.1.9
 
-``responseheader``, ``resheader``
+``responseheader``, ``resheader``, ``<header``
    Description of response header field.
 
    .. versionadded:: 1.1.9
@@ -330,6 +454,14 @@ Roles
 
    Refers to the :rst:dir:`http:trace` directive.
 
+.. rst:role:: http:copy
+
+   Refers to the :rst:dir:`http:copy` directive.
+
+.. rst:role:: http:any
+
+   Refers to the :rst:dir:`http:any` directive.
+
 .. rst:role:: http:statuscode
 
    A reference to a HTTP status code. The text "`code` `Status Name`" is
@@ -347,6 +479,9 @@ Roles
 
        - :http:statuscode:`404`
        - :http:statuscode:`200 Oll Korrect`
+
+   .. versionchanged:: 1.3.0
+      It becomes to provide references to specification sections.
 
 .. rst:role:: http:method
 
@@ -370,9 +505,73 @@ Roles
 
 .. rst:role:: mailheader
 
+   .. deprecated:: 1.3.0
+      Use :rst:role:`http:header` instead.
+
+.. rst:role:: http:header
+
    Similar to :rst:role:`mimetype` role, it doesn't belong to HTTP domain,
    but standard domain. It refers to the HTTP request/response header field
-   like :mailheader:`Content-Type`.
+   like :http:header:`Content-Type`.
+
+   Known HTTP headers:
+
+   - :http:header:`Accept`
+   - :http:header:`Accept-Charset`
+   - :http:header:`Accept-Encoding`
+   - :http:header:`Accept-Language`
+   - :http:header:`Accept-Ranges`
+   - :http:header:`Age`
+   - :http:header:`Allow`
+   - :http:header:`Authorization`
+   - :http:header:`Cache-Control`
+   - :http:header:`Connection`
+   - :http:header:`Content-Encoding`
+   - :http:header:`Content-Language`
+   - :http:header:`Content-Length`
+   - :http:header:`Content-Location`
+   - :http:header:`Content-MD5`
+   - :http:header:`Content-Range`
+   - :http:header:`Content-Type`
+   - :http:header:`Cookie`
+   - :http:header:`Date`
+   - :http:header:`Destination`
+   - :http:header:`ETag`
+   - :http:header:`Expect`
+   - :http:header:`Expires`
+   - :http:header:`From`
+   - :http:header:`Host`
+   - :http:header:`If-Match`
+   - :http:header:`If-Modified-Since`
+   - :http:header:`If-None-Match`
+   - :http:header:`If-Range`
+   - :http:header:`If-Unmodified-Since`
+   - :http:header:`Last-Modified`
+   - :http:header:`Last-Event-ID`
+   - :http:header:`Location`
+   - :http:header:`Max-Forwards`
+   - :http:header:`Pragma`
+   - :http:header:`Proxy-Authenticate`
+   - :http:header:`Proxy-Authorization`
+   - :http:header:`Range`
+   - :http:header:`Referer`
+   - :http:header:`Retry-After`
+   - :http:header:`Server`
+   - :http:header:`Set-Cookie`
+   - :http:header:`TE`
+   - :http:header:`Trailer`
+   - :http:header:`Transfer-Encoding`
+   - :http:header:`Upgrade`
+   - :http:header:`User-Agent`
+   - :http:header:`Vary`
+   - :http:header:`Via`
+   - :http:header:`WWW-Authenticate`
+   - :http:header:`Warning`
+
+   If HTTP header is unknown, the build error will be raised unless header has
+   ``X-`` prefix which marks him as custom one like :http:header:`X-Foo-Bar`.
+
+   .. versionadded:: 1.3.0
 
 
 .. module:: sphinxcontrib.autohttp.flask
@@ -686,7 +885,24 @@ Version 1.3.0
 
 To be released.
 
-- Fix Python 3 incompatibility of :mod:`autohttp.tornado`.
+- ``jsonparameter``/``jsonparam``/``json`` became deprecated and split
+  into ``reqjsonobj``/``reqjson``/``<jsonobj``/``<json`` and
+  ``reqjsonarr``/``<jsonarr``.
+  [:issue:`55`, :pull:`72` by Alexander Shorin]
+- Support synopsis (short description in HTTP index),
+  deprecation and noindex options for resources.
+  [:issue:`55`, :pull:`72` by Alexander Shorin]
+- Stabilize order of index items.
+  [:issue:`55`, :pull:`72` by Alexander Shorin]
+- Added :rst:directive:`http:any` directive and :rst:role:`http:any`
+  role for ``ANY`` method.  [:issue:`55`, :pull:`72` by Alexander Shorin]
+- Added :rst:directive:`http:copy` directive and :rst:role:`http:copy`
+  role for ``COPY`` method.  [:issue:`55`, :pull:`72` by Alexander Shorin]
+- Added :rst:role:`http:header` role that also creates reference to the
+  related specification.  [:issue:`55`, :pull:`72` by Alexander Shorin]
+- :rst:role:`http:statuscode` role became to provide references to
+  specification sections.  [:issue:`55`, :pull:`72` by Alexander Shorin]
+- Fixed Python 3 incompatibility of :mod:`autohttp.tornado`.
   [:pull:`61` by Dave Shawley]
 
 
