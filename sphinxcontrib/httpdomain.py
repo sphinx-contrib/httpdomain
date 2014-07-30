@@ -105,6 +105,7 @@ HEADER_REFS = {
     'Content-Type': RFC2616Ref(14.17),
     'Cookie': IETFRef(2109, '4.3.4'),
     'Date': RFC2616Ref(14.18),
+    'Destination': IETFRef(2518, 9.3),
     'ETag': RFC2616Ref(14.19),
     'Expect': RFC2616Ref(14.20),
     'Expires': RFC2616Ref(14.21),

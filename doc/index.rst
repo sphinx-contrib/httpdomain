@@ -418,6 +418,7 @@ Roles
    - :http:header:`Content-Type`
    - :http:header:`Cookie`
    - :http:header:`Date`
+   - :http:header:`Destination`
    - :http:header:`ETag`
    - :http:header:`Expect`
    - :http:header:`Expires`
