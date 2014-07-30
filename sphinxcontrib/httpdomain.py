@@ -71,7 +71,8 @@ METHOD_REFS = {
     'delete': RFC2616Ref(9.7),
     'trace': RFC2616Ref(9.8),
     'connect': RFC2616Ref(9.9),
-    'copy': IETFRef(2518, 8.8)
+    'copy': IETFRef(2518, 8.8),
+    'any': ''
 }
 
 
@@ -302,6 +303,11 @@ class HTTPCopy(HTTPResource):
     method = 'copy'
 
 
+class HTTPAny(HTTPResource):
+
+    method = 'any'
+
+
 def http_statuscode_role(name, rawtext, text, lineno, inliner,
                          options=None, content=None):
     if options is None:
@@ -361,6 +367,8 @@ def http_method_role(name, rawtext, text, lineno, inliner,
         prb = inliner.problematic(rawtext, rawtext, msg)
         return [prb], [msg]
     url = str(METHOD_REFS[method])
+    if not url:
+        return [nodes.emphasis(text, text)], []
     node = nodes.reference(rawtext, method.upper(), refuri=url, **options)
     return [node], []
 
@@ -451,7 +459,8 @@ class HTTPDomain(Domain):
         'patch': ObjType('patch', 'patch', 'obj'),
         'delete': ObjType('delete', 'delete', 'obj'),
         'trace': ObjType('trace', 'trace', 'obj'),
-        'copy': ObjType('copy', 'copy', 'obj')
+        'copy': ObjType('copy', 'copy', 'obj'),
+        'any': ObjType('any', 'any', 'obj')
     }
 
     directives = {
@@ -463,7 +472,8 @@ class HTTPDomain(Domain):
         'patch': HTTPPatch,
         'delete': HTTPDelete,
         'trace': HTTPTrace,
-        'copy': HTTPCopy
+        'copy': HTTPCopy,
+        'any': HTTPAny
     }
 
     roles = {
@@ -476,6 +486,7 @@ class HTTPDomain(Domain):
         'delete': HTTPXRefRole('delete'),
         'trace': HTTPXRefRole('trace'),
         'copy': HTTPXRefRole('copy'),
+        'any': HTTPXRefRole('any'),
         'statuscode': http_statuscode_role,
         'method': http_method_role,
         'header': http_header_role
@@ -490,7 +501,8 @@ class HTTPDomain(Domain):
         'patch': {},
         'delete': {},
         'trace': {},
-        'copy': {}
+        'copy': {},
+        'any': {}
     }
 
     indices = [HTTPIndex]

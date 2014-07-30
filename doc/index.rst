@@ -196,6 +196,12 @@ Directives
    Describes a HTTP resource's :http:method:`COPY` method.
    It can also be referred by :rst:role:`http:copy` role.
 
+.. rst:directive:: .. http:any:: path
+
+   Describes a HTTP resource's which accepts requests with
+   :http:method:`ANY` method. Useful for cases when requested resource
+   proxying the request to some other location keeping original request
+   context. It can also be referred by :rst:role:`http:any` role.
 
 .. _resource-fields:
 
@@ -338,6 +344,10 @@ Roles
 .. rst:role:: http:copy
 
    Refers to the :rst:dir:`http:copy` directive.
+
+.. rst:role:: http:any
+
+   Refers to the :rst:dir:`http:any` directive.
 
 .. rst:role:: http:statuscode
 
