@@ -429,6 +429,7 @@ Roles
    - :http:header:`If-Range`
    - :http:header:`If-Unmodified-Since`
    - :http:header:`Last-Modified`
+   - :http:header:`Last-Event-ID`
    - :http:header:`Location`
    - :http:header:`Max-Forwards`
    - :http:header:`Pragma`
