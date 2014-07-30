@@ -22,7 +22,7 @@ from pygments.util import ClassNotFound
 from sphinx import addnodes
 from sphinx.roles import XRefRole
 from sphinx.domains import Domain, ObjType, Index
-from sphinx.directives import ObjectDescription
+from sphinx.directives import ObjectDescription, directives
 from sphinx.util.nodes import make_refnode
 from sphinx.util.docfields import GroupedField, TypedField
 
@@ -240,6 +240,12 @@ class HTTPResource(ObjectDescription):
                      names=('statuscode', 'status', 'code'))
     ]
 
+    option_spec = {
+        'deprecated': directives.flag,
+        'noindex': directives.flag,
+        'synopsis': lambda x: x,
+    }
+
     method = NotImplemented
 
     def handle_signature(self, sig, signode):
@@ -274,7 +280,11 @@ class HTTPResource(ObjectDescription):
 
     def add_target_and_index(self, name_cls, sig, signode):
         signode['ids'].append(http_resource_anchor(*name_cls[1:]))
-        self.env.domaindata['http'][self.method][sig] = (self.env.docname, '')
+        if 'noindex' not in self.options:
+            self.env.domaindata['http'][self.method][sig] = (
+                self.env.docname,
+                self.options.get('synopsis', ''),
+                'deprecated' in self.options)
 
     def get_index_text(self, modname, name):
         return ''
@@ -466,7 +476,8 @@ class HTTPIndex(Index):
             entries = content.setdefault(self.grouping_prefix(path), [])
             entries.append([
                 method.upper() + ' ' + path, 0, info[0],
-                http_resource_anchor(method, path), '', '', info[1]
+                http_resource_anchor(method, path),
+                '', 'Deprecated' if info[2] else '', info[1]
             ])
         items = sorted(
             (path, sort_by_method(entries))

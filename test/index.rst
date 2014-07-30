@@ -56,6 +56,19 @@ Resource fields
    :statuscode 200: description for 200
    :statuscode 404: description for 404
 
+Options
+~~~~~~~
+
+.. http:get:: /bar
+   :noindex:
+
+.. http:put:: /baz
+   :synopsis: Something special
+
+.. http:post:: /baz
+   :deprecated:
+   :synopsis: Something special, but use PUT instead
+
 Roles
 ~~~~~
 

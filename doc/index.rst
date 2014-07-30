@@ -203,6 +203,32 @@ Directives
    proxying the request to some other location keeping original request
    context. It can also be referred by :rst:role:`http:any` role.
 
+Options
+^^^^^^^
+
+Additionally, you may specify custom options to the directives:
+
+- ``noindex`` - excludes specific directive from HTTP routing table
+
+    .. sourcecode:: rst
+
+       .. http:get:`/users/(int:user_id)/posts/(tag)`
+          :noindex:
+
+- ``deprecated`` - marks the method as deprecated in HTTP routing table
+
+    .. sourcecode:: rst
+
+       .. http:get:`/users/(int:user_id)/tagged_posts`
+          :deprecated:
+
+- ``synopsis`` - adds short description for HTTP routing table
+
+    .. sourcecode:: rst
+
+       .. http:get:`/users/(int:user_id)/posts/(tag)`
+          :synopsis: Returns posts by the specified tag for the user
+
 .. _resource-fields:
 
 Resource Fields
