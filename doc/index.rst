@@ -191,6 +191,11 @@ Directives
    Describes a HTTP resource's :http:method:`TRACE` method.
    It can also be referred by :rst:role:`http:trace` role.
 
+.. rst:directive:: .. http:copy:: path
+
+   Describes a HTTP resource's :http:method:`COPY` method.
+   It can also be referred by :rst:role:`http:copy` role.
+
 
 .. _resource-fields:
 
@@ -329,6 +334,10 @@ Roles
 .. rst:role:: http:trace
 
    Refers to the :rst:dir:`http:trace` directive.
+
+.. rst:role:: http:copy
+
+   Refers to the :rst:dir:`http:copy` directive.
 
 .. rst:role:: http:statuscode
 

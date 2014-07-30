@@ -15,6 +15,7 @@ Directives
 .. http:delete:: /users/(int:user_id)/posts/(tag)
 .. http:trace:: /users/(int:user_id)/posts/(tag)
 .. http:connect:: /users/(int:user_id)/posts/(tag)
+.. http:copy:: /users/(int:user_id)/posts/(tag)
 
 Sourcecode
 ~~~~~~~~~~
