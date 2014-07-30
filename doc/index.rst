@@ -278,12 +278,56 @@ nicely:
          :jsonparam string body: the post body
          :jsonparam boolean sticky: whether it's sticky or not
 
-``requestheader``, ``reqheader``
+``reqjsonobj``, ``reqjson``, ``<jsonobj``, ``<json``
+   Description of a single field of JSON object passed by request body,
+   encoded in :mimetype:`application/json`. The key difference from ``json`` is
+   explicitly defined use-case (request/response) of the described object.
+
+   .. sourcecode:: rst
+
+      :<json string title: the post title
+      :<json string body: the post body
+      :<json boolean sticky: whether it's sticky or not
+
+``resjsonobj``, ``resjson``, ``>jsonobj``, ``>json``
+   Description of a single field of JSON object returned with response body,
+   encoded in :mimetype:`application/json`.
+
+   .. sourcecode:: rst
+
+      :>json boolean ok: Operation status
+
+``reqjsonarr``, ``<jsonarr``
+``resjsonarr``, ``>jsonarr``
+
+   Similar to ``<json`` and ``>json`` respectively, but uses for describing
+   objects schema inside of returned array.
+
+   Let's say, the response contains the following data:
+
+   .. sourcecode:: javascript
+
+      [{"id": "foo", "ok": true}, {"id": "bar", "error": "forbidden", "reason": "sorry"}]
+
+   Then we can describe it in the following way:
+
+   .. sourcecode:: rst
+
+      :>jsonarr boolean ok: Operation status. Not present in case of error
+      :>jsonarr string id: Object ID
+      :>jsonarr string error: Error type
+      :>jsonarr string reason: Error reason
+
+.. sourcecode:: rst
+
+      :>json boolean status: Operation status
+
+``requestheader``, ``reqheader``, ``>header``
    Description of request header field.
 
    .. versionadded:: 1.1.9
 
-``responseheader``, ``resheader``
+``responseheader``, ``resheader``, ``<header``
    Description of response header field.
 
    .. versionadded:: 1.1.9

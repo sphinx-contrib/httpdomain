@@ -56,6 +56,16 @@ Resource fields
    :statuscode 200: description for 200
    :statuscode 404: description for 404
 
+.. http:get:: /short-syntax
+
+   :<header Accept: :mimetype:`application/json`
+   :<json string foo: Foo key value
+   :<json number bar: Bar key value
+   :>header Content-Type: :mimetype:`application/json`
+   :>jsonarr string baz: Some baz field
+   :code 200: Success
+
+
 Options
 ~~~~~~~
 
