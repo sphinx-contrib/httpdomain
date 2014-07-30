@@ -73,6 +73,60 @@ METHOD_REFS = {
     'connect': RFC2616Ref(9.9),
 }
 
+
+#: Mapping from HTTP header name to :class:`DocRef` object which
+#: maintains the URL which points to the related section of the RFC.
+HEADER_REFS = {
+    'Accept': RFC2616Ref(14.1),
+    'Accept-Charset': RFC2616Ref(14.2),
+    'Accept-Encoding': RFC2616Ref(14.3),
+    'Accept-Language': RFC2616Ref(14.4),
+    'Accept-Ranges': RFC2616Ref(14.5),
+    'Age': RFC2616Ref(14.6),
+    'Allow': RFC2616Ref(14.7),
+    'Authorization': RFC2616Ref(14.8),
+    'Cache-Control': RFC2616Ref(14.9),
+    'Connection': RFC2616Ref(14.10),
+    'Content-Encoding': RFC2616Ref(14.11),
+    'Content-Language': RFC2616Ref(14.12),
+    'Content-Length': RFC2616Ref(14.13),
+    'Content-Location': RFC2616Ref(14.14),
+    'Content-MD5': RFC2616Ref(14.15),
+    'Content-Range': RFC2616Ref(14.16),
+    'Content-Type': RFC2616Ref(14.17),
+    'Date': RFC2616Ref(14.18),
+    'ETag': RFC2616Ref(14.19),
+    'Expect': RFC2616Ref(14.20),
+    'Expires': RFC2616Ref(14.21),
+    'From': RFC2616Ref(14.22),
+    'Host': RFC2616Ref(14.23),
+    'If-Match': RFC2616Ref(14.24),
+    'If-Modified-Since': RFC2616Ref(14.25),
+    'If-None-Match': RFC2616Ref(14.26),
+    'If-Range': RFC2616Ref(14.27),
+    'If-Unmodified-Since': RFC2616Ref(14.28),
+    'Last-Modified': RFC2616Ref(14.29),
+    'Location': RFC2616Ref(14.30),
+    'Max-Forwards': RFC2616Ref(14.31),
+    'Pragma': RFC2616Ref(14.32),
+    'Proxy-Authenticate': RFC2616Ref(14.33),
+    'Proxy-Authorization': RFC2616Ref(14.34),
+    'Range': RFC2616Ref(14.35),
+    'Referer': RFC2616Ref(14.36),
+    'Retry-After': RFC2616Ref(14.37),
+    'Server': RFC2616Ref(14.38),
+    'TE': RFC2616Ref(14.39),
+    'Trailer': RFC2616Ref(14.40),
+    'Transfer-Encoding': RFC2616Ref(14.41),
+    'Upgrade': RFC2616Ref(14.42),
+    'User-Agent': RFC2616Ref(14.43),
+    'Vary': RFC2616Ref(14.44),
+    'Via': RFC2616Ref(14.45),
+    'Warning': RFC2616Ref(14.46),
+    'WWW-Authenticate': RFC2616Ref(14.47)
+}
+
+
 HTTP_STATUS_CODES = {
     100: 'Continue',
     101: 'Switching Protocols',
@@ -305,6 +359,27 @@ def http_method_role(name, rawtext, text, lineno, inliner,
     return [node], []
 
 
+def http_header_role(name, rawtext, text, lineno, inliner,
+                     options=None, content=None):
+    if options is None:
+        options = {}
+    if content is None:
+        content = []
+    header = str(text)
+    if header not in HEADER_REFS:
+        header = header.title()
+    if header not in HEADER_REFS:
+        if header.startswith('X-'):  # skip custom headers
+            return [nodes.strong(header, header)], []
+        msg = inliner.reporter.error('%s is not unknown HTTP header' % header,
+                                     lineno=lineno)
+        prb = inliner.problematic(rawtext, rawtext, msg)
+        return [prb], [msg]
+    url = str(HEADER_REFS[header])
+    node = nodes.reference(rawtext, header, refuri=url, **options)
+    return [node], []
+
+
 class HTTPXRefRole(XRefRole):
 
     def __init__(self, method, **kwargs):
@@ -393,7 +468,8 @@ class HTTPDomain(Domain):
         'delete': HTTPXRefRole('delete'),
         'trace': HTTPXRefRole('trace'),
         'statuscode': http_statuscode_role,
-        'method': http_method_role
+        'method': http_method_role,
+        'header': http_header_role
     }
 
     initial_data = {
@@ -427,6 +503,8 @@ class HTTPDomain(Domain):
             text = contnode.rawsource
             if typ == 'statuscode':
                 return http_statuscode_role(None, text, text, None, None)[0][0]
+            elif typ == 'mailheader':
+                return http_header_role(None, text, text, None, None)[0][0]
             else:
                 return nodes.emphasis(text, text)
         else:

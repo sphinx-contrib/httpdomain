@@ -370,9 +370,66 @@ Roles
 
 .. rst:role:: mailheader
 
+   .. deprecated:: X.X.X Use :rst:role:`http:header` instead.
+
+.. rst:role:: http:header
+
    Similar to :rst:role:`mimetype` role, it doesn't belong to HTTP domain,
    but standard domain. It refers to the HTTP request/response header field
-   like :mailheader:`Content-Type`.
+   like :http:header:`Content-Type`.
+
+   Known HTTP headers:
+
+   - :http:header:`Accept`
+   - :http:header:`Accept-Charset`
+   - :http:header:`Accept-Encoding`
+   - :http:header:`Accept-Language`
+   - :http:header:`Accept-Ranges`
+   - :http:header:`Age`
+   - :http:header:`Allow`
+   - :http:header:`Authorization`
+   - :http:header:`Cache-Control`
+   - :http:header:`Connection`
+   - :http:header:`Content-Encoding`
+   - :http:header:`Content-Language`
+   - :http:header:`Content-Length`
+   - :http:header:`Content-Location`
+   - :http:header:`Content-MD5`
+   - :http:header:`Content-Range`
+   - :http:header:`Content-Type`
+   - :http:header:`Date`
+   - :http:header:`ETag`
+   - :http:header:`Expect`
+   - :http:header:`Expires`
+   - :http:header:`From`
+   - :http:header:`Host`
+   - :http:header:`If-Match`
+   - :http:header:`If-Modified-Since`
+   - :http:header:`If-None-Match`
+   - :http:header:`If-Range`
+   - :http:header:`If-Unmodified-Since`
+   - :http:header:`Last-Modified`
+   - :http:header:`Location`
+   - :http:header:`Max-Forwards`
+   - :http:header:`Pragma`
+   - :http:header:`Proxy-Authenticate`
+   - :http:header:`Proxy-Authorization`
+   - :http:header:`Range`
+   - :http:header:`Referer`
+   - :http:header:`Retry-After`
+   - :http:header:`Server`
+   - :http:header:`TE`
+   - :http:header:`Trailer`
+   - :http:header:`Transfer-Encoding`
+   - :http:header:`Upgrade`
+   - :http:header:`User-Agent`
+   - :http:header:`Vary`
+   - :http:header:`Via`
+   - :http:header:`WWW-Authenticate`
+   - :http:header:`Warning`
+
+   If HTTP header is unknown, the build error will be raised unless header has
+   ``X-`` prefix which marks him as custom one like :http:header:`X-Foo-Bar`.
 
 
 .. module:: sphinxcontrib.autohttp.flask
