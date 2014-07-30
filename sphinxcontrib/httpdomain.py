@@ -426,7 +426,11 @@ class HTTPDomain(Domain):
         try:
             info = self.data[str(typ)][target]
         except KeyError:
-            return
+            text = contnode.rawsource
+            if typ == 'statuscode':
+                return http_statuscode_role(None, text, text, None, None)[0][0]
+            else:
+                return nodes.emphasis(text, text)
         else:
             anchor = http_resource_anchor(typ, target)
             title = typ.upper() + ' ' + target
