@@ -320,6 +320,11 @@ class HTTPTrace(HTTPResource):
     method = 'trace'
 
 
+class HTTPConnect(HTTPResource):
+
+    method = 'connect'
+
+
 class HTTPCopy(HTTPResource):
 
     method = 'copy'
@@ -485,6 +490,7 @@ class HTTPDomain(Domain):
         'patch': ObjType('patch', 'patch', 'obj'),
         'delete': ObjType('delete', 'delete', 'obj'),
         'trace': ObjType('trace', 'trace', 'obj'),
+        'connect': ObjType('connect', 'connect', 'obj'),
         'copy': ObjType('copy', 'copy', 'obj'),
         'any': ObjType('any', 'any', 'obj')
     }
@@ -498,6 +504,7 @@ class HTTPDomain(Domain):
         'patch': HTTPPatch,
         'delete': HTTPDelete,
         'trace': HTTPTrace,
+        'connect': HTTPConnect,
         'copy': HTTPCopy,
         'any': HTTPAny
     }
@@ -511,6 +518,7 @@ class HTTPDomain(Domain):
         'patch': HTTPXRefRole('patch'),
         'delete': HTTPXRefRole('delete'),
         'trace': HTTPXRefRole('trace'),
+        'connect': HTTPXRefRole('connect'),
         'copy': HTTPXRefRole('copy'),
         'any': HTTPXRefRole('any'),
         'statuscode': http_statuscode_role,
@@ -527,6 +535,7 @@ class HTTPDomain(Domain):
         'patch': {},
         'delete': {},
         'trace': {},
+        'connect': {},
         'copy': {},
         'any': {}
     }
