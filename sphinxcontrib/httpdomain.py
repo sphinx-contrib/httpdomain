@@ -473,6 +473,12 @@ class HTTPIndex(Index):
             for x in self.domain.env.config['http_index_ignore_prefixes']]
         self.ignore.sort(reverse=True)
 
+        # During HTML generation these values pick from class,
+        # not from instance so we have a little hack the system
+        cls = self.__class__
+        cls.shortname = self.domain.env.config['http_index_shortname']
+        cls.localname = self.domain.env.config['http_index_localname']
+
     def grouping_prefix(self, path):
         letters = [x for x in path.split('/') if x]
         for prefix in self.ignore:
@@ -674,3 +680,5 @@ def setup(app):
     except ClassNotFound:
         app.add_lexer('http', HTTPLexer())
     app.add_config_value('http_index_ignore_prefixes', [], None)
+    app.add_config_value('http_index_shortname', 'routing table', True)
+    app.add_config_value('http_index_localname', 'HTTP Routing Table', True)
