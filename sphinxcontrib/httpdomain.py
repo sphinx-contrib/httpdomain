@@ -614,8 +614,15 @@ class HTTPDomain(Domain):
             role = self.roles.get(typ)
             if role is None:
                 return nodes.emphasis(text, text)
-            return role.result_nodes(env.get_doctree(fromdocname),
-                                     env, node, None)[0][0]
+            resnode = role.result_nodes(env.get_doctree(fromdocname),
+                                        env, node, None)[0][0]
+            if isinstance(resnode, addnodes.pending_xref):
+                text = node[0][0]
+                reporter = env.get_doctree(fromdocname).reporter
+                reporter.error('Cannot resolve reference to %r' % text,
+                               line=node.line)
+                return nodes.problematic(text, text)
+            return resnode
         else:
             anchor = http_resource_anchor(typ, target)
             title = typ.upper() + ' ' + target
