@@ -53,6 +53,12 @@ Additional Configuration
 
        http_index_shortname = "My Project HTTP API"
 
+``http_strict_mode``
+   When ``True`` (default) emits build errors when status codes, methods and
+   headers are looks non-standard::
+
+       http_strict_mode = True
+
 
 Basic usage
 -----------

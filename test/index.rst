@@ -124,6 +124,12 @@ Method roles
 
 :http:method:`connect`
 
+Here be Errors!
+~~~~~~~~~~~~~~~
+
+A request with method :http:method:`foo` followed by :http:header:`bar` and
+:http:header:`x-baz` headers receives response with :http:statuscode:`42 Answer`
+status code.
 
 .. module:: sphinxcontrib.autohttp.flask
 

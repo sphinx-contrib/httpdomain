@@ -12,7 +12,6 @@
 import re
 
 from docutils import nodes
-from docutils.parsers.rst.roles import set_classes
 
 from pygments.lexer import RegexLexer, bygroups
 from pygments.lexers import get_lexer_by_name
@@ -244,10 +243,10 @@ class HTTPResource(ObjectDescription):
         GroupedField('formparameter', label='Form Parameters',
                      names=('formparameter', 'formparam', 'fparam', 'form')),
         GroupedField('requestheader', label='Request Headers',
-                     rolename='mailheader',
+                     rolename='header',
                      names=('<header', 'reqheader', 'requestheader')),
         GroupedField('responseheader', label='Response Headers',
-                     rolename='mailheader',
+                     rolename='header',
                      names=('>header', 'resheader', 'responseheader')),
         GroupedField('statuscode', label='Status Codes',
                      rolename='statuscode',
@@ -359,92 +358,6 @@ class HTTPAny(HTTPResource):
     method = 'any'
 
 
-def http_statuscode_role(name, rawtext, text, lineno, inliner,
-                         options=None, content=None):
-    if options is None:
-        options = {}
-    if content is None:
-        content = []
-    if text.isdigit():
-        code = int(text)
-        try:
-            status = HTTP_STATUS_CODES[code]
-        except KeyError:
-            msg = inliner.reporter.error('%d is invalid HTTP status code'
-                                         % code, lineno=lineno)
-            prb = inliner.problematic(rawtext, rawtext, msg)
-            return [prb], [msg]
-    else:
-        try:
-            code, status = re.split(r'\s', text.strip(), 1)
-            code = int(code)
-        except ValueError:
-            msg = inliner.reporter.error(
-                'HTTP status code must be an integer (e.g. `200`) or '
-                'start with an integer (e.g. `200 OK`); %r is invalid' %
-                text,
-                line=lineno
-            )
-            prb = inliner.problematic(rawtext, rawtext, msg)
-            return [prb], [msg]
-    nodes.reference(rawtext)
-    if code == 226:
-        url = 'http://www.ietf.org/rfc/rfc3229.txt'
-    elif code == 418:
-        url = 'http://www.ietf.org/rfc/rfc2324.txt'
-    elif code == 449:
-        url = 'http://msdn.microsoft.com/en-us/library/dd891478(v=prot.10).aspx'
-    elif code in HTTP_STATUS_CODES:
-        url = 'http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html' \
-              '#sec10.' + ('%d.%d' % (code // 100, 1 + code % 100))
-    else:
-        url = ''
-    set_classes(options)
-    node = nodes.reference(rawtext, '%d %s' % (code, status),
-                           refuri=url, **options)
-    return [node], []
-
-
-def http_method_role(name, rawtext, text, lineno, inliner,
-                     options=None, content=None):
-    if options is None:
-        options = {}
-    if content is None:
-        content = []
-    method = str(text).lower()
-    if method not in METHOD_REFS:
-        msg = inliner.reporter.error('%s is not valid HTTP method' % method,
-                                     lineno=lineno)
-        prb = inliner.problematic(rawtext, rawtext, msg)
-        return [prb], [msg]
-    url = str(METHOD_REFS[method])
-    if not url:
-        return [nodes.emphasis(text, text)], []
-    node = nodes.reference(rawtext, method.upper(), refuri=url, **options)
-    return [node], []
-
-
-def http_header_role(name, rawtext, text, lineno, inliner,
-                     options=None, content=None):
-    if options is None:
-        options = {}
-    if content is None:
-        content = []
-    header = str(text)
-    if header not in HEADER_REFS:
-        header = header.title()
-    if header not in HEADER_REFS:
-        if header.startswith('X-'):  # skip custom headers
-            return [nodes.strong(header, header)], []
-        msg = inliner.reporter.error('%s is not unknown HTTP header' % header,
-                                     lineno=lineno)
-        prb = inliner.problematic(rawtext, rawtext, msg)
-        return [prb], [msg]
-    url = str(HEADER_REFS[header])
-    node = nodes.reference(rawtext, header, refuri=url, **options)
-    return [node], []
-
-
 class HTTPXRefRole(XRefRole):
 
     def __init__(self, method, **kwargs):
@@ -452,11 +365,120 @@ class HTTPXRefRole(XRefRole):
         self.method = method
 
     def process_link(self, env, refnode, has_explicit_title, title, target):
-        if not target.startswith('/'):
-            pass
         if not has_explicit_title:
             title = self.method.upper() + ' ' + title
         return title, target
+
+
+class HTTPXRefMethodRole(XRefRole):
+
+    def result_nodes(self, document, env, node, is_ref):
+        method = node[0][0].lower()
+        rawsource = node[0].rawsource
+        config = env.domains['http'].env.config
+        if method not in METHOD_REFS:
+            if not config['http_strict_mode']:
+                return [nodes.emphasis(method, method)], []
+            reporter = document.reporter
+            msg = reporter.error('%s is not valid HTTP method' % method,
+                                 line=node.line)
+            prb = nodes.problematic(method, method)
+            return [prb], [msg]
+        url = str(METHOD_REFS[method])
+        if not url:
+            return [nodes.emphasis(method, method)], []
+        node = nodes.reference(rawsource, method.upper(), refuri=url)
+        return [node], []
+
+
+class HTTPXRefStatusRole(XRefRole):
+
+    def result_nodes(self, document, env, node, is_ref):
+        def get_code_status(text):
+            if text.isdigit():
+                code = int(text)
+                return code, HTTP_STATUS_CODES.get(code)
+            else:
+                try:
+                    code, status = re.split(r'\s', text.strip(), 1)
+                    code = int(code)
+                except ValueError:
+                    return None, None
+                known_status = HTTP_STATUS_CODES.get(code)
+                if known_status is None:
+                    return code, None
+                elif known_status.lower() != status.lower():
+                    return code, None
+                else:
+                    return code, status
+
+        def report_unknown_code():
+            if not config['http_strict_mode']:
+                return [nodes.emphasis(text, text)], []
+            reporter = document.reporter
+            msg = reporter.error('%d is unknown HTTP status code' % code,
+                                 line=node.line)
+            prb = nodes.problematic(text, text)
+            return [prb], [msg]
+
+        def report_invalid_code():
+            if not config['http_strict_mode']:
+                return [nodes.emphasis(text, text)], []
+            reporter = document.reporter
+            msg = reporter.error(
+                'HTTP status code must be an integer (e.g. `200`) or '
+                'start with an integer (e.g. `200 OK`); %r is invalid' %
+                text,
+                line=node.line
+            )
+            prb = nodes.problematic(text, text)
+            return [prb], [msg]
+
+        text = node[0][0]
+        rawsource = node[0].rawsource
+        config = env.domains['http'].env.config
+
+        code, status = get_code_status(text)
+        if code is None:
+            return report_invalid_code()
+        elif status is None:
+            return report_unknown_code()
+        elif code == 226:
+            url = 'http://www.ietf.org/rfc/rfc3229.txt'
+        elif code == 418:
+            url = 'http://www.ietf.org/rfc/rfc2324.txt'
+        elif code == 449:
+            url = 'http://msdn.microsoft.com/en-us/library/dd891478(v=prot.10).aspx'
+        elif code in HTTP_STATUS_CODES:
+            url = 'http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html' \
+                  '#sec10.' + ('%d.%d' % (code // 100, 1 + code % 100))
+        else:
+            url = ''
+        node = nodes.reference(rawsource, '%d %s' % (code, status), refuri=url)
+        return [node], []
+
+
+class HTTPXRefHeaderRole(XRefRole):
+
+    def result_nodes(self, document, env, node, is_ref):
+        header = node[0][0]
+        rawsource = node[0].rawsource
+        config = env.domains['http'].env.config
+        if header not in HEADER_REFS:
+            _header = '-'.join(map(lambda i: i.title(), header.split('-')))
+            if _header not in HEADER_REFS:
+                if not config['http_strict_mode']:
+                    return [nodes.emphasis(header, header)], []
+                if _header.startswith('X-'):
+                    return [nodes.emphasis(header, header)], []
+                reporter = document.reporter
+                msg = reporter.error('%s is not unknown HTTP header' % header,
+                                     line=node.line)
+                prb = nodes.problematic(header, header)
+                return [prb], [msg]
+        url = str(HEADER_REFS[header])
+        node = nodes.reference(rawsource, header, refuri=url)
+        return [node], []
 
 
 class HTTPIndex(Index):
@@ -552,9 +574,9 @@ class HTTPDomain(Domain):
         'connect': HTTPXRefRole('connect'),
         'copy': HTTPXRefRole('copy'),
         'any': HTTPXRefRole('any'),
-        'statuscode': http_statuscode_role,
-        'method': http_method_role,
-        'header': http_header_role
+        'statuscode': HTTPXRefStatusRole(),
+        'method': HTTPXRefMethodRole(),
+        'header': HTTPXRefHeaderRole()
     }
 
     initial_data = {
@@ -589,12 +611,11 @@ class HTTPDomain(Domain):
             info = self.data[str(typ)][target]
         except KeyError:
             text = contnode.rawsource
-            if typ == 'statuscode':
-                return http_statuscode_role(None, text, text, None, None)[0][0]
-            elif typ == 'mailheader':
-                return http_header_role(None, text, text, None, None)[0][0]
-            else:
+            role = self.roles.get(typ)
+            if role is None:
                 return nodes.emphasis(text, text)
+            return role.result_nodes(env.get_doctree(fromdocname),
+                                     env, node, None)[0][0]
         else:
             anchor = http_resource_anchor(typ, target)
             title = typ.upper() + ' ' + target
@@ -682,3 +703,4 @@ def setup(app):
     app.add_config_value('http_index_ignore_prefixes', [], None)
     app.add_config_value('http_index_shortname', 'routing table', True)
     app.add_config_value('http_index_localname', 'HTTP Routing Table', True)
+    app.add_config_value('http_strict_mode', True, None)
