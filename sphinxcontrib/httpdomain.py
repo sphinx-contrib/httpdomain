@@ -469,7 +469,9 @@ class HTTPXRefHeaderRole(XRefRole):
             if _header not in HEADER_REFS:
                 if not config['http_strict_mode']:
                     return [nodes.emphasis(header, header)], []
-                if _header.startswith('X-'):
+                _header = _header.lower()
+                if any([_header.startswith(prefix.lower())
+                        for prefix in config['http_headers_ignore_prefixes']]):
                     return [nodes.emphasis(header, header)], []
                 reporter = document.reporter
                 msg = reporter.error('%s is not unknown HTTP header' % header,
@@ -711,3 +713,4 @@ def setup(app):
     app.add_config_value('http_index_shortname', 'routing table', True)
     app.add_config_value('http_index_localname', 'HTTP Routing Table', True)
     app.add_config_value('http_strict_mode', True, None)
+    app.add_config_value('http_headers_ignore_prefixes', ['X-'], None)

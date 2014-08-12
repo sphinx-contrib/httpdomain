@@ -37,6 +37,11 @@ Additional Configuration
 
 .. versionadded:: 1.3.0
 
+``http_headers_ignore_prefixes``
+   List of HTTP header prefixes which should be ignored in strict mode::
+
+       http_headers_ignore_prefixes = ['X-']
+
 ``http_index_ignore_prefixes``
    Strips the leading segments from the endpoint paths by given list
    of prefixes::
