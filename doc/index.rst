@@ -35,12 +35,12 @@ In order to use it, add :mod:`sphinxcontrib.httpdomain` into
 Additional Configuration
 ------------------------
 
-.. versionadded:: 1.3.0
-
 ``http_headers_ignore_prefixes``
    List of HTTP header prefixes which should be ignored in strict mode::
 
        http_headers_ignore_prefixes = ['X-']
+
+   .. versionadded:: 1.3.1
 
 ``http_index_ignore_prefixes``
    Strips the leading segments from the endpoint paths by given list
@@ -48,21 +48,29 @@ Additional Configuration
 
        http_index_ignore_prefixes = ['/internal', '/_proxy']
 
+   .. versionadded:: 1.3.0
+
 ``http_index_shortname``
    Short name of the index which will appears on every page::
 
        http_index_shortname = 'api'
+
+   .. versionadded:: 1.3.0
 
 ``http_index_localname``
    Full index name which is used on index page::
 
        http_index_shortname = "My Project HTTP API"
 
+   .. versionadded:: 1.3.0
+
 ``http_strict_mode``
    When ``True`` (default) emits build errors when status codes, methods and
    headers are looks non-standard::
 
        http_strict_mode = True
+
+   .. versionadded:: 1.3.1
 
 
 Basic usage
