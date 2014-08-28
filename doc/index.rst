@@ -567,6 +567,7 @@ Roles
    - :http:header:`If-Unmodified-Since`
    - :http:header:`Last-Modified`
    - :http:header:`Last-Event-ID`
+   - :http:header:`Link`
    - :http:header:`Location`
    - :http:header:`Max-Forwards`
    - :http:header:`Pragma`

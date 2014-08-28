@@ -117,6 +117,7 @@ HEADER_REFS = {
     'If-Unmodified-Since': RFC2616Ref(14.28),
     'Last-Event-ID': EventSourceRef('last-event-id'),
     'Last-Modified': RFC2616Ref(14.29),
+    'Link': IETFRef(5988, '5'),
     'Location': RFC2616Ref(14.30),
     'Max-Forwards': RFC2616Ref(14.31),
     'Pragma': RFC2616Ref(14.32),
