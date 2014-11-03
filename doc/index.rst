@@ -60,7 +60,7 @@ Additional Configuration
 ``http_index_localname``
    Full index name which is used on index page::
 
-       http_index_shortname = "My Project HTTP API"
+       http_index_localname = "My Project HTTP API"
 
    .. versionadded:: 1.3.0
 
