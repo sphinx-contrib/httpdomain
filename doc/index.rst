@@ -900,6 +900,15 @@ __ https://bitbucket.org/birkenfeld/sphinx-contrib
 Changelog
 ---------
 
+Version 1.3.1
+`````````````
+
+To be released.
+
+- Added :http:statuscode:`429 Too Many Requests` as a valid
+  :rst:role:`http:statuscode`.  [:pull:`81` by DDBReloaded]
+
+
 Version 1.3.0
 `````````````
 
