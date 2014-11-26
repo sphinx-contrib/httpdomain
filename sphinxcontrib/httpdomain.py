@@ -183,6 +183,7 @@ HTTP_STATUS_CODES = {
     423: 'Locked',
     424: 'Failed Dependency',
     426: 'Upgrade Required',
+    429: 'Too Many Requests',
     449: 'Retry With',           # proprietary MS extension
     500: 'Internal Server Error',
     501: 'Not Implemented',
@@ -448,6 +449,8 @@ class HTTPXRefStatusRole(XRefRole):
             url = 'http://www.ietf.org/rfc/rfc3229.txt'
         elif code == 418:
             url = 'http://www.ietf.org/rfc/rfc2324.txt'
+        elif code == 429:
+            url = 'http://tools.ietf.org/html/rfc6585#section-4'
         elif code == 449:
             url = 'http://msdn.microsoft.com/en-us/library/dd891478(v=prot.10).aspx'
         elif code in HTTP_STATUS_CODES:
