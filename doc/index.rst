@@ -769,7 +769,7 @@ will be rendered as:
          .. autobottle:: yourwebapp:app
             :endpoints:
 
-      will document all endpoints in the flask app.
+      will document all endpoints in the bottle app.
 
       For compatibility, omitting this option will produce the same effect
       like above.
@@ -841,17 +841,18 @@ will be rendered as:
       .. sourcecode:: rst
 
          .. autotornado:: yourwebapp:app
-            :endpoints: user, post, friends
+            :endpoints: User.get, User.post, Friends.get
 
-      will document :func:`user`, :func:`post`, and :func:`friends`
-      view functions, and
+      will document the :func:`get` and :func:`post` methods of the
+      :class:`User` :class:`RequestHandler` and the :func:`get` method
+      of the :class:`Friend` :class:`RequestHandler`, while
 
       .. sourcecode:: rst
 
          .. autotornado:: yourwebapp:app
             :endpoints:
 
-      will document all endpoints in the flask app.
+      will document all endpoints in the tornado app.
 
       For compatibility, omitting this option will produce the same effect
       like above.
