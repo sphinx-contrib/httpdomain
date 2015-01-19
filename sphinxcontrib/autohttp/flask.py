@@ -11,6 +11,7 @@
 """
 
 import re
+import itertools
 import six
 
 from docutils import nodes
@@ -43,8 +44,8 @@ def translate_werkzeug_rule(rule):
     return buf.getvalue()
 
 
-def get_routes(app):
-    for rule in app.url_map.iter_rules():
+def get_routes(app, endpoint=None):
+    for rule in app.url_map.iter_rules(endpoint):
         methods = rule.methods.difference(['OPTIONS', 'HEAD'])
         for method in methods:
             path = translate_werkzeug_rule(rule.rule)
@@ -67,7 +68,7 @@ class AutoflaskDirective(Directive):
         endpoints = self.options.get('endpoints', None)
         if not endpoints:
             return None
-        return frozenset(re.split(r'\s*,\s*', endpoints))
+        return re.split(r'\s*,\s*', endpoints)
 
     @property
     def undoc_endpoints(self):
@@ -92,7 +93,12 @@ class AutoflaskDirective(Directive):
 
     def make_rst(self):
         app = import_object(self.arguments[0])
-        for method, path, endpoint in get_routes(app):
+        if self.endpoints:
+            routes = itertools.chain(*[get_routes(app, endpoint)
+                    for endpoint in self.endpoints])
+        else:
+            routes = get_routes(app)
+        for method, path, endpoint in routes:
             try:
                 blueprint, _, endpoint_internal = endpoint.rpartition('.')
                 if self.blueprints and blueprint not in self.blueprints:
@@ -102,8 +108,6 @@ class AutoflaskDirective(Directive):
             except ValueError:
                 pass  # endpoint is not within a blueprint
 
-            if self.endpoints and endpoint not in self.endpoints:
-                continue
             if endpoint in self.undoc_endpoints:
                 continue
             try:
