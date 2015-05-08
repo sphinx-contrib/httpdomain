@@ -64,6 +64,14 @@ class EventSourceRef(DocRef):
         super(EventSourceRef, self).__init__(url, section, '')
 
 
+class CORSRef(DocRef):
+    """Represents a reference to W3 Cross-Origin Resource Sharing recommendation."""
+
+    def __init__(self, name, type):
+        url = 'http://www.w3.org/TR/cors/'
+        super(CORSRef, self).__init__(url, name, '-' + type)
+
+
 #: Mapping from lowercase HTTP method name to :class:`DocRef` object which
 #: maintains the URL which points to the section of the RFC which defines that
 #: HTTP method.
@@ -136,7 +144,24 @@ HEADER_REFS = {
     'Vary': RFC2616Ref(14.44),
     'Via': RFC2616Ref(14.45),
     'Warning': RFC2616Ref(14.46),
-    'WWW-Authenticate': RFC2616Ref(14.47)
+    'WWW-Authenticate': RFC2616Ref(14.47),
+    'Access-Control-Allow-Origin': CORSRef('access-control-allow-origin',
+                                           'response-header'),
+    'Access-Control-Allow-Credentials': CORSRef('access-control-allow-credentials',
+                                                'response-header'),
+    'Access-Control-Expose-Headers': CORSRef('access-control-expose-headers',
+                                             'response-header'),
+    'Access-Control-Max-Age': CORSRef('access-control-max-age',
+                                      'response-header'),
+    'Access-Control-Allow-Methods': CORSRef('access-control-allow-methods',
+                                            'response-header'),
+    'Access-Control-Allow-Headers': CORSRef('access-control-allow-headers',
+                                            'response-header'),
+    'Origin': CORSRef('origin', 'request-header'),
+    'Access-Control-Request-Method': CORSRef('access-control-request-method',
+                                             'response-header'),
+    'Access-Control-Request-Headers': CORSRef('access-control-request-headers',
+                                              'response-header'),
 }
 
 
