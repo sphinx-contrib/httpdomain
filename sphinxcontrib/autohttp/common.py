@@ -27,7 +27,9 @@ def http_directive(method, path, content):
     if isinstance(content, six.string_types):
         content = content.splitlines()
     yield ''
-    yield '.. http:{method}:: {path}'.format(**locals())
+    paths = [path] if isinstance(path, six.string_types) else path
+    for path in paths:
+        yield '.. http:{method}:: {path}'.format(**locals())
     yield ''
     for line in content:
         yield '   ' + line
