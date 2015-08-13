@@ -914,6 +914,14 @@ To be released.
 
 - Added :http:statuscode:`429 Too Many Requests` as a valid
   :rst:role:`http:statuscode`.  [:pull:`81` by DDBReloaded]
+- Became to not resolve references if they can't be resolved.
+  [:pull:`87` by Ken Robbins]
+- Became to preserve endpoint ordering when ``:endpoints:`` option is given.
+  [:pull:`88` by Dan Callaghan]
+- Added status codes for WebDAV.  [:pull:`92` by Ewen Cheslack-Postava]
+- Added CORS_ headers.  [:pull:`96` by Tomi Pieviläinen]
+
+.. _CORS: http://www.w3.org/TR/cors/
 
 
 Version 1.3.0
