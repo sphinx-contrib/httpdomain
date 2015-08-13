@@ -920,6 +920,8 @@ To be released.
   [:pull:`88` by Dan Callaghan]
 - Added status codes for WebDAV.  [:pull:`92` by Ewen Cheslack-Postava]
 - Added CORS_ headers.  [:pull:`96` by Tomi Pieviläinen]
+- Now :mod:`sphinxcontrib.autohttp.flask` supports multiple paths for
+  endpoints using same HTTP method.  [:pull:`97` by Christian Felder]
 
 .. _CORS: http://www.w3.org/TR/cors/
 
