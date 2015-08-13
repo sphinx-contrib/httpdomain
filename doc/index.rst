@@ -910,7 +910,7 @@ Changelog
 Version 1.4.0
 `````````````
 
-To be released.
+Released on August 13, 2015.
 
 - Added :http:statuscode:`429 Too Many Requests` as a valid
   :rst:role:`http:statuscode`.  [:pull:`81` by DDBReloaded]
