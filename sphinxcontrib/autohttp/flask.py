@@ -45,11 +45,22 @@ def translate_werkzeug_rule(rule):
 
 
 def get_routes(app, endpoint=None):
+    endpoints = []
     for rule in app.url_map.iter_rules(endpoint):
-        methods = rule.methods.difference(['OPTIONS', 'HEAD'])
-        for method in methods:
+        if rule.endpoint not in endpoints:
+            endpoints.append(rule.endpoint)
+    for endpoint in endpoints:
+        methodrules = {}
+        for rule in app.url_map.iter_rules(endpoint):
+            methods = rule.methods.difference(['OPTIONS', 'HEAD'])
             path = translate_werkzeug_rule(rule.rule)
-            yield method, path, rule.endpoint
+            for method in methods:
+                if method in methodrules:
+                    methodrules[method].append(path)
+                else:
+                    methodrules[method] = [path]
+        for method, paths in methodrules.items():
+            yield method, paths, endpoint
 
 
 class AutoflaskDirective(Directive):
@@ -98,7 +109,7 @@ class AutoflaskDirective(Directive):
                     for endpoint in self.endpoints])
         else:
             routes = get_routes(app)
-        for method, path, endpoint in routes:
+        for method, paths, endpoint in routes:
             try:
                 blueprint, _, endpoint_internal = endpoint.rpartition('.')
                 if self.blueprints and blueprint not in self.blueprints:
@@ -115,7 +126,7 @@ class AutoflaskDirective(Directive):
             except AttributeError:
                 static_url_path = app.static_path # Flask 0.6 or under
             if ('undoc-static' in self.options and endpoint == 'static' and
-                path == static_url_path + '/(path:filename)'):
+                static_url_path + '/(path:filename)' in paths):
                 continue
             view = app.view_functions[endpoint]
             docstring = view.__doc__ or ''
@@ -130,7 +141,7 @@ class AutoflaskDirective(Directive):
             if not docstring and 'include-empty-docstring' not in self.options:
                 continue
             docstring = prepare_docstring(docstring)
-            for line in http_directive(method, path, docstring):
+            for line in http_directive(method, paths, docstring):
                 yield line
 
     def run(self):
