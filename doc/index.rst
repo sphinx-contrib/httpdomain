@@ -40,7 +40,7 @@ Additional Configuration
 
        http_headers_ignore_prefixes = ['X-']
 
-   .. versionadded:: 1.3.1
+   .. versionadded:: 1.4.0
 
 ``http_index_ignore_prefixes``
    Strips the leading segments from the endpoint paths by given list
@@ -70,7 +70,7 @@ Additional Configuration
 
        http_strict_mode = True
 
-   .. versionadded:: 1.3.1
+   .. versionadded:: 1.4.0
 
 
 Basic usage
@@ -907,7 +907,7 @@ __ https://bitbucket.org/birkenfeld/sphinx-contrib
 Changelog
 ---------
 
-Version 1.3.1
+Version 1.4.0
 `````````````
 
 To be released.
