@@ -18,7 +18,7 @@ requires = [
 
 setup(
     name='sphinxcontrib-httpdomain',
-    version='1.4.0',
+    version='1.5.0',
     url='http://bitbucket.org/birkenfeld/sphinx-contrib',
     download_url='http://pypi.python.org/pypi/sphinxcontrib-httpdomain',
     license='BSD',

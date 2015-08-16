@@ -720,7 +720,7 @@ will be rendered as:
 :mod:`sphinxcontrib.autohttp.flaskqref` --- Quick API reference for Flask app
 ------------------------------------------------------------------------------
 
-.. versionadded:: 1.4.1
+.. versionadded:: 1.5.0
 
 This generates a quick API reference table for the route documentation
 produced by :mod:`sphinxcontrib.autohttp.flask`
@@ -733,7 +733,7 @@ of your configuration (:file:`conf.py`) file::
 
 .. rst:directive:: .. qrefflask:: module:app
 
-   .. versionadded:: 1.4.1
+   .. versionadded:: 1.5.0
 
    Generates HTTP API references from a Flask application and places these
    in a list-table with quick reference links. The usage and options are identical
@@ -983,6 +983,15 @@ __ https://bitbucket.org/birkenfeld/sphinx-contrib
 
 Changelog
 ---------
+
+Version 1.5.0
+`````````````
+
+To be released.
+
+- Added :mod:`sphinxcontrib.autohttp.flaskqref` for generating quick reference
+  table.  [:pull:`80`, :pull:`100` by Harry Raaymakers]
+
 
 Version 1.4.0
 `````````````
