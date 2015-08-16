@@ -6,13 +6,19 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    """Home page."""
+    """
+    .. :quickref: Home; The Home page
+
+    Home page.
+    """
     return 'home'
 
 
 @app.route('/<user>')
 def user(user):
     """User profile page.
+
+    .. :quickref: User; Get Profile Page
 
     :param user: user login name
     :status 200: when user exists
@@ -25,6 +31,8 @@ def user(user):
 @app.route('/<user>/posts/<int:post_id>')
 def post(user, post_id):
     """User's post.
+
+    .. :quickref: User; Save user id
 
     :param user: user login name
     :param post_id: post unique id

@@ -27,6 +27,7 @@ sys.path.insert(0, os.path.abspath('.'))
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = ['sphinxcontrib.httpdomain', 'sphinxcontrib.autohttp.flask',
+              'sphinxcontrib.autohttp.flaskqref',
               'sphinxcontrib.autohttp.bottle',
               'sphinxcontrib.autohttp.tornado',
               'sphinx.ext.extlinks']

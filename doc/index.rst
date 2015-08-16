@@ -19,6 +19,9 @@ domain for describing RESTful HTTP APIs.
    Module :mod:`sphinxcontrib.autohttp.flask`
       Reflection for Flask_ webapps.
 
+   Module :mod:`sphinxcontrib.autohttp.flaskqref` 
+      Quick reference rendering with :mod:`sphinxcontrib.autohttp.flask`
+
    Module :mod:`sphinxcontrib.autohttp.bottle`
       Reflection for Bottle_ webapps.
 
@@ -51,7 +54,7 @@ Additional Configuration
    .. versionadded:: 1.3.0
 
 ``http_index_shortname``
-   Short name of the index which will appears on every page::
+   Short name of the index which will appear on every page::
 
        http_index_shortname = 'api'
 
@@ -712,6 +715,80 @@ will be rendered as:
 .. _Flask: http://flask.pocoo.org/
 
 
+.. module:: sphinxcontrib.autohttp.flaskqref
+
+:mod:`sphinxcontrib.autohttp.flaskqref` --- Quick API reference for Flask app
+------------------------------------------------------------------------------
+
+.. versionadded:: 1.4.1
+
+This generates a quick API reference table for the route documentation
+produced by :mod:`sphinxcontrib.autohttp.flask`
+
+To use it, both :mod:`sphinxcontrib.autohttp.flask` and :mod:`sphinxcontrib.autohttp.flaskqref` need to be added into the extensions 
+of your configuration (:file:`conf.py`) file::
+
+    extensions = ['sphinxcontrib.autohttp.flask',
+                  'sphinxcontrib.autohttp.flaskqref']
+
+.. rst:directive:: .. qrefflask:: module:app
+
+   .. versionadded:: 1.4.1
+
+   Generates HTTP API references from a Flask application and places these
+   in a list-table with quick reference links. The usage and options are identical
+   to that of :mod:`sphinxcontrib.autohttp.flask`
+
+Basic usage
+-----------
+
+You typically would place the quick reference table near the top of your docco
+and use *.. autoflask::* further down.
+
+Routes that are to be included in the quick reference table require 
+the following rst comment to be added to their doc string:
+
+.. sourcecode:: rst
+
+    .. :quickref: [<resource>;] <short description>
+
+<resource> is optional, if used a semi-colon separates it from <short description>
+The table is grouped and sorted by <resource>.
+
+``<resource>``
+   This is the resource name of the operation.  The name maybe the same for a number
+   of operations and enables grouping these together. 
+
+``<short description>``
+   A brief description what the operation does.
+
+For example:
+
+.. sourcecode:: python
+
+    @app.route('/<user>')
+    def user(user):
+        """User profile page.
+
+        .. :quickref: User; Get Profile Page
+     
+        my docco here   
+        """
+        return 'hi, ' + user
+
+
+The quick reference table is defined as:
+
+.. sourcecode:: rst
+
+   .. qrefflask:: autoflask_sampleapp:app
+      :undoc-static:
+
+Using the autoflask_sampleapp with *.. :quickref:* annotations,
+this is rendered as:
+
+   .. qrefflask:: autoflask_sampleapp:app
+      :undoc-static:
 
 .. module:: sphinxcontrib.autohttp.bottle
 
