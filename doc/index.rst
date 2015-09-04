@@ -702,6 +702,25 @@ will be rendered as:
 
       .. versionadded:: 1.1.8
 
+   ``modules``
+      Only include specified view modules in generated references.
+
+      For example:
+
+      .. sourcecode:: rst
+
+         .. autoflask:: yourwebapp:app
+            :modules: yourwebapp.views.admin
+
+      will include only views in ``yourwebapp.views.admin`` module
+
+      .. versionadded:: 1.5.0
+
+   ``undoc-modules``
+      Excludes specified view modules from generated references.
+
+      .. versionadded:: 1.5.0
+
    ``undoc-static``
       Excludes a view function that serves static files, which is included
       in Flask by default.
