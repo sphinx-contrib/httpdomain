@@ -95,8 +95,10 @@ class AutoflaskBase(Directive):
     required_arguments = 1
     option_spec = {'endpoints': directives.unchanged,
                    'blueprints': directives.unchanged,
+                   'modules': directives.unchanged,
                    'undoc-endpoints': directives.unchanged,
                    'undoc-blueprints': directives.unchanged,
+                   'undoc-modules': directives.unchanged,
                    'undoc-static': directives.unchanged,
                    'include-empty-docstring': directives.unchanged}
 
@@ -128,6 +130,20 @@ class AutoflaskBase(Directive):
             return frozenset()
         return frozenset(re.split(r'\s*,\s*', undoc_blueprints))
 
+    @property
+    def modules(self):
+        modules = self.options.get('modules', None)
+        if not modules:
+            return None
+        return re.split(r'\s*,\s*', modules)
+
+    @property
+    def undoc_modules(self):
+        undoc_modules = self.options.get('undoc-modules', None)
+        if not undoc_modules:
+            return None
+        return re.split(r'\s*,\s*', undoc_modules)
+
     def make_rst(self, qref=False):
         app = import_object(self.arguments[0])
         if self.endpoints:
@@ -155,6 +171,13 @@ class AutoflaskBase(Directive):
                 static_url_path + '/(path:filename)' in paths):
                 continue
             view = app.view_functions[endpoint]
+
+            if self.modules and view.__module__ not in self.modules:
+                continue
+
+            if self.undoc_modules and view.__module__ in self.modules:
+                continue
+
             docstring = view.__doc__ or ''
             if hasattr(view, 'view_class'):
                 meth_func = getattr(view.view_class, method.lower(), None)
@@ -163,7 +186,7 @@ class AutoflaskBase(Directive):
             if not isinstance(docstring, six.text_type):
                 analyzer = ModuleAnalyzer.for_module(view.__module__)
                 docstring = force_decode(docstring, analyzer.encoding)
-    
+
             if not docstring and 'include-empty-docstring' not in self.options:
                 continue
             docstring = prepare_docstring(docstring)
