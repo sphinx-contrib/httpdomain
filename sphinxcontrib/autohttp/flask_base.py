@@ -134,15 +134,15 @@ class AutoflaskBase(Directive):
     def modules(self):
         modules = self.options.get('modules', None)
         if not modules:
-            return None
-        return re.split(r'\s*,\s*', modules)
+            return frozenset()
+        return frozenset(re.split(r'\s*,\s*', modules))
 
     @property
     def undoc_modules(self):
         undoc_modules = self.options.get('undoc-modules', None)
         if not undoc_modules:
-            return None
-        return re.split(r'\s*,\s*', undoc_modules)
+            return frozenset()
+        return frozenset(re.split(r'\s*,\s*', undoc_modules))
 
     def make_rst(self, qref=False):
         app = import_object(self.arguments[0])
