@@ -1010,7 +1010,9 @@ To be released.
 
 - Added :mod:`sphinxcontrib.autohttp.flaskqref` for generating quick reference
   table.  [:pull:`80`, :pull:`100` by Harry Raaymakers]
-
+- :rst:dir:`autoflask` now supports ``:modules:`` and ``:undoc-modules:``
+  arguments, used to filter documented flask endpoints by view module
+  [:pull:`102` by Ivelin Slavov]
 
 Version 1.4.0
 `````````````
