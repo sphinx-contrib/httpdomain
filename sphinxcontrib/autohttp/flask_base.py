@@ -48,7 +48,11 @@ def get_routes(app, endpoint=None):
     endpoints = []
     for rule in app.url_map.iter_rules(endpoint):
         if rule.endpoint not in endpoints:
-            endpoints.append(rule.endpoint)
+            endpoints.append(                                                
+                (app.url_map.iter_rules(rule.endpoint).next(), rule.endpoint)
+            )
+    endpoints.sort()
+    endpoints = [e for _, e in endpoints]
     for endpoint in endpoints:
         methodrules = {}
         for rule in app.url_map.iter_rules(endpoint):
