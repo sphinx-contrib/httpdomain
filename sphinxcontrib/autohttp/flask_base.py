@@ -47,10 +47,12 @@ def translate_werkzeug_rule(rule):
 def get_routes(app, endpoint=None):
     endpoints = []
     for rule in app.url_map.iter_rules(endpoint):
-        if rule.endpoint not in endpoints:
-            endpoints.append(                                                
-                (app.url_map.iter_rules(rule.endpoint).next(), rule.endpoint)
-            )
+        url_with_endpoint = (
+            unicode(app.url_map.iter_rules(rule.endpoint).next()),
+            rule.endpoint
+        )
+        if url_with_endpoint not in endpoints:
+            endpoints.append(url_with_endpoint)
     endpoints.sort()
     endpoints = [e for _, e in endpoints]
     for endpoint in endpoints:
@@ -65,6 +67,7 @@ def get_routes(app, endpoint=None):
                     methodrules[method] = [path]
         for method, paths in methodrules.items():
             yield method, paths, endpoint
+
 
 def quickref_directive(method, path, content):
     rcomp = re.compile("^\s*.. :quickref:\s*(?P<quick>.*)$")
