@@ -155,7 +155,10 @@ class AutoflaskBase(Directive):
 
     @property
     def order(self):
-        return self.options.get('order', None)
+        order = self.options.get('order', None)
+        if order not in (None, 'path'):
+            raise ValueError('Invalid value for :order:')
+        return order
 
     def make_rst(self, qref=False):
         app = import_object(self.arguments[0])
