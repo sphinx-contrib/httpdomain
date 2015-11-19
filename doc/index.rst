@@ -1062,9 +1062,9 @@ Released on July 31, 2014.
   [:issue:`55`, :pull:`72` by Alexander Shorin]
 - Stabilize order of index items.
   [:issue:`55`, :pull:`72` by Alexander Shorin]
-- Added :rst:directive:`http:any` directive and :rst:role:`http:any`
+- Added :rst:dir:`http:any` directive and :rst:role:`http:any`
   role for ``ANY`` method.  [:issue:`55`, :pull:`72` by Alexander Shorin]
-- Added :rst:directive:`http:copy` directive and :rst:role:`http:copy`
+- Added :rst:dir:`http:copy` directive and :rst:role:`http:copy`
   role for ``COPY`` method.  [:issue:`55`, :pull:`72` by Alexander Shorin]
 - Added :rst:role:`http:header` role that also creates reference to the
   related specification.  [:issue:`55`, :pull:`72` by Alexander Shorin]
