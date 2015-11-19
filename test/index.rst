@@ -151,6 +151,16 @@ Basic option with empty args
    :undoc-endpoints:
    :undoc-blueprints:
 
+Basic option with ordering by path
+..................................
+
+.. autoflask:: autoflask_sampleapp:app
+   :undoc-static:
+   :endpoints:
+   :undoc-endpoints:
+   :undoc-blueprints:
+   :order: path
+
 Filter some endpoints
 ......................
 

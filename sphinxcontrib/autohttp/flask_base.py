@@ -44,7 +44,8 @@ def translate_werkzeug_rule(rule):
     return buf.getvalue()
 
 
-def get_routes(app, endpoint=None):
+def get_routes(app, endpoint=None, order=None):
+    print order
     endpoints = []
     for rule in app.url_map.iter_rules(endpoint):
         url_with_endpoint = (
@@ -53,7 +54,8 @@ def get_routes(app, endpoint=None):
         )
         if url_with_endpoint not in endpoints:
             endpoints.append(url_with_endpoint)
-    endpoints.sort()
+    if order == 'path':
+        endpoints.sort()
     endpoints = [e for _, e in endpoints]
     for endpoint in endpoints:
         methodrules = {}
@@ -103,6 +105,7 @@ class AutoflaskBase(Directive):
     option_spec = {'endpoints': directives.unchanged,
                    'blueprints': directives.unchanged,
                    'modules': directives.unchanged,
+                   'order': directives.unchanged,
                    'undoc-endpoints': directives.unchanged,
                    'undoc-blueprints': directives.unchanged,
                    'undoc-modules': directives.unchanged,
@@ -151,13 +154,17 @@ class AutoflaskBase(Directive):
             return frozenset()
         return frozenset(re.split(r'\s*,\s*', undoc_modules))
 
+    @property
+    def order(self):
+        return self.options.get('order', None)
+
     def make_rst(self, qref=False):
         app = import_object(self.arguments[0])
         if self.endpoints:
-            routes = itertools.chain(*[get_routes(app, endpoint)
+            routes = itertools.chain(*[get_routes(app, endpoint, self.order)
                     for endpoint in self.endpoints])
         else:
-            routes = get_routes(app)
+            routes = get_routes(app, order=self.order)
         for method, paths, endpoint in routes:
             try:
                 blueprint, _, endpoint_internal = endpoint.rpartition('.')
