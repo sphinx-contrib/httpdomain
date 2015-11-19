@@ -48,7 +48,7 @@ def get_routes(app, endpoint=None, order=None):
     endpoints = []
     for rule in app.url_map.iter_rules(endpoint):
         url_with_endpoint = (
-            unicode(app.url_map.iter_rules(rule.endpoint).next()),
+            six.text_type(next(app.url_map.iter_rules(rule.endpoint))),
             rule.endpoint
         )
         if url_with_endpoint not in endpoints:

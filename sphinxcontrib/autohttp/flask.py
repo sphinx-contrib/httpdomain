@@ -9,6 +9,7 @@
     :license: BSD, see LICENSE for details.
 
 """
+from __future__ import absolute_import
 
 import re
 import itertools
@@ -27,7 +28,7 @@ from sphinx.pycode import ModuleAnalyzer
 from sphinxcontrib import httpdomain
 from sphinxcontrib.autohttp.common import http_directive, import_object
 
-from flask_base import AutoflaskBase
+from .flask_base import AutoflaskBase
 
 class AutoflaskDirective(AutoflaskBase):
 
