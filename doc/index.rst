@@ -740,6 +740,8 @@ will be rendered as:
       will document all endpoints in the flask app, ordered by their route
       paths.
 
+      .. versionadded:: 1.5.0
+
    ``include-empty-docstring``
       View functions that don't have docstring (:attr:`__doc__`) are excluded
       by default. If this flag option has given, they become included also.
@@ -1028,6 +1030,9 @@ To be released.
 - :rst:dir:`autoflask` now supports ``:modules:`` and ``:undoc-modules:``
   arguments, used to filter documented flask endpoints by view module
   [:pull:`102` by Ivelin Slavov]
+- Added ``:order:`` option to :rst:dir:`autoflask` directive.
+  [:pull:`103` by Justin Gruca]
+
 
 Version 1.4.0
 `````````````
