@@ -725,6 +725,21 @@ will be rendered as:
       Excludes a view function that serves static files, which is included
       in Flask by default.
 
+   ``order``
+      Determines the order in which endpoints are listed. Currently only
+      ``path`` is supported.
+
+      For example:
+
+      .. sourcecode:: rst
+
+         .. autoflask:: yourwebapp:app
+            :endpoints:
+            :order: path
+
+      will document all endpoints in the flask app, ordered by their route
+      paths.
+
    ``include-empty-docstring``
       View functions that don't have docstring (:attr:`__doc__`) are excluded
       by default. If this flag option has given, they become included also.

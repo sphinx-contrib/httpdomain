@@ -45,7 +45,6 @@ def translate_werkzeug_rule(rule):
 
 
 def get_routes(app, endpoint=None, order=None):
-    print order
     endpoints = []
     for rule in app.url_map.iter_rules(endpoint):
         url_with_endpoint = (
