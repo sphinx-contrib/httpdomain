@@ -665,6 +665,20 @@ class HTTPDomain(Domain):
             return make_refnode(builder, fromdocname, info[0], anchor,
                                 contnode, title)
 
+    def resolve_any_xref(self, env, fromdocname, builder, target, node, contnode):
+        """Resolve the pending_xref *node* with the given *target*.
+
+        The reference comes from an "any" or similar role, which means that Sphinx
+        don't know the type.
+
+        For now sphinxcontrib-httpdomain doesn't resolve any xref nodes.
+
+        :return:
+           list of tuples ``('domain:role', newnode)``, where ``'domain:role'``
+           is the name of a role that could have created the same reference,
+        """
+        return []
+
     def get_objects(self):
         for method, routes in self.routes.items():
             for path, info in routes.items():
