@@ -497,21 +497,10 @@ class HTTPXRefHeaderRole(XRefRole):
     def result_nodes(self, document, env, node, is_ref):
         header = node[0][0]
         rawsource = node[0].rawsource
-        config = env.domains['http'].env.config
         if header not in HEADER_REFS:
             _header = '-'.join(map(lambda i: i.title(), header.split('-')))
             if _header not in HEADER_REFS:
-                if not config['http_strict_mode']:
-                    return [nodes.emphasis(header, header)], []
-                _header = _header.lower()
-                if any([_header.startswith(prefix.lower())
-                        for prefix in config['http_headers_ignore_prefixes']]):
-                    return [nodes.emphasis(header, header)], []
-                reporter = document.reporter
-                msg = reporter.error('%s is not unknown HTTP header' % header,
-                                     line=node.line)
-                prb = nodes.problematic(header, header)
-                return [prb], [msg]
+                return [nodes.emphasis(header, header)], []
         url = str(HEADER_REFS[header])
         node = nodes.reference(rawsource, header, refuri=url)
         return [node], []
