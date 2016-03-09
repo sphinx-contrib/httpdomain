@@ -596,6 +596,10 @@ Roles
 
    .. versionadded:: 1.3.0
 
+   .. versionchanged:: 1.5.0
+
+        No longer emits warnings for unrecognized headers
+
 .. module:: sphinxcontrib.autohttp.flask
 
 :mod:`sphinxcontrib.autohttp.flask` --- Exporting API reference from Flask app
@@ -1031,6 +1035,8 @@ To be released.
   [:pull:`102` by Ivelin Slavov]
 - Added ``:order:`` option to :rst:dir:`autoflask` directive.
   [:pull:`103` by Justin Gruca]
+- Removed warnings for non-standard message headers
+  [:pull:`114` by Dolan Murvihill]
 
 
 Version 1.4.0
