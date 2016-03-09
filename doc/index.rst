@@ -45,6 +45,10 @@ Additional Configuration
 
    .. versionadded:: 1.4.0
 
+   .. deprecated:: 1.5.0
+        strict mode no longer warns on non-standard header prefixes.
+
+
 ``http_index_ignore_prefixes``
    Strips the leading segments from the endpoint paths by given list
    of prefixes::
