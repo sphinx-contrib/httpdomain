@@ -25,6 +25,16 @@ from sphinx.directives import ObjectDescription, directives
 from sphinx.util.nodes import make_refnode
 from sphinx.util.docfields import GroupedField, TypedField
 
+# The env.get_doctree() lookup results in a pickle.load() call which is
+# expensive enough to dominate the runtime entirely when the number of endpoints
+# and references is large enough. The doctrees are generated during the read-
+# phase and we can cache their lookup during the write-phase significantly
+# improving performance.
+# Currently sphinxcontrib-httpdomain does not declare to support parallel read
+# support (parallel_read_safe is the default False) so we can simply use a
+# module global to hold the cache.
+_doctree_cache = {}
+
 
 class DocRef(object):
     """Represents a reference to an abstract specification."""
@@ -639,11 +649,15 @@ class HTTPDomain(Domain):
             role = self.roles.get(typ)
             if role is None:
                 return None
-            resnode = role.result_nodes(env.get_doctree(fromdocname),
-                                        env, node, None)[0][0]
+
+            if fromdocname not in _doctree_cache:
+                _doctree_cache[fromdocname] = env.get_doctree(fromdocname)
+            doctree = _doctree_cache[fromdocname]
+
+            resnode = role.result_nodes(doctree, env, node, None)[0][0]
             if isinstance(resnode, addnodes.pending_xref):
                 text = node[0][0]
-                reporter = env.get_doctree(fromdocname).reporter
+                reporter = doctree.reporter
                 reporter.warning('Cannot resolve reference to %r' % text,
                                  line=node.line)
                 return None
