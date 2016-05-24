@@ -221,6 +221,7 @@ HTTP_STATUS_CODES = {
     426: 'Upgrade Required',
     429: 'Too Many Requests',
     449: 'Retry With',           # proprietary MS extension
+    451: 'Unavailable For Legal Reasons',
     500: 'Internal Server Error',
     501: 'Not Implemented',
     502: 'Bad Gateway',
