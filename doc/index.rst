@@ -1022,7 +1022,7 @@ the repository).
    $ hg clone https://bitbucket.org/birkenfeld/sphinx-contrib
    $ cd sphinx-contrib/httpdomain
 
-.. _Hong Minhee: http://dahlia.kr/
+.. _Hong Minhee: https://hongminhee.org/
 __ https://bitbucket.org/birkenfeld/sphinx-contrib
 
 
