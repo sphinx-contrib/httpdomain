@@ -23,7 +23,7 @@ setup(
     download_url='http://pypi.python.org/pypi/sphinxcontrib-httpdomain',
     license='BSD',
     author='Hong Minhee',
-    author_email='minhee@dahlia.kr',
+    author_email='hongminhee@member.fsf.org',
     description='Sphinx domain for HTTP APIs',
     long_description=long_desc,
     zip_safe=False,
