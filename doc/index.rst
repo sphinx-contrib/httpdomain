@@ -782,8 +782,9 @@ of your configuration (:file:`conf.py`) file::
    in a list-table with quick reference links. The usage and options are identical
    to that of :mod:`sphinxcontrib.autohttp.flask`
 
+
 Basic usage
------------
+```````````
 
 You typically would place the quick reference table near the top of your docco
 and use *.. autoflask::* further down.
@@ -832,6 +833,7 @@ this is rendered as:
 
    .. qrefflask:: autoflask_sampleapp:app
       :undoc-static:
+
 
 .. module:: sphinxcontrib.autohttp.bottle
 
