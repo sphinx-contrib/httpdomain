@@ -4,7 +4,7 @@ Changelog
 Version 1.5.0
 `````````````
 
-To be released.
+Released on May 30, 2016.
 
 - Added :mod:`sphinxcontrib.autohttp.flaskqref` for generating quick reference
   table.  [:pull:`80`, :pull:`100` by Harry Raaymakers]
