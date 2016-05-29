@@ -13,8 +13,21 @@ To be released.
   [:pull:`102` by Ivelin Slavov]
 - Added ``:order:`` option to :rst:dir:`autoflask` directive.
   [:pull:`103` by Justin Gruca]
-- Removed warnings for non-standard message headers.
-  [:pull:`114` by Dolan Murvihill]
+- HTTP message headers become to link the recent RFCs (:rfc:`7230`, :rfc:`7231`,
+  :rfc:`7232`, :rfc:`7233`, :rfc:`7234`, :rfc:`7235`, :rfc:`7236`, :rfc:`7237`,
+  that are separated to multiple RFCs from the old one) instead of :rfc:`2615`
+  which is replaced by them in 2014.
+  [:pull:`105`, :pull:`106` by Alex C. (iscandr)]
+- Support ``resolve_any_xref`` method introduced since Sphinx 1.3
+  [:pull:`108` by Takayuki Shimizukawa]
+- It no more warns non-standard message headers without ``X-`` prefix
+  according as the deprecation of the practice of prefixing the names of
+  unstandardized parameters with ``X-`` in all IETF protocols since June 2012
+  by :rfc:`6648`.  [:pull:`114` by Dolan Murvihill]
+- Fixed performance bottleneck in doctree lookup by adding a cache for it.
+  [:pull:`115` by Kai Lautaportti]
+- Added :http:statuscode:`451` to :rst:role:`http:statuscode`.
+  [:pull:`117` by Xavier Oliver]
 
 
 Version 1.4.0
