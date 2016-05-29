@@ -1,34 +1,36 @@
 # -*- coding: utf-8 -*-
+from __future__ import with_statement
 
 from setuptools import setup, find_packages
 
-long_desc = '''
-This contrib extension, sphinxcontrib.httpdomain provides a Sphinx
-domain for describing RESTful HTTP APIs.
-
-You can find the documentation from the following URL:
-
-http://pythonhosted.org/sphinxcontrib-httpdomain/
-'''
 
 requires = [
     'Sphinx >= 1.0',
     'six'
 ]
 
+
+def readme():
+    try:
+        with open('README.rst') as f:
+            return f.read()
+    except IOError:
+        pass
+
+
 setup(
     name='sphinxcontrib-httpdomain',
     version='1.5.0',
-    url='http://bitbucket.org/birkenfeld/sphinx-contrib',
-    download_url='http://pypi.python.org/pypi/sphinxcontrib-httpdomain',
+    url='https://bitbucket.org/birkenfeld/sphinx-contrib/src/default/httpdomain/',  # noqa
+    download_url='https://pypi.python.org/pypi/sphinxcontrib-httpdomain',
     license='BSD',
     author='Hong Minhee',
     author_email='hongminhee@member.fsf.org',
     description='Sphinx domain for HTTP APIs',
-    long_description=long_desc,
+    long_description=readme(),
     zip_safe=False,
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
