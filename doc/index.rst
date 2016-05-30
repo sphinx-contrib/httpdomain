@@ -14,7 +14,7 @@ domain for describing RESTful HTTP APIs.
 .. seealso::
 
    We might support reflection for web framework your webapp depends on.
-   See the following :mod:`sphinxcontrib.auttohttp` modules:
+   See the following :mod:`sphinxcontrib.autohttp` modules:
 
    Module :mod:`sphinxcontrib.autohttp.flask`
       Reflection for Flask_ webapps.
