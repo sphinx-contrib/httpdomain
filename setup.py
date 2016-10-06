@@ -25,7 +25,7 @@ setup(
     download_url='https://pypi.python.org/pypi/sphinxcontrib-httpdomain',
     license='BSD',
     author='Hong Minhee',
-    author_email='hongminhee@member.fsf.org',
+    author_email='\x68\x6f\x6e\x67.minhee' '@' '\x67\x6d\x61\x69\x6c.com',
     description='Sphinx domain for HTTP APIs',
     long_description=readme(),
     zip_safe=False,
