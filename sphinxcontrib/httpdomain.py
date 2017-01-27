@@ -64,7 +64,7 @@ class IETFRef(DocRef):
     """Represents a reference to the specific IETF RFC."""
 
     def __init__(self, rfc, section):
-        url = 'http://tools.ietf.org/html/rfc{0:d}'.format(rfc)
+        url = 'https://tools.ietf.org/html/rfc{0:d}'.format(rfc)
         super(IETFRef, self).__init__(url, 'section-', section)
 
 
