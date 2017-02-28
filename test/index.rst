@@ -168,6 +168,19 @@ Filter some endpoints
    :endpoints: user, post
    :undoc-static:
 
+Method View
+...........
+
+.. autoflask:: autoflask_methodview:app
+   :undoc-static:
+
+Grouped Method View
+....................
+
+.. autoflask:: autoflask_methodview:app
+   :groupby: view
+   :undoc-static:
+
 Documenting by non-ASCII characters
 ...................................
 

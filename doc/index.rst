@@ -749,6 +749,12 @@ will be rendered as:
 
       .. versionadded:: 1.5.0
 
+   ``groupby``
+      Determines the strategy to group paths. Currently only ``view`` is
+      supported. Specified this will group paths by their view functions.
+
+      .. versionadded:: 1.6.0
+
    ``include-empty-docstring``
       View functions that don't have docstring (:attr:`__doc__`) are excluded
       by default. If this flag option has given, they become included also.
