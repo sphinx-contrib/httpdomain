@@ -56,7 +56,7 @@ def get_routes(app, endpoint=None, order=None):
     for endpoint in endpoints:
         methodrules = {}
         for rule in app.url_map.iter_rules(endpoint):
-            methods = rule.methods.difference(['OPTIONS', 'HEAD'])
+            methods = cleanup_methods(rule.methods)
             path = translate_werkzeug_rule(rule.rule)
             for method in methods:
                 if method in methodrules:
@@ -65,6 +65,13 @@ def get_routes(app, endpoint=None, order=None):
                     methodrules[method] = [path]
         for method, paths in methodrules.items():
             yield method, paths, endpoint
+
+
+def cleanup_methods(methods):
+    autoadded_methods = frozenset(['OPTIONS', 'HEAD'])
+    if methods <= autoadded_methods:
+        return methods
+    return methods.difference(autoadded_methods)
 
 
 def quickref_directive(method, path, content):
