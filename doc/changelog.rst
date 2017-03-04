@@ -1,6 +1,15 @@
 Changelog
 ---------
 
+Version 1.6.0
+`````````````
+
+To be released.
+
+- Added ``groupby`` option to :rst:`.. autoflask::` directive.  It makes
+  paths be grouped by their view functions.  [:pull:`147` by Jiangge Zhang]
+
+
 Version 1.5.0
 `````````````
 
