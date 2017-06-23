@@ -2,7 +2,7 @@
     sphinxcontrib.autohttp.flaskqref
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    The sphinx.ext.autodoc-style HTTP API quick reference 
+    The sphinx.ext.autodoc-style HTTP API quick reference
     builder (from Flask)
     for sphinxcontrib.httpdomain.
 
@@ -38,15 +38,15 @@ class QuickReferenceFlaskDirective(AutoflaskBase):
         node.document = self.state.document
         result = ViewList()
         for line in QuickReferenceFlaskDirective.header:
-            result.append(line, '<qrefflask>') 
+            result.append(line, '<qrefflask>')
         table={}
         table_sorted_names=[]
-        
+
         for table_row in self.make_rst(qref=True):
             name = table_row['name']
             if table.get(name) is None:
                 table[name]=[]
-            table[name].append(table_row) 
+            table[name].append(table_row)
             if name not in table_sorted_names:
                 table_sorted_names.append(name)
 
@@ -72,9 +72,8 @@ class QuickReferenceFlaskDirective(AutoflaskBase):
         result.append('', '<qrefflask>')
         nested_parse_with_titles(self.state, result, node)
         return node.children
-        
+
 def setup(app):
-    if 'http' not in app.domains:
-        httpdomain.setup(app)
+    httpdomain.setup(app)
     app.add_directive('qrefflask', QuickReferenceFlaskDirective)
 

@@ -43,6 +43,5 @@ class AutoflaskDirective(AutoflaskBase):
 
 
 def setup(app):
-    if 'http' not in app.domains:
-        httpdomain.setup(app)
+    httpdomain.setup(app)
     app.add_directive('autoflask', AutoflaskDirective)

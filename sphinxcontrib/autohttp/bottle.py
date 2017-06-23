@@ -108,7 +108,6 @@ class AutobottleDirective(Directive):
 
 
 def setup(app):
-    if 'http' not in app.domains:
-        httpdomain.setup(app)
+    httpdomain.setup(app)
     app.add_directive('autobottle', AutobottleDirective)
 
