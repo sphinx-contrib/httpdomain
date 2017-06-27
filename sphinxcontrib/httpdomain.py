@@ -763,6 +763,8 @@ def setup(app):
         if HTTPDomain.name in app.domains:
             return
 
+    app.add_domain(HTTPDomain)
+
     try:
         get_lexer_by_name('http')
     except ClassNotFound:
