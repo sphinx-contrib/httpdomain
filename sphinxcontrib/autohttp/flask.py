@@ -43,5 +43,5 @@ class AutoflaskDirective(AutoflaskBase):
 
 
 def setup(app):
-    httpdomain.setup(app)
+    app.setup_extension('sphinxcontrib.httpdomain')
     app.add_directive('autoflask', AutoflaskDirective)

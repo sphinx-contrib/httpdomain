@@ -123,5 +123,5 @@ class AutoTornadoDirective(Directive):
 
 
 def setup(app):
-    httpdomain.setup(app)
+    app.setup_extension('sphinxcontrib.httpdomain')
     app.add_directive('autotornado', AutoTornadoDirective)

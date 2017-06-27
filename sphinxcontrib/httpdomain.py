@@ -756,13 +756,6 @@ class HTTPLexer(RegexLexer):
 
 
 def setup(app):
-    try:
-        if app.registry.has_domain(HTTPDomain.name):
-            return
-    except AttributeError:
-        if HTTPDomain.name in app.domains:
-            return
-
     app.add_domain(HTTPDomain)
 
     try:

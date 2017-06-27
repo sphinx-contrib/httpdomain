@@ -74,6 +74,5 @@ class QuickReferenceFlaskDirective(AutoflaskBase):
         return node.children
 
 def setup(app):
-    httpdomain.setup(app)
+    app.setup_extension('sphinxcontrib.httpdomain')
     app.add_directive('qrefflask', QuickReferenceFlaskDirective)
-

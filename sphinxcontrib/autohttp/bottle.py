@@ -108,6 +108,5 @@ class AutobottleDirective(Directive):
 
 
 def setup(app):
-    httpdomain.setup(app)
+    app.setup_extension('sphinxcontrib.httpdomain')
     app.add_directive('autobottle', AutobottleDirective)
-
