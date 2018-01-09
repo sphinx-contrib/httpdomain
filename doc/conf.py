@@ -248,8 +248,16 @@ texinfo_documents = [
 #texinfo_show_urls = 'footnote'
 
 extlinks = {
-    'pull': ('https://bitbucket.org/birkenfeld/sphinx-contrib/pull-requests/%s/',
-             'pull request #'),
-    'issue': ('https://bitbucket.org/birkenfeld/sphinx-contrib/issues/%s/',
-              'issue #')
+    'pull': (
+        'https://github.com/sphinx-contrib/httpdomain/pulls/%s',
+        'pull request #'),
+    'issue': (
+        'https://github.com/sphinx-contrib/httpdomain/issues/%s',
+        'issue #'),
+    'oldpull': (
+        'https://bitbucket.org/birkenfeld/sphinx-contrib/pull-requests/%s/',
+        'old pull request #'),
+    'oldissue': (
+        'https://bitbucket.org/birkenfeld/sphinx-contrib/issues/%s/',
+        'old issue #')
 }
