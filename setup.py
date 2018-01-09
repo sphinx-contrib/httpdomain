@@ -21,7 +21,7 @@ def readme():
 setup(
     name='sphinxcontrib-httpdomain',
     version='1.6.0',
-    url='https://bitbucket.org/birkenfeld/sphinx-contrib/src/default/httpdomain/',  # noqa
+    url='https://github.com/sphinx-contrib/httpdomain',
     download_url='https://pypi.python.org/pypi/sphinxcontrib-httpdomain',
     license='BSD',
     author='Hong Minhee',
