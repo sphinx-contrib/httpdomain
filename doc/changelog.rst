@@ -6,6 +6,10 @@ Version 1.6.0
 
 To be released.
 
+- Fixed a bug that prevented building :mod:`sphinxcontrib.autohttp`
+  from building properly with Sphinx >=1.6.
+  [:issue:`182`, :pull:`152` by Dave Shawley]
+- Use HTTPS for ``:rfc:`` generated links. [:pull:`144` by Devin Sevilla]
 - Added ``groupby`` option to :rst:dir:`autoflask` directive.  It makes
   paths be grouped by their view functions.  [:pull:`147` by Jiangge Zhang]
 - Fixed a bug that :rst:dir:`autoflask` directive had excluded nonsignificant
