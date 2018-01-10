@@ -6,7 +6,7 @@ Version 1.6.0
 
 To be released.
 
-- Added ``groupby`` option to :rst:`.. autoflask::` directive.  It makes
+- Added ``groupby`` option to :rst:dir:`autoflask` directive.  It makes
   paths be grouped by their view functions.  [:pull:`147` by Jiangge Zhang]
 - Fixed a bug that :rst:dir:`autoflask` directive had excluded nonsignificant
   routes with :http:method:`HEAD`/:http:method:`OPTIONS`.  [:issue:`165`]
@@ -123,6 +123,7 @@ Released on August 8, 2013.
   arguments.  [:pull:`33` by Michael Twomey]
 
 .. _patch: https://github.com/jalaziz/sphinxcontrib-httpdomain
+.. _Bottle: http://bottlepy.org/
 
 
 Version 1.1.8

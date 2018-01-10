@@ -125,7 +125,7 @@ html_theme = 'sphinxdoc'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+#html_static_path = ['_static']
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
@@ -248,8 +248,8 @@ texinfo_documents = [
 #texinfo_show_urls = 'footnote'
 
 extlinks = {
-    'pull': ('https://bitbucket.org/birkenfeld/sphinx-contrib/pull-request/%s/',
+    'pull': ('https://bitbucket.org/birkenfeld/sphinx-contrib/pull-requests/%s/',
              'pull request #'),
-    'issue': ('https://bitbucket.org/birkenfeld/sphinx-contrib/issue/%s/',
+    'issue': ('https://bitbucket.org/birkenfeld/sphinx-contrib/issues/%s/',
               'issue #')
 }

@@ -124,7 +124,7 @@ HEADER_REFS = {
     'Cookie': IETFRef(2109, '4.3.4'), # also RFC6265 section 5.4
     'Date': IETFRef(7231, '7.1.1.2'),
     'Destination': IETFRef(2518, 9.3),
-    'ETag': IETFRef(7231, 2.3),
+    'ETag': IETFRef(7232, 2.3),
     'Expect': IETFRef(7231, '5.1.1'),
     'Expires': IETFRef(7234, 5.3),
     'From': IETFRef(7231, '5.5.2'),
@@ -492,6 +492,8 @@ class HTTPXRefStatusRole(XRefRole):
             url = 'http://tools.ietf.org/html/rfc6585#section-4'
         elif code == 449:
             url = 'http://msdn.microsoft.com/en-us/library/dd891478(v=prot.10).aspx'
+        elif code == 451:
+            url = 'http://www.ietf.org/rfc/rfc7725.txt'
         elif code in WEBDAV_STATUS_CODES:
             url = 'http://tools.ietf.org/html/rfc4918#section-11.%d' % (WEBDAV_STATUS_CODES.index(code) + 1)
         elif code in HTTP_STATUS_CODES:

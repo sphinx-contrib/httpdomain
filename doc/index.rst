@@ -424,6 +424,12 @@ For example:
       :status 302: and then redirects to :http:get:`/posts/(int:post_id)`
       :status 400: when form parameters are missing
 
+   .. http:get:: /posts/(int:post_id)
+
+      Fetches the post
+
+      (...)
+
 It will render like this:
 
     .. http:post:: /posts/(int:post_id)
@@ -442,6 +448,11 @@ It will render like this:
        :status 302: and then redirects to :http:get:`/posts/(int:post_id)`
        :status 400: when form parameters are missing
 
+    .. http:get:: /posts/(int:post_id)
+
+       Fetches the post
+
+       (...)
 
 .. _roles:
 
@@ -499,12 +510,12 @@ Roles
    .. sourcecode:: rst
 
       - :http:statuscode:`404`
-      - :http:statuscode:`200 Oll Korrect`
+      - :http:statuscode:`200 OK`
 
    will be rendered as:
 
        - :http:statuscode:`404`
-       - :http:statuscode:`200 Oll Korrect`
+       - :http:statuscode:`200 OK`
 
    .. versionchanged:: 1.3.0
       It becomes to provide references to specification sections.
@@ -927,7 +938,6 @@ will be rendered as:
       by default. If this flag option has given, they become included also.
 
 .. _Bottle: http://bottlepy.org/
-
 
 .. module:: sphinxcontrib.autohttp.tornado
 
