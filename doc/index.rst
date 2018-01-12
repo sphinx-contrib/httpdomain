@@ -5,11 +5,11 @@
 
 .. module:: sphinxcontrib.httpdomain
 
-:mod:`sphinxcontrib.httpdomain` --- Documenting RESTful HTTP APIs
-=================================================================
+:mod:`sphinxcontrib.httpdomain` --- Sphinx domain for documenting HTTP APIs
+===========================================================================
 
 This contrib extension, :mod:`sphinxcontrib.httpdomain`, provides a Sphinx
-domain for describing RESTful HTTP APIs.
+domain for describing HTTP APIs.
 
 .. seealso::
 

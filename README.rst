@@ -1,8 +1,8 @@
-sphinxcontrib.httpdomain --- Documenting RESTful HTTP APIs
-==========================================================
+``sphinxcontrib.httpdomain``
+============================
 
-This contrib extension, sphinxcontrib.httpdomain, provides a Sphinx domain
-for describing RESTful HTTP APIs.
+This contrib extension, ``sphinxcontrib.httpdomain``, provides a Sphinx
+domain for describing HTTP APIs.
 
 You can find the documentation from the following URL:
 
