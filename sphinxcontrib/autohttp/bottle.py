@@ -34,6 +34,8 @@ def translate_bottle_rule(app, rule):
     else:
         iterator = app.router._itertokens(rule)  # bottle 0.12
     for name, filter, conf in iterator:
+        if name is None:
+            name = ""
         if filter:
             buf.write('(')
             buf.write(name)
