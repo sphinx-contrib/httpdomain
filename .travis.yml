@@ -1,0 +1,24 @@
+language: python
+python: [3.6, 3.5, 2.7]
+install:
+- pip install tox-travis
+script:
+- tox
+- '[[ "$TRAVIS_TAG" = "" ]] || [[ "$TRAVIS_TAG" = "$(python setup.py --version)" ]]'
+- |
+  if echo "$TRAVIS_COMMIT_MESSAGE" | grep '\[changelog skip\]' > /dev/null; then
+    echo "Skip changelog checker..."
+  elif [[ "$TRAVIS_TAG" != "" ]]; then
+    ! grep -i "to be released" doc/changelog.rst
+  else
+    [[ "$(git diff --name-only "$TRAVIS_COMMIT_RANGE" | grep doc/changelog\.rst)" != "" ]]
+  fi
+deploy:
+  provider: pypi
+  distributions: 'sdist bdist_wheel'
+  on:
+    tags: true
+    python: 3.6
+  user: sphinxcontrib-httpdomain
+  password:
+    secure: "G7t+FEC00x4cuM7jaXeV2MPy5tTn2YL+JztqUJMsDWMo4TLCBmn8Fet1cZEago35Ey2W3vxDcm8Od94KkBUnSwRiAghXDU9MytlHDqnuIH5J51qlU1XSVSGOj4pMLP8n3GEi2wjvt2RLRMTH2ShBaUpRNeVvxHanGTa4YwKZwheAdUVVz0d+IPdFHf2GxS+yRuPDbvWrXOh5rGR2AxvYC/5srin8cIeOrMKh6nE0sSYyI/DNQoLiokVe1GBBCavC1J6xnU5IRA5HnFto0zrpG66ESJWvb3e30lwcRHxLC20OEZ5S/UT8jOrkqZNrGFGqhWgC3FPquUP4OVddD21yn/MfhgO2viGMfw/4YXBNoVac8ATOCK4AhqrWp3EQj772boU+BrvIYfo2yrE/zBkgACZ6chsU6NJVCeiWwrCD5z/IHFXy9UqBK2PwNlioH0P9cHWbgytTr1ZgHUXKE3GuoA61a07QHCRrUYaTr+GHS1DEMrWouqSANUrA61c91m4VuqovoEBuoBtiAXfacAM8renJG7xXrBmAYMrUH5PmMozmyrQFb3Dh130DL5ltEpAidvbnSGKZCIpBCmf4GXKapz1Sr0nyBXE9Oc1ZqQYgI0NtsPUL4aunPsmlmT2UoA6a3ScvwWJeu7kcmgdYFSaaWUzTSzRqgugr7h/DTkMhn7g="

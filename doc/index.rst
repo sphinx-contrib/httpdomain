@@ -8,6 +8,14 @@
 :mod:`sphinxcontrib.httpdomain` --- Sphinx domain for documenting HTTP APIs
 ===========================================================================
 
+.. image:: https://badge.fury.io/py/sphinxcontrib-httpdomain.svg
+   :target: https://pypi.org/project/sphinxcontrib-httpdomain/
+   :alt: Latest PyPI version
+
+.. image:: https://travis-ci.org/sphinx-contrib/httpdomain.svg?branch=master
+   :alt: Build Status
+   :target: https://travis-ci.org/sphinx-contrib/httpdomain
+
 This contrib extension, :mod:`sphinxcontrib.httpdomain`, provides a Sphinx
 domain for describing HTTP APIs.
 
