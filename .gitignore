@@ -1,0 +1,8 @@
+*.egg-info
+*.pyc
+.*.swp
+.cache
+.tox
+build
+dist
+doc/_build

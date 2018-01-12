@@ -1,3 +1,5 @@
+:orphan:
+
 Changelog
 ---------
 
@@ -6,6 +8,7 @@ Version 1.6.0
 
 To be released.
 
+- Minimum compatible version of Sphinx became changed to 1.5.
 - Fixed a bug that prevented building :mod:`sphinxcontrib.autohttp`
   from building properly with Sphinx >=1.6.
   [:oldissue:`182`, :oldpull:`152` by Dave Shawley]

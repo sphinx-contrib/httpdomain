@@ -708,7 +708,7 @@ will be rendered as:
          includes members without docstrings, ``undoc-endpoints`` option has
          nothing to do with docstrings. It just excludes specified endpoints.
 
-         .. _undoc-members: http://sphinx.pocoo.org/ext/autodoc.html#directive-automodule
+         .. _undoc-members: http://www.sphinx-doc.org/en/stable/ext/autodoc.html#directive-automodule
 
    ``blueprints``
       Only include specified blueprints in generated references.
@@ -931,7 +931,7 @@ will be rendered as:
          includes members without docstrings, ``undoc-endpoints`` option has
          nothing to do with docstrings. It just excludes specified endpoints.
 
-         .. _undoc-members: http://sphinx.pocoo.org/ext/autodoc.html#directive-automodule
+         .. _undoc-members: http://www.sphinx-doc.org/en/stable/ext/autodoc.html#directive-automodule
 
    ``include-empty-docstring``
       View functions that don't have docstring (:attr:`__doc__`) are excluded
@@ -1013,7 +1013,7 @@ will be rendered as:
          includes members without docstrings, ``undoc-endpoints`` option has
          nothing to do with docstrings. It just excludes specified endpoints.
 
-         .. _undoc-members: http://sphinx.pocoo.org/ext/autodoc.html#directive-automodule
+         .. _undoc-members: http://www.sphinx-doc.org/en/stable/ext/autodoc.html#directive-automodule
 
    ``include-empty-docstring``
       View functions that don't have docstring (:attr:`__doc__`) are excluded

@@ -1,4 +1,3 @@
-
 import unittest
 
 from sphinxcontrib.autohttp.bottle import get_routes

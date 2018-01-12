@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 
 requires = [
-    'Sphinx >= 1.0',
+    'Sphinx >= 1.5',
     'six'
 ]
 
@@ -22,7 +22,7 @@ setup(
     name='sphinxcontrib-httpdomain',
     version='1.6.0',
     url='https://github.com/sphinx-contrib/httpdomain',
-    download_url='https://pypi.python.org/pypi/sphinxcontrib-httpdomain',
+    download_url='https://pypi.org/project/sphinxcontrib-httpdomain/',
     license='BSD',
     author='Hong Minhee',
     author_email='\x68\x6f\x6e\x67.minhee' '@' '\x67\x6d\x61\x69\x6c.com',
@@ -37,6 +37,9 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Documentation',
         'Topic :: Utilities',
     ],
