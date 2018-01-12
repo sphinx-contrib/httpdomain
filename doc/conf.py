@@ -10,15 +10,30 @@
 #
 # All configuration values have a default; values that are commented out
 # serve to show the default.
+from __future__ import print_function
 
+import os
 import os.path
 import sys
+
+
+if os.environ.get('READTHEDOCS'):
+    print()
+    print('CWD:', os.getcwd())
+    print('Configuration path:', os.path.abspath(__file__))
+    print('Environment variables:')
+    for key in sorted(os.environ):
+        print('  {0}={1}'.format(key, os.environ[key]))
+    print()
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-sys.path.insert(0, os.path.abspath('..'))
-sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(
+    0,
+    os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+)
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 # -- General configuration -----------------------------------------------------
 

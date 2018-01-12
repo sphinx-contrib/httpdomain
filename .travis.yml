@@ -6,7 +6,8 @@ script:
 - tox
 - '[[ "$TRAVIS_TAG" = "" ]] || [[ "$TRAVIS_TAG" = "$(python setup.py --version)" ]]'
 - |
-  if echo "$TRAVIS_COMMIT_MESSAGE" | grep '\[changelog skip\]' > /dev/null; then
+  if git show --format=%B --quiet "${TRAVIS_PULL_REQUEST_SHA:-${TRAVIS_TAG:-${TRAVIS_COMMIT}}}" \
+     | grep '\[changelog skip\]' > /dev/null; then
     echo "Skip changelog checker..."
   elif [[ "$TRAVIS_TAG" != "" ]]; then
     ! grep -i "to be released" doc/changelog.rst

@@ -12,6 +12,10 @@
    :target: https://pypi.org/project/sphinxcontrib-httpdomain/
    :alt: Latest PyPI version
 
+.. image:: https://readthedocs.org/projects/sphinxcontrib-httpdomain/badge/
+   :target: https://sphinxcontrib-httpdomain.readthedocs.io/
+   :alt: Documentation Status
+
 .. image:: https://travis-ci.org/sphinx-contrib/httpdomain.svg?branch=master
    :alt: Build Status
    :target: https://travis-ci.org/sphinx-contrib/httpdomain
