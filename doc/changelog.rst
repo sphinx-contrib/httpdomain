@@ -6,11 +6,11 @@ Changelog
 Version 1.6.0
 `````````````
 
-To be released.
+Released on January 13, 2018.
 
 - Minimum compatible version of Sphinx became changed to 1.5.
 - Fixed a bug that prevented building :mod:`sphinxcontrib.autohttp`
-  from building properly with Sphinx >=1.6.
+  from building properly with Sphinx 1.6 or higher.
   [:oldissue:`182`, :oldpull:`152` by Dave Shawley]
 - Use HTTPS for ``:rfc:`` generated links. [:oldpull:`144` by Devin Sevilla]
 - Added ``groupby`` option to :rst:dir:`autoflask` directive.  It makes
