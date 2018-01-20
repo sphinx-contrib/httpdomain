@@ -6,8 +6,9 @@ Changelog
 Version 1.6.1
 `````````````
 
-To be released.
-
+- Made :mod:`sphinxcontrib.autohttp.tornado` compatible with Tornado 4.5 and
+  newer.  `Tornado 4.5 <http://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`
+  removed the ``handlers`` attribute from ``tornado.web.Application``.
 
 Version 1.6.0
 `````````````
