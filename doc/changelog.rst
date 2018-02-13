@@ -8,6 +8,9 @@ Version 1.7.0
 
 To be released.
 
+- Remove references to the ``sphinx.util.compat`` module which was deprecated
+  in Sphinx 1.6 and removed in 1.7.
+
 
 Version 1.6.0
 `````````````
