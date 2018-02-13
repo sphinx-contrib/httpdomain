@@ -15,10 +15,9 @@ import itertools
 import six
 import collections
 
-from docutils.parsers.rst import directives
+from docutils.parsers.rst import directives, Directive
 
 from sphinx.util import force_decode
-from sphinx.util.compat import Directive
 from sphinx.util.docstrings import prepare_docstring
 from sphinx.pycode import ModuleAnalyzer
 
