@@ -46,7 +46,13 @@ def translate_tornado_rule(app, rule):
 
 
 def get_routes(app):
-    for spec in app.handlers[0][1]:
+    if hasattr(app, 'handlers'):  # tornado < 4.5
+        handlers = app.handlers[0][1]
+    elif hasattr(app, 'wildcard_router'):  # tornado > 4.5
+        handlers = app.wildcard_router.rules
+    else:  # unexpected changes
+        raise RuntimeError('get_routes cannot find routes')
+    for spec in handlers:
         handler = spec.handler_class
         doc_methods = list(handler.SUPPORTED_METHODS)
         if 'HEAD' in doc_methods:
