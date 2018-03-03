@@ -6,13 +6,14 @@ Changelog
 Version 1.6.1
 `````````````
 
-To be released.
+Released on March 3, 2018.
 
 - Remove references to the ``sphinx.util.compat`` module which was deprecated
   in Sphinx 1.6 and removed in 1.7.  [:issue:`5`, :pull:`4` by Jeremy Cline]
 - Made :mod:`sphinxcontrib.autohttp.tornado` compatible with Tornado 4.5 and
   newer.  `Tornado 4.5 <http://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`
   removed the ``handlers`` attribute from ``tornado.web.Application``.
+  [:pull:`3` by Dave Shawley]
 
 
 Version 1.6.0
