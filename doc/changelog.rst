@@ -3,6 +3,12 @@
 Changelog
 ---------
 
+Version 1.6.2
+`````````````
+
+To be released.
+
+
 Version 1.6.1
 `````````````
 
