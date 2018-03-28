@@ -66,6 +66,12 @@ def get_routes(app, endpoint=None, order=None):
             yield method, paths, endpoint
 
 
+def get_blueprint(app, view_func):
+    for name, func in app.view_functions.items():
+        if view_func is func:
+            return name.split('.')[0]
+
+
 def cleanup_methods(methods):
     autoadded_methods = frozenset(['OPTIONS', 'HEAD'])
     if methods <= autoadded_methods:
@@ -73,7 +79,7 @@ def cleanup_methods(methods):
     return methods.difference(autoadded_methods)
 
 
-def quickref_directive(method, path, content):
+def quickref_directive(method, path, content, blueprint=None, auto=False):
     rcomp = re.compile("^\s*.. :quickref:\s*(?P<quick>.*)$")
     method = method.lower().strip()
     if isinstance(content, six.string_types):
@@ -93,6 +99,12 @@ def quickref_directive(method, path, content):
             else:
                 description = quickref
             break
+
+    if auto:
+        if not description and content:
+            description = content[0]
+        if not name and blueprint:
+            name = blueprint
 
     row = {}
     row['name'] = name
@@ -115,7 +127,8 @@ class AutoflaskBase(Directive):
                    'undoc-blueprints': directives.unchanged,
                    'undoc-modules': directives.unchanged,
                    'undoc-static': directives.unchanged,
-                   'include-empty-docstring': directives.unchanged}
+                   'include-empty-docstring': directives.unchanged,
+                   'autoquickref': directives.flag}
 
     @property
     def endpoints(self):
@@ -248,8 +261,11 @@ class AutoflaskBase(Directive):
         for method, paths, view_func, view_doc in routes:
             docstring = prepare_docstring(view_doc)
             if qref:
+                auto = self.options.get("autoquickref", False) is None
+                blueprint = get_blueprint(app, view_func)
                 for path in paths:
-                    row = quickref_directive(method, path, docstring)
+                    row = quickref_directive(method, path, docstring,
+                                             blueprint, auto=auto)
                     yield row
             else:
                 for line in http_directive(method, paths, docstring):
