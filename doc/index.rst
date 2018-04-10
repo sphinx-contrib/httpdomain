@@ -376,9 +376,7 @@ nicely:
 
    .. versionadded:: 1.3.0
 
-``reqjsonarr``, ``<jsonarr``
-``resjsonarr``, ``>jsonarr``
-
+``reqjsonarr``, ``<jsonarr`` and ``resjsonarr``, ``>jsonarr``
    Similar to ``<json`` and ``>json`` respectively, but uses for describing
    objects schema inside of returned array.
 
