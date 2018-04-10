@@ -148,51 +148,51 @@ HTTP resources.
 
 will be rendered as:
 
-    .. http:get:: /users/(int:user_id)/posts/(tag)
+.. http:get:: /users/(int:user_id)/posts/(tag)
 
-       The posts tagged with `tag` that the user (`user_id`) wrote.
+   The posts tagged with `tag` that the user (`user_id`) wrote.
 
-       **Example request**:
+   **Example request**:
 
-       .. sourcecode:: http
+   .. sourcecode:: http
 
-          GET /users/123/posts/web HTTP/1.1
-          Host: example.com
-          Accept: application/json, text/javascript
+      GET /users/123/posts/web HTTP/1.1
+      Host: example.com
+      Accept: application/json, text/javascript
 
-       **Example response**:
+   **Example response**:
 
-       .. sourcecode:: http
+   .. sourcecode:: http
 
-          HTTP/1.1 200 OK
-          Vary: Accept
-          Content-Type: text/javascript
+      HTTP/1.1 200 OK
+      Vary: Accept
+      Content-Type: text/javascript
 
-          [
-            {
-              "post_id": 12345,
-              "author_id": 123,
-              "tags": ["server", "web"],
-              "subject": "I tried Nginx"
-            },
-            {
-              "post_id": 12346,
-              "author_id": 123,
-              "tags": ["html5", "standards", "web"],
-              "subject": "We go to HTML 5"
-            }
-          ]
+      [
+        {
+          "post_id": 12345,
+          "author_id": 123,
+          "tags": ["server", "web"],
+          "subject": "I tried Nginx"
+        },
+        {
+          "post_id": 12346,
+          "author_id": 123,
+          "tags": ["html5", "standards", "web"],
+          "subject": "We go to HTML 5"
+        }
+      ]
 
-       :query sort: one of ``hit``, ``created-at``
-       :query offset: offset number. default is 0
-       :query limit: limit number. default is 30
-       :reqheader Accept: the response content type depends on
-                          :mailheader:`Accept` header
-       :reqheader Authorization: optional OAuth token to authenticate
-       :resheader Content-Type: this depends on :mailheader:`Accept`
-                                header of request
-       :statuscode 200: no error
-       :statuscode 404: there's no user
+   :query sort: one of ``hit``, ``created-at``
+   :query offset: offset number. default is 0
+   :query limit: limit number. default is 30
+   :reqheader Accept: the response content type depends on
+                      :mailheader:`Accept` header
+   :reqheader Authorization: optional OAuth token to authenticate
+   :resheader Content-Type: this depends on :mailheader:`Accept`
+                            header of request
+   :statuscode 200: no error
+   :statuscode 404: there's no user
 
 Of course, :ref:`roles <roles>` that refer the directives as well.
 For example:
@@ -203,7 +203,7 @@ For example:
 
 will render like:
 
-    :http:get:`/users/(int:user_id)/posts/(tag)`
+:http:get:`/users/(int:user_id)/posts/(tag)`
 
 
 .. _directives:
@@ -376,9 +376,7 @@ nicely:
 
    .. versionadded:: 1.3.0
 
-``reqjsonarr``, ``<jsonarr``
-``resjsonarr``, ``>jsonarr``
-
+``reqjsonarr``, ``<jsonarr`` and ``resjsonarr``, ``>jsonarr``
    Similar to ``<json`` and ``>json`` respectively, but uses for describing
    objects schema inside of returned array.
 
@@ -444,27 +442,27 @@ For example:
 
 It will render like this:
 
-    .. http:post:: /posts/(int:post_id)
+.. http:post:: /posts/(int:post_id)
 
-       Replies a comment to the post.
+   Replies a comment to the post.
 
-       :param post_id: post's unique id
-       :type post_id: int
-       :form email: author email address
-       :form body: comment body
-       :reqheader Accept: the response content type depends on
-                          :mailheader:`Accept` header
-       :reqheader Authorization: optional OAuth token to authenticate
-       :resheader Content-Type: this depends on :mailheader:`Accept`
-                                header of request
-       :status 302: and then redirects to :http:get:`/posts/(int:post_id)`
-       :status 400: when form parameters are missing
+   :param post_id: post's unique id
+   :type post_id: int
+   :form email: author email address
+   :form body: comment body
+   :reqheader Accept: the response content type depends on
+                      :mailheader:`Accept` header
+   :reqheader Authorization: optional OAuth token to authenticate
+   :resheader Content-Type: this depends on :mailheader:`Accept`
+                            header of request
+   :status 302: and then redirects to :http:get:`/posts/(int:post_id)`
+   :status 400: when form parameters are missing
 
-    .. http:get:: /posts/(int:post_id)
+.. http:get:: /posts/(int:post_id)
 
-       Fetches the post
+   Fetches the post
 
-       (...)
+   (...)
 
 .. _roles:
 
@@ -526,8 +524,8 @@ Roles
 
    will be rendered as:
 
-       - :http:statuscode:`404`
-       - :http:statuscode:`200 OK`
+   - :http:statuscode:`404`
+   - :http:statuscode:`200 OK`
 
    .. versionchanged:: 1.3.0
       It becomes to provide references to specification sections.
@@ -545,7 +543,7 @@ Roles
 
    It will render like this:
 
-       It accepts :http:method:`post` only.
+   It accepts :http:method:`post` only.
 
 .. rst:role:: mimetype
 
@@ -651,8 +649,8 @@ For example:
 
 will be rendered as:
 
-    .. autoflask:: autoflask_sampleapp:app
-       :undoc-static:
+.. autoflask:: autoflask_sampleapp:app
+   :undoc-static:
 
 .. rst:directive:: .. autoflask:: module:app
 
@@ -860,8 +858,8 @@ The quick reference table is defined as:
 Using the autoflask_sampleapp with *.. :quickref:* annotations,
 this is rendered as:
 
-   .. qrefflask:: autoflask_sampleapp:app
-      :undoc-static:
+.. qrefflask:: autoflask_sampleapp:app
+  :undoc-static:
 
 
 .. module:: sphinxcontrib.autohttp.bottle
@@ -885,7 +883,7 @@ For example:
 
 will be rendered as:
 
-    .. autobottle:: autobottle_sampleapp:app
+.. autobottle:: autobottle_sampleapp:app
 
 .. rst:directive:: .. autobottle:: module:app
 
@@ -972,7 +970,7 @@ For example:
 
 will be rendered as:
 
-    .. autotornado:: autotornado_sampleapp:app
+.. autotornado:: autotornado_sampleapp:app
 
 .. rst:directive:: .. autotornado:: module:app
 
