@@ -55,7 +55,7 @@ def get_routes(app):
     for spec in handlers:
         if hasattr(spec, 'target'):
             handler = spec.target
-        elif hasattr(spec, 'hander_class'):
+        elif hasattr(spec, 'handler_class'):
             handler = spec.handler_class
         else:
             raise RuntimeError('Could not determine route handler.')
