@@ -8,6 +8,9 @@ Version 1.6.2
 
 To be released.
 
+- Implement ``:autoquickref:`` option that use available informations to
+  build a ``quickref``. [:pull:`9` by Alexandre Bonnetain]
+
 
 Version 1.6.1
 `````````````
