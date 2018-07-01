@@ -8,6 +8,8 @@ Version 1.7.0
 
 To be released.
 
+- Implemented ``:autoquickref:`` option that use available informations to
+  build a ``quickref``. [:pull:`9` by Alexandre Bonnetain]
 - Improved :mod:`sphinxcontrib.autohttp.tornado` compatibility with Tornado
   4.5 and newer. `Tornado 4.5 <http://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`
   introduced the ``Rule`` class and made ``URLSpec`` a subclass of it, so certain
