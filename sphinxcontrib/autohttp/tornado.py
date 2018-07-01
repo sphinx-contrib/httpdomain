@@ -45,15 +45,35 @@ def translate_tornado_rule(app, rule):
     return buf.getvalue()
 
 
-def get_routes(app):
+def _locate_regex(spec):
+    if hasattr(spec, 'regex'):
+        return spec.regex
+    elif hasattr(spec, 'matcher'):
+        return spec.matcher.regex
+    else:
+        raise RuntimeError('Could not determine route rules.')
+
+
+def _locate_target(spec):
+    if hasattr(spec, 'target'):
+        return spec.target
+    elif hasattr(spec, 'handler_class'):
+        return spec.handler_class
+    raise RuntimeError('get_routes cannot find target for {}'.format(spec))
+
+
+def _locate_handlers(app):
     if hasattr(app, 'handlers'):  # tornado < 4.5
-        handlers = app.handlers[0][1]
+        return app.handlers[0][1]
     elif hasattr(app, 'wildcard_router'):  # tornado > 4.5
-        handlers = app.wildcard_router.rules
+        return app.wildcard_router.rules
     else:  # unexpected changes
         raise RuntimeError('get_routes cannot find routes')
-    for spec in handlers:
-        handler = spec.handler_class
+
+
+def get_routes(app):
+    for spec in _locate_handlers(app):
+        handler = _locate_target(spec)
         doc_methods = list(handler.SUPPORTED_METHODS)
         if 'HEAD' in doc_methods:
             doc_methods.remove('HEAD')
@@ -64,7 +84,8 @@ def get_routes(app):
             maybe_method = getattr(handler, method.lower(), None)
             if (inspect.isfunction(maybe_method) or
                     inspect.ismethod(maybe_method)):
-                yield method.lower(), spec.regex.pattern, handler
+                regex = _locate_regex(spec)
+                yield method.lower(), regex.pattern, handler
 
 
 def normalize_path(path):

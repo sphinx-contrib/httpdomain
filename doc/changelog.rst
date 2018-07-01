@@ -8,6 +8,11 @@ Version 1.7.0
 
 To be released.
 
+- Improved :mod:`sphinxcontrib.autohttp.tornado` compatibility with Tornado
+  4.5 and newer. `Tornado 4.5 <http://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`
+  introduced the ``Rule`` class and made ``URLSpec`` a subclass of it, so certain
+  rule attributes required updating. [:issue:`7`, :pull:`11` by Robert Zeigler]
+
 
 Version 1.6.1
 `````````````
