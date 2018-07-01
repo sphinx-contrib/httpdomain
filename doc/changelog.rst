@@ -6,7 +6,7 @@ Changelog
 Version 1.7.0
 `````````````
 
-To be released.
+Released on July 1, 2018.
 
 - Implemented ``:autoquickref:`` option that use available informations to
   build a ``quickref``. [:pull:`9` by Alexandre Bonnetain]
