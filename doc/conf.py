@@ -42,11 +42,7 @@ sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinxcontrib.httpdomain', 'sphinxcontrib.autohttp.flask',
-              'sphinxcontrib.autohttp.flaskqref',
-              'sphinxcontrib.autohttp.bottle',
-              'sphinxcontrib.autohttp.tornado',
-              'sphinx.ext.extlinks']
+extensions = ['sphinxcontrib.httpdomain']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
