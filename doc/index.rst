@@ -8,6 +8,45 @@
 :mod:`sphinxcontrib.httpdomain` --- Sphinx domain for documenting HTTP APIs
 ===========================================================================
 
+.. image:: https://badge.fury.io/py/sphinxcontrib-httpdomain.svg
+   :target: https://pypi.org/project/sphinxcontrib-httpdomain/
+   :alt: Latest PyPI version
+
+.. image:: https://readthedocs.org/projects/sphinxcontrib-httpdomain/badge/
+   :target: https://sphinxcontrib-httpdomain.readthedocs.io/
+   :alt: Documentation Status
+
+.. image:: https://travis-ci.org/sphinx-contrib/httpdomain.svg?branch=master
+   :alt: Build Status
+   :target: https://travis-ci.org/sphinx-contrib/httpdomain
+
+This contrib extension, :mod:`sphinxcontrib.httpdomain`, provides a Sphinx
+domain for describing HTTP APIs.
+
+.. seealso::
+
+   We might support reflection for web framework your webapp depends on.
+   See the following :mod:`sphinxcontrib.autohttp` modules:
+
+   Module :mod:`sphinxcontrib.autohttp.flask`
+      Reflection for Flask_ webapps.
+
+   Module :mod:`sphinxcontrib.autohttp.flaskqref` 
+      Quick reference rendering with :mod:`sphinxcontrib.autohttp.flask`
+
+   Module :mod:`sphinxcontrib.autohttp.bottle`
+      Reflection for Bottle_ webapps.
+
+   Module :mod:`sphinxcontrib.autohttp.tornado`
+      Reflection for Tornado_ webapps.
+
+
+In order to use it, add :mod:`sphinxcontrib.httpdomain` into
+:data:`extensions` list of your Sphinx configuration file (:file:`conf.py`)::
+
+    extensions = ['sphinxcontrib.httpdomain']
+
+
 Additional Configuration
 ------------------------
 
@@ -1016,4 +1055,3 @@ __ https://github.com/sphinx-contrib
 
 
 .. include:: changelog.rst
-
