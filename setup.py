@@ -19,10 +19,10 @@ def readme():
 
 
 setup(
-    name='sphinxcontrib-httpdomain',
+    name='test',
     version='1.7.0',
-    url='https://github.com/sphinx-contrib/httpdomain',
-    download_url='https://pypi.org/project/sphinxcontrib-httpdomain/',
+    url='https://github.com/',
+    download_url='https://pypi.org/project/',
     license='BSD',
     author='Hong Minhee',
     author_email='\x68\x6f\x6e\x67.minhee' '@' '\x67\x6d\x61\x69\x6c.com',
@@ -47,5 +47,4 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=requires,
-    namespace_packages=['sphinxcontrib'],
 )
