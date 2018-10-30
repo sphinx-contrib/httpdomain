@@ -809,7 +809,8 @@ of your configuration (:file:`conf.py`) file::
 
    Generates HTTP API references from a Flask application and places these
    in a list-table with quick reference links. The usage and options are identical
-   to that of :mod:`sphinxcontrib.autohttp.flask`
+   to that of :mod:`sphinxcontrib.autohttp.flask` with the addition of the
+   ``autoquickref`` option.
 
 
 Basic usage
@@ -818,8 +819,9 @@ Basic usage
 You typically would place the quick reference table near the top of your docco
 and use *.. autoflask::* further down.
 
-Routes that are to be included in the quick reference table require 
-the following rst comment to be added to their doc string:
+Unless you use the ``autoquickref`` option, routes that are to be included in
+the quick reference table require the following rst comment to be added to their
+doc string:
 
 .. sourcecode:: rst
 
@@ -834,6 +836,10 @@ The table is grouped and sorted by <resource>.
 
 ``<short description>``
    A brief description what the operation does.
+
+If you use the ``autoquickref`` option, all routes must be inside blueprints.
+The ``<resource>`` will be set to the blueprint's name, and the ``<short
+description>`` will be set to the first line of the docstring.
 
 For example:
 
