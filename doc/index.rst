@@ -31,7 +31,7 @@ domain for describing HTTP APIs.
    Module :mod:`sphinxcontrib.autohttp.flask`
       Reflection for Flask_ webapps.
 
-   Module :mod:`sphinxcontrib.autohttp.flaskqref` 
+   Module :mod:`sphinxcontrib.autohttp.flaskqref`
       Quick reference rendering with :mod:`sphinxcontrib.autohttp.flask`
 
    Module :mod:`sphinxcontrib.autohttp.bottle`
@@ -204,6 +204,14 @@ For example:
 will render like:
 
     :http:get:`/users/(int:user_id)/posts/(tag)`
+
+If you want to reference the generated routing table, you can use:
+
+.. sourcecode:: rst
+
+   :ref:`routingtable`
+
+.. versionadded:: 1.8.0
 
 
 .. _directives:
@@ -797,7 +805,7 @@ will be rendered as:
 This generates a quick API reference table for the route documentation
 produced by :mod:`sphinxcontrib.autohttp.flask`
 
-To use it, both :mod:`sphinxcontrib.autohttp.flask` and :mod:`sphinxcontrib.autohttp.flaskqref` need to be added into the extensions 
+To use it, both :mod:`sphinxcontrib.autohttp.flask` and :mod:`sphinxcontrib.autohttp.flaskqref` need to be added into the extensions
 of your configuration (:file:`conf.py`) file::
 
     extensions = ['sphinxcontrib.autohttp.flask',
@@ -818,7 +826,7 @@ Basic usage
 You typically would place the quick reference table near the top of your docco
 and use *.. autoflask::* further down.
 
-Routes that are to be included in the quick reference table require 
+Routes that are to be included in the quick reference table require
 the following rst comment to be added to their doc string:
 
 .. sourcecode:: rst
@@ -830,7 +838,7 @@ The table is grouped and sorted by <resource>.
 
 ``<resource>``
    This is the resource name of the operation.  The name maybe the same for a number
-   of operations and enables grouping these together. 
+   of operations and enables grouping these together.
 
 ``<short description>``
    A brief description what the operation does.
@@ -844,8 +852,8 @@ For example:
         """User profile page.
 
         .. :quickref: User; Get Profile Page
-     
-        my docco here   
+
+        my docco here
         """
         return 'hi, ' + user
 

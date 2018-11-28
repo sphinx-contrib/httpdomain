@@ -8,6 +8,9 @@ Version 1.8.0
 
 To be released.
 
+- Make the generated routing table referencable using the 'routingtable'
+  label. [:pull:`19` by David Douard]
+
 
 Version 1.7.0
 `````````````
