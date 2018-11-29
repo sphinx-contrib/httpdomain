@@ -24,6 +24,7 @@ from sphinx.domains import Domain, ObjType, Index
 from sphinx.directives import ObjectDescription, directives
 from sphinx.util.nodes import make_refnode
 from sphinx.util.docfields import GroupedField, TypedField
+from sphinx.locale import _
 
 # The env.get_doctree() lookup results in a pickle.load() call which is
 # expensive enough to dominate the runtime entirely when the number of endpoints
@@ -757,8 +758,16 @@ class HTTPLexer(RegexLexer):
     }
 
 
+def register_routingtable_as_label(app, document):
+    labels = app.env.domaindata['std']['labels']
+    labels['routingtable'] = 'http-routingtable', '', _('HTTP Routing Table')
+    anonlabels = app.env.domaindata['std']['anonlabels']
+    anonlabels['routingtable'] = 'http-routingtable', ''
+
+
 def setup(app):
     app.add_domain(HTTPDomain)
+    app.connect('doctree-read', register_routingtable_as_label)
 
     try:
         get_lexer_by_name('http')
