@@ -15,21 +15,27 @@ import re
 from itertools import chain
 
 from docutils import nodes
-from docutils.parsers.rst import Directive
+from docutils.parsers.rst import Directive, directives
 from docutils.statemachine import ViewList
 
 from sphinx.util.nodes import nested_parse_with_titles
 from sphinxcontrib.autohttp.common import http_directive
 
 
-def get_routes():
+def chain_routes(schema):
+    if schema.data:
+        yield from chain(*map(lambda x: chain_routes(x), schema.data.values()))
+    elif schema.links:
+        yield from schema.links.values()
+
+
+def get_routes(urlconf=None):
     from rest_framework.schemas import SchemaGenerator
     generator = SchemaGenerator(
         title=None, url=None, description=None,
-        urlconf=None, patterns=None,
+        urlconf=urlconf, patterns=None,
     )
-    for link in chain(*map(lambda x: x.links.values(), generator.get_schema().data.values())):
-        yield link
+    yield from chain_routes(generator.get_schema())
 
 
 def get_schema_type(schema):
@@ -45,11 +51,19 @@ class AutoDRFDirective(Directive):
 
     has_content = True
     required_arguments = 0
-    option_spec = {}
+    option_spec = {
+        'urlconf': directives.unchanged,
+    }
+
+    @property
+    def urlconf(self):
+        urlconf = self.options.get('urlconf', None)
+        if not urlconf:
+            return None
+        return urlconf
 
     def make_rst(self):
-        for link in get_routes():
-            pass
+        for link in get_routes(self.urlconf):
             for line in http_directive(link.action, link.url, link.description):
                 yield line
             for field in link.fields:
@@ -58,7 +72,7 @@ class AutoDRFDirective(Directive):
                 if type_:
                     line += '{} '.format(type_)
                 line += '{}: {}'.format(field.name, field.description or field.schema.description)
-                if type_ == 'choice':
+                if type_ == 'choice' and len(field.schema.enum) < 30:
                     line += ' **Choices:** {}'.format(', '.join(map(lambda x: '*"{}"*'.format(x), field.schema.enum)))
                 yield line
 
