@@ -53,13 +53,13 @@ class AutoDRFDirective(Directive):
             for line in http_directive(link.action, link.url, link.description):
                 yield line
             for field in link.fields:
-                line = '   :{} '.format({'form': '<json', 'query': 'query', 'path': '<json'}[field.location])
+                line = '   :{} '.format({'form': '<json', 'query': 'query', 'path': 'param'}[field.location])
                 type_ = get_schema_type(field.schema)
                 if type_:
                     line += '{} '.format(type_)
                 line += '{}: {}'.format(field.name, field.description or field.schema.description)
                 if type_ == 'choice':
-                    line += ' **Choices:** {}.'.format(', '.join(map(lambda x: '*"{}"*'.format(x), field.schema.enum)))
+                    line += ' **Choices:** {}'.format(', '.join(map(lambda x: '*"{}"*'.format(x), field.schema.enum)))
                 yield line
 
 
