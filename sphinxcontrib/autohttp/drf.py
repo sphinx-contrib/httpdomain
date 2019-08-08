@@ -10,8 +10,6 @@
 
 """
 
-import inspect
-import re
 from itertools import chain
 
 from docutils import nodes
@@ -29,13 +27,17 @@ def chain_routes(schema):
         yield from schema.links.values()
 
 
-def get_routes(urlconf=None):
-    from rest_framework.schemas import SchemaGenerator
-    generator = SchemaGenerator(
+def get_routes(urlconf=None, modules=None):
+    generator = get_schema_generator_class()(
         title=None, url=None, description=None,
-        urlconf=urlconf, patterns=None,
+        urlconf=urlconf, patterns=None, modules=modules,
     )
     yield from chain_routes(generator.get_schema())
+
+
+# def get_modules(modules=None):
+#     from django.utils.module_loading import import_string
+#     return [import_string(module) for module in map(lambda x: x.strip(), modules.split(','))]
 
 
 def get_schema_type(schema):
@@ -47,12 +49,51 @@ def get_schema_type(schema):
     }.get(schema.__class__.__name__)
 
 
+def issubmodule(cls, modules):
+    modules = list(map(lambda x: '{}.'.format(x), modules))
+    mod = cls.__module__
+    print(mod, modules)
+    return bool(next(filter(lambda x: mod.startswith(x), modules), None))
+
+
+def get_schema_generator_class():
+    from rest_framework.schemas.generators import EndpointEnumerator
+    from rest_framework.schemas import SchemaGenerator
+
+    class HttpDomainEndpointEnumerator(EndpointEnumerator):
+        modules = None
+
+        def get_api_endpoints(self, patterns=None, prefix=''):
+            endpoints = super(HttpDomainEndpointEnumerator, self).get_api_endpoints(patterns, prefix)
+            endpoints = map(lambda x: x, endpoints)
+            if self.modules:
+                endpoints = list(filter(lambda x: issubmodule(x[2].cls, self.modules), endpoints))
+            return endpoints
+
+
+    class HttpDomainSchemaGenerator(SchemaGenerator):
+        def __init__(self, title=None, url=None, description=None, patterns=None, urlconf=None, modules=None):
+            super(HttpDomainSchemaGenerator, self).__init__(title, url, description, patterns, urlconf)
+            self.modules = modules
+
+        @property
+        def endpoint_inspector_cls(self):
+            """Create a new class with the modules attribute. There is no possibility to put
+            the argument when starting the instance
+            """
+            class EndpointEnumerator(HttpDomainEndpointEnumerator):
+                modules = self.modules
+            return EndpointEnumerator
+    return HttpDomainSchemaGenerator
+
+
 class AutoDRFDirective(Directive):
 
     has_content = True
     required_arguments = 0
     option_spec = {
         'urlconf': directives.unchanged,
+        'modules': directives.unchanged,
     }
 
     @property
@@ -62,8 +103,19 @@ class AutoDRFDirective(Directive):
             return None
         return urlconf
 
+    @property
+    def modules(self):
+        return self.options.get('modules', None) or None
+
     def make_rst(self):
-        for link in get_routes(self.urlconf):
+        if self.modules:
+            modules = [module.strip() for module in self.modules.split(',')]
+        else:
+            modules = []
+        links = get_routes(self.urlconf, modules)
+        # if self.modules:
+        #     links =
+        for link in links:
             for line in http_directive(link.action, link.url, link.description):
                 yield line
             for field in link.fields:
@@ -75,7 +127,6 @@ class AutoDRFDirective(Directive):
                 if type_ == 'choice' and len(field.schema.enum) < 30:
                     line += ' **Choices:** {}'.format(', '.join(map(lambda x: '*"{}"*'.format(x), field.schema.enum)))
                 yield line
-
 
     def run(self):
         node = nodes.section()
