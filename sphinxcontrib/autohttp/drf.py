@@ -52,7 +52,6 @@ def get_schema_type(schema):
 def issubmodule(cls, modules):
     modules = list(map(lambda x: '{}.'.format(x), modules))
     mod = cls.__module__
-    print(mod, modules)
     return bool(next(filter(lambda x: mod.startswith(x), modules), None))
 
 
