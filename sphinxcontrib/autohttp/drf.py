@@ -20,6 +20,16 @@ from sphinx.util.nodes import nested_parse_with_titles
 from sphinxcontrib.autohttp.common import http_directive
 
 
+LEVELS = [
+    '#',
+    '*',
+    '=',
+    '-',
+    '^',
+    '"',
+]
+
+
 def chain_routes(schema):
     if schema.data:
         yield from chain(*map(lambda x: chain_routes(x), schema.data.values()))
@@ -32,7 +42,7 @@ def get_routes(urlconf=None, modules=None):
         title=None, url=None, description=None,
         urlconf=urlconf, patterns=None, modules=modules,
     )
-    yield from chain_routes(generator.get_schema())
+    return generator.get_schema()
 
 
 # def get_modules(modules=None):
@@ -93,6 +103,7 @@ class AutoDRFDirective(Directive):
     option_spec = {
         'urlconf': directives.unchanged,
         'modules': directives.unchanged,
+        'titles': directives.unchanged,
     }
 
     @property
@@ -106,29 +117,49 @@ class AutoDRFDirective(Directive):
     def modules(self):
         return self.options.get('modules', None) or None
 
+    @property
+    def titles(self):
+        titles = self.options.get('titles', None)
+        if titles:
+            return int(titles.strip())
+
     def make_rst(self):
         if self.modules:
             modules = [module.strip() for module in self.modules.split(',')]
         else:
             modules = []
-        links = get_routes(self.urlconf, modules)
+        schema = get_routes(self.urlconf, modules)
+        yield from self.get_schema_lines(schema, self.titles)
         # if self.modules:
         #     links =
-        for link in links:
-            for line in http_directive(link.action, link.url, link.description):
-                yield line
-            for field in link.fields:
-                if (link.action != 'get' or '{id}' in link.url) and field.location == 'query':
-                    # Ignore query params in PUT/PATCH/etc.
-                    continue
-                line = '   :{} '.format({'form': '<json', 'query': 'query', 'path': 'param'}[field.location])
-                type_ = get_schema_type(field.schema)
-                if type_:
-                    line += '{} '.format(type_)
-                line += '{}: {}'.format(field.name, field.description or field.schema.description)
-                if type_ == 'choice' and len(field.schema.enum) < 30:
-                    line += ' **Choices:** {}'.format(', '.join(map(lambda x: '*"{}"*'.format(x), field.schema.enum)))
-                yield line
+
+    def get_schema_lines(self, schema, titles_level):
+        if schema.data:
+            for title, sub_schema in schema.data.items():
+                if titles_level:
+                    yield title.title().replace('_', ' ')
+                    yield LEVELS[(titles_level + 1) % len(LEVELS)] * len(title)
+                yield from self.get_schema_lines(sub_schema, (titles_level + 1) if titles_level else None)
+            # yield from chain(*map(lambda x: chain_routes(x), schema.data.values()))
+        elif schema.links:
+            for link_name, link in schema.links.items():
+                yield from self.get_link_lines(link_name, link)
+
+    def get_link_lines(self, link_name, link):
+        for line in http_directive(link.action, link.url, link.description):
+            yield line
+        for field in link.fields:
+            if link_name != 'list' and field.location == 'query':
+                # Ignore query params in PUT/PATCH/etc.
+                continue
+            line = '   :{} '.format({'form': '<json', 'query': 'query', 'path': 'param'}[field.location])
+            type_ = get_schema_type(field.schema)
+            if type_:
+                line += '{} '.format(type_)
+            line += '{}: {}'.format(field.name, field.description or field.schema.description)
+            if type_ == 'choice' and len(field.schema.enum) < 30:
+                line += ' **Choices:** {}'.format(', '.join(map(lambda x: '*"{}"*'.format(x), field.schema.enum)))
+            yield line
 
     def run(self):
         node = nodes.section()
