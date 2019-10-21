@@ -118,6 +118,9 @@ class AutoDRFDirective(Directive):
             for line in http_directive(link.action, link.url, link.description):
                 yield line
             for field in link.fields:
+                if (link.action != 'get' or '{id}' in link.url) and field.location == 'query':
+                    # Ignore query params in PUT/PATCH/etc.
+                    continue
                 line = '   :{} '.format({'form': '<json', 'query': 'query', 'path': 'param'}[field.location])
                 type_ = get_schema_type(field.schema)
                 if type_:
