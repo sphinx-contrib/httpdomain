@@ -137,8 +137,10 @@ class AutoDRFDirective(Directive):
         if schema.data:
             for title, sub_schema in schema.data.items():
                 if titles_level:
+                    yield ''
                     yield title.title().replace('_', ' ')
                     yield LEVELS[(titles_level + 1) % len(LEVELS)] * len(title)
+                    yield ''
                 yield from self.get_schema_lines(sub_schema, (titles_level + 1) if titles_level else None)
             # yield from chain(*map(lambda x: chain_routes(x), schema.data.values()))
         elif schema.links:
