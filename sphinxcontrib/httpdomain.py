@@ -26,6 +26,8 @@ from sphinx.util.nodes import make_refnode
 from sphinx.util.docfields import GroupedField, TypedField
 from sphinx.locale import _
 
+from typing import Set, Dict
+
 # The env.get_doctree() lookup results in a pickle.load() call which is
 # expensive enough to dominate the runtime entirely when the number of endpoints
 # and references is large enough. The doctrees are generated during the read-
@@ -692,6 +694,9 @@ class HTTPDomain(Domain):
                 anchor = http_resource_anchor(method, path)
                 yield (path, path, method, info[0], anchor, 1)
 
+    def merge_domaindata(self, docnames: Set[str], otherdata: Dict) -> None:
+        for x in ('options', 'head', 'post', 'get', 'put', 'patch', 'delete', 'trace', 'connect', 'copy', 'any'):
+            self.data[x].update(otherdata[x])
 
 class HTTPLexer(RegexLexer):
     """Lexer for HTTP sessions."""
@@ -778,3 +783,5 @@ def setup(app):
     app.add_config_value('http_index_localname', 'HTTP Routing Table', True)
     app.add_config_value('http_strict_mode', True, None)
     app.add_config_value('http_headers_ignore_prefixes', ['X-'], None)
+    return {"parallel_read_safe": True,
+            "parallel_write_safe": True}
