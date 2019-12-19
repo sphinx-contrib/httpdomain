@@ -692,7 +692,7 @@ class HTTPDomain(Domain):
                 anchor = http_resource_anchor(method, path)
                 yield (path, path, method, info[0], anchor, 1)
 
-    def merge_domaindata(self, docnames, otherdata) -> None:
+    def merge_domaindata(self, docnames, otherdata):
         """Merge domaindata from the workers/chunks when they return.
 
         Called once per parallelization chunk.
