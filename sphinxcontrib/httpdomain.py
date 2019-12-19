@@ -26,8 +26,6 @@ from sphinx.util.nodes import make_refnode
 from sphinx.util.docfields import GroupedField, TypedField
 from sphinx.locale import _
 
-from typing import Set, Dict
-
 # The env.get_doctree() lookup results in a pickle.load() call which is
 # expensive enough to dominate the runtime entirely when the number of endpoints
 # and references is large enough. The doctrees are generated during the read-
@@ -694,7 +692,15 @@ class HTTPDomain(Domain):
                 anchor = http_resource_anchor(method, path)
                 yield (path, path, method, info[0], anchor, 1)
 
-    def merge_domaindata(self, docnames: Set[str], otherdata: Dict) -> None:
+    def merge_domaindata(self, docnames, otherdata) -> None:
+        """Merge domaindata from the workers/chunks when they return.
+
+        Called once per parallelization chunk.
+        Only used when sphinx is run in parallel mode.
+
+        :param docnames: a Set of the docnames that are part of the current chunk to merge
+        :param otherdata: the partial data calculated by the current chunk
+        """
         for x in ('options', 'head', 'post', 'get', 'put', 'patch', 'delete', 'trace', 'connect', 'copy', 'any'):
             self.data[x].update(otherdata[x])
 
