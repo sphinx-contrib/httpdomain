@@ -10,6 +10,7 @@ To be released.
 
 - Make the generated routing table referencable using the 'routingtable'
   label. [:pull:`19` by David Douard]
+- Add support for parallel sphinx builds. [:pull:`31` by Daniel Hofmann]
 
 
 Version 1.7.0
