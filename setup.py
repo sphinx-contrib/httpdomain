@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 
 requires = [
-    'Sphinx >= 1.5',
+    'Sphinx >= 1.6',
     'six',
 ]
 
