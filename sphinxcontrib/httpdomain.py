@@ -22,9 +22,12 @@ from sphinx import addnodes
 from sphinx.roles import XRefRole
 from sphinx.domains import Domain, ObjType, Index
 from sphinx.directives import ObjectDescription, directives
+from sphinx.util import logging
 from sphinx.util.nodes import make_refnode
 from sphinx.util.docfields import GroupedField, TypedField
 from sphinx.locale import _
+
+logger = logging.getLogger(__name__)
 
 # The env.get_doctree() lookup results in a pickle.load() call which is
 # expensive enough to dominate the runtime entirely when the number of endpoints
@@ -702,7 +705,17 @@ class HTTPDomain(Domain):
         :param otherdata: the partial data calculated by the current chunk
         """
         for typ in self.object_types:
-            self.data[typ].update(otherdata[typ])
+            self_data = self.data[typ]
+            other_data = otherdata[typ]
+            for entry_point_name, entry_point_data in other_data.items():
+                if entry_point_name in self_data:
+                    logger.warning('duplicate HTTP %s method definition %s in %s, '
+                                   'other instance is in %s' %
+                                   (typ, entry_point_name,
+                                    self.env.doc2path(other_data[entry_point_name][0]),
+                                    self.env.doc2path(self_data[entry_point_name][0])))
+                else:
+                    self_data[entry_point_name] = entry_point_data
 
 class HTTPLexer(RegexLexer):
     """Lexer for HTTP sessions."""
