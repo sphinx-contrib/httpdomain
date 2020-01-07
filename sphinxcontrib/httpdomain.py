@@ -701,8 +701,8 @@ class HTTPDomain(Domain):
         :param docnames: a Set of the docnames that are part of the current chunk to merge
         :param otherdata: the partial data calculated by the current chunk
         """
-        for x in ('options', 'head', 'post', 'get', 'put', 'patch', 'delete', 'trace', 'connect', 'copy', 'any'):
-            self.data[x].update(otherdata[x])
+        for verb in self.object_types:
+            self.data[verb].update(otherdata[verb])
 
 class HTTPLexer(RegexLexer):
     """Lexer for HTTP sessions."""
