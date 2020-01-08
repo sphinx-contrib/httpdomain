@@ -25,19 +25,23 @@ from sphinx.directives import ObjectDescription, directives
 from sphinx.util import logging
 from sphinx.util.nodes import make_refnode
 from sphinx.util.docfields import GroupedField, TypedField
+from sphinx.util.docutils import LoggingReporter
 from sphinx.locale import _
 
 logger = logging.getLogger(__name__)
 
-# The env.get_doctree() lookup results in a pickle.load() call which is
-# expensive enough to dominate the runtime entirely when the number of endpoints
-# and references is large enough. The doctrees are generated during the read-
-# phase and we can cache their lookup during the write-phase significantly
-# improving performance.
-# Currently sphinxcontrib-httpdomain does not declare to support parallel read
-# support (parallel_read_safe is the default False) so we can simply use a
-# module global to hold the cache.
-_doctree_cache = {}
+
+class DummyDocument(object):
+    """Used where the signature requires a docutils.node.Document but only its reporter
+    is being used.
+
+    This helps avoiding the need to unpickle the document in some situations for
+    performance reasons. XXX: Is this really a performance problem (may be resolved
+    with a newer sphinx version) ?
+    """
+
+    def __init__(self, reporter):
+        self.reporter = reporter
 
 
 class DocRef(object):
@@ -414,6 +418,9 @@ class HTTPXRefRole(XRefRole):
             title = self.method.upper() + ' ' + title
         return title, target
 
+    def result_nodes(self, document, env, node, is_ref):
+        return [node], []
+
 
 class HTTPXRefMethodRole(XRefRole):
 
@@ -657,10 +664,7 @@ class HTTPDomain(Domain):
             if role is None:
                 return None
 
-            if fromdocname not in _doctree_cache:
-                _doctree_cache[fromdocname] = env.get_doctree(fromdocname)
-            doctree = _doctree_cache[fromdocname]
-
+            doctree = DummyDocument(LoggingReporter(env.doc2path(fromdocname)))
             resnode = role.result_nodes(doctree, env, node, None)[0][0]
             if isinstance(resnode, addnodes.pending_xref):
                 text = node[0][0]
