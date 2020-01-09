@@ -35,9 +35,10 @@ class DummyDocument(object):
     """Used where the signature requires a docutils.node.Document but only its reporter
     is being used.
 
-    This helps avoiding the need to unpickle the document in some situations for
-    performance reasons. XXX: Is this really a performance problem (may be resolved
-    with a newer sphinx version) ?
+    Up until the current Sphinx 2.3.1 calls to env.get_doctree() (which would get
+    us said docutils.node.Document) result in pickle.load() calls which are expensive
+    enough to dominate the runtime entirely when the number of endpoints and references
+    is large enough.
     """
 
     def __init__(self, reporter):
