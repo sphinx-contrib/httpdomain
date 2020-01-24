@@ -25,7 +25,7 @@ from sphinx.directives import ObjectDescription, directives
 from sphinx.util import logging
 from sphinx.util.nodes import make_refnode
 from sphinx.util.docfields import GroupedField, TypedField
-from sphinx.util.docutils import LoggingReporter
+from sphinx.util.docutils import Reporter, LoggingReporter
 from sphinx.locale import _
 
 logger = logging.getLogger(__name__)
@@ -665,7 +665,10 @@ class HTTPDomain(Domain):
             if role is None:
                 return None
 
-            doctree = DummyDocument(LoggingReporter(env.doc2path(fromdocname)))
+            reporter = LoggingReporter(env.doc2path(fromdocname),
+                                       report_level=Reporter.WARNING_LEVEL,
+                                       halt_level=Reporter.SEVERE_LEVEL)
+            doctree = DummyDocument(reporter)
             resnode = role.result_nodes(doctree, env, node, None)[0][0]
             if isinstance(resnode, addnodes.pending_xref):
                 text = node[0][0]
