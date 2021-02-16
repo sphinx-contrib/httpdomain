@@ -1,8 +1,3 @@
-.. sphinxcontrib-httpdomain documentation master file, created by
-   sphinx-quickstart on Thu Jun  2 13:27:52 2011.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 .. module:: sphinxcontrib.httpdomain
 
 :mod:`sphinxcontrib.httpdomain` --- Sphinx domain for documenting HTTP APIs
@@ -16,7 +11,7 @@
    :target: https://sphinxcontrib-httpdomain.readthedocs.io/
    :alt: Documentation Status
 
-.. image:: https://travis-ci.org/sphinx-contrib/httpdomain.svg?branch=master
+.. image:: https://travis-ci.org/sphinx-contrib/httpdomain.svg?branch=main
    :alt: Build Status
    :target: https://travis-ci.org/sphinx-contrib/httpdomain
 
