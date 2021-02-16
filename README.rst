@@ -9,7 +9,7 @@
    :target: https://sphinxcontrib-httpdomain.readthedocs.io/
    :alt: Documentation Status
 
-.. image:: https://travis-ci.org/sphinx-contrib/httpdomain.svg?branch=master
+.. image:: https://travis-ci.org/sphinx-contrib/httpdomain.svg?branch=main
    :alt: Build Status
    :target: https://travis-ci.org/sphinx-contrib/httpdomain
 
