@@ -22,7 +22,7 @@ Released on July 1, 2018.
 - Implemented ``:autoquickref:`` option that use available informations to
   build a ``quickref``. [:pull:`9` by Alexandre Bonnetain]
 - Improved :mod:`sphinxcontrib.autohttp.tornado` compatibility with Tornado
-  4.5 and newer. `Tornado 4.5 <http://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`
+  4.5 and newer. `Tornado 4.5 <http://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`_
   introduced the ``Rule`` class and made ``URLSpec`` a subclass of it, so certain
   rule attributes required updating. [:issue:`7`, :pull:`11` by Robert Zeigler]
 
@@ -35,7 +35,7 @@ Released on March 3, 2018.
 - Remove references to the ``sphinx.util.compat`` module which was deprecated
   in Sphinx 1.6 and removed in 1.7.  [:issue:`5`, :pull:`4` by Jeremy Cline]
 - Made :mod:`sphinxcontrib.autohttp.tornado` compatible with Tornado 4.5 and
-  newer.  `Tornado 4.5 <http://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`
+  newer.  `Tornado 4.5 <http://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`_
   removed the ``handlers`` attribute from ``tornado.web.Application``.
   [:pull:`3` by Dave Shawley]
 
@@ -138,7 +138,7 @@ Released on March 31, 2014.
 - Fixed broken Python 2.6 compatibility.  [:oldpull:`41` by Kien Pham]
 - Added missing link to six_ dependency.
 
-.. _six: http://pythonhosted.org/six/
+.. _six: https://six.readthedocs.io//
 
 
 Version 1.2.0
