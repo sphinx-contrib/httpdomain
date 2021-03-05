@@ -22,19 +22,27 @@ from sphinx import addnodes
 from sphinx.roles import XRefRole
 from sphinx.domains import Domain, ObjType, Index
 from sphinx.directives import ObjectDescription, directives
+from sphinx.util import logging
 from sphinx.util.nodes import make_refnode
 from sphinx.util.docfields import GroupedField, TypedField
+from sphinx.util.docutils import Reporter, LoggingReporter
 from sphinx.locale import _
 
-# The env.get_doctree() lookup results in a pickle.load() call which is
-# expensive enough to dominate the runtime entirely when the number of endpoints
-# and references is large enough. The doctrees are generated during the read-
-# phase and we can cache their lookup during the write-phase significantly
-# improving performance.
-# Currently sphinxcontrib-httpdomain does not declare to support parallel read
-# support (parallel_read_safe is the default False) so we can simply use a
-# module global to hold the cache.
-_doctree_cache = {}
+logger = logging.getLogger(__name__)
+
+
+class DummyDocument(object):
+    """Used where the signature requires a docutils.node.Document but only its reporter
+    is being used.
+
+    Up until the current Sphinx 2.3.1 calls to env.get_doctree() (which would get
+    us said docutils.node.Document) result in pickle.load() calls which are expensive
+    enough to dominate the runtime entirely when the number of endpoints and references
+    is large enough.
+    """
+
+    def __init__(self, reporter):
+        self.reporter = reporter
 
 
 class DocRef(object):
@@ -411,6 +419,9 @@ class HTTPXRefRole(XRefRole):
             title = self.method.upper() + ' ' + title
         return title, target
 
+    def result_nodes(self, document, env, node, is_ref):
+        return [node], []
+
 
 class HTTPXRefMethodRole(XRefRole):
 
@@ -654,10 +665,10 @@ class HTTPDomain(Domain):
             if role is None:
                 return None
 
-            if fromdocname not in _doctree_cache:
-                _doctree_cache[fromdocname] = env.get_doctree(fromdocname)
-            doctree = _doctree_cache[fromdocname]
-
+            reporter = LoggingReporter(env.doc2path(fromdocname),
+                                       report_level=Reporter.WARNING_LEVEL,
+                                       halt_level=Reporter.SEVERE_LEVEL)
+            doctree = DummyDocument(reporter)
             resnode = role.result_nodes(doctree, env, node, None)[0][0]
             if isinstance(resnode, addnodes.pending_xref):
                 text = node[0][0]
@@ -692,6 +703,27 @@ class HTTPDomain(Domain):
                 anchor = http_resource_anchor(method, path)
                 yield (path, path, method, info[0], anchor, 1)
 
+    def merge_domaindata(self, docnames, otherdata):
+        """Merge domaindata from the workers/chunks when they return.
+
+        Called once per parallelization chunk.
+        Only used when sphinx is run in parallel mode.
+
+        :param docnames: a Set of the docnames that are part of the current chunk to merge
+        :param otherdata: the partial data calculated by the current chunk
+        """
+        for typ in self.object_types:
+            self_data = self.data[typ]
+            other_data = otherdata[typ]
+            for entry_point_name, entry_point_data in other_data.items():
+                if entry_point_name in self_data:
+                    logger.warning('duplicate HTTP %s method definition %s in %s, '
+                                   'other instance is in %s' %
+                                   (typ, entry_point_name,
+                                    self.env.doc2path(other_data[entry_point_name][0]),
+                                    self.env.doc2path(self_data[entry_point_name][0])))
+                else:
+                    self_data[entry_point_name] = entry_point_data
 
 class HTTPLexer(RegexLexer):
     """Lexer for HTTP sessions."""
@@ -778,3 +810,5 @@ def setup(app):
     app.add_config_value('http_index_localname', 'HTTP Routing Table', True)
     app.add_config_value('http_strict_mode', True, None)
     app.add_config_value('http_headers_ignore_prefixes', ['X-'], None)
+    return {"parallel_read_safe": True,
+            "parallel_write_safe": True}
