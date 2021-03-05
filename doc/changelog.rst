@@ -12,6 +12,8 @@ To be released.
   label. [:pull:`19` by David Douard]
 - Add support for parallel sphinx builds. Increases sphinx version requirement to 1.6
   [:pull:`31` by Daniel Hofmann]
+- Be explicit about what versions of Python are supports (2.7, and 3.5+). This will
+  be the last version to support Python 2.7 and 3.5, version 2.0 will require 3.6+.
 
 
 Version 1.7.0
