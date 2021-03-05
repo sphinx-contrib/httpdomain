@@ -136,7 +136,7 @@ Released on March 31, 2014.
 - Fixed broken Python 2.6 compatibility.  [:oldpull:`41` by Kien Pham]
 - Added missing link to six_ dependency.
 
-.. _six: https://six.readthedocs.io/
+.. _six: https://six.readthedocs.io//
 
 
 Version 1.2.0
