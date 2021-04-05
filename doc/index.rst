@@ -787,6 +787,12 @@ will be rendered as:
 
       .. versionadded:: 1.1.2
 
+    ``url_regexp``
+      Filters urls by filtering out based on a regexp instance built based
+      on the regular expression passed here as a string.
+
+      .. versionadded:: 1.8.1
+
 .. _Flask: http://flask.pocoo.org/
 
 
