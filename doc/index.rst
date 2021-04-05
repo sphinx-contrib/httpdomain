@@ -788,8 +788,9 @@ will be rendered as:
       .. versionadded:: 1.1.2
 
     ``url_regexp``
-      Filters urls by filtering out based on a regexp instance built based
-      on the regular expression passed here as a string.
+      Filters urls by matching based on a regexp instance built based
+      on the regular expression passed here as a string. The ones not matching
+      are discarded.
 
       .. versionadded:: 1.8.1
 
