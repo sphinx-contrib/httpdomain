@@ -20,7 +20,7 @@ def readme():
 
 setup(
     name='sphinxcontrib-httpdomain',
-    version='1.8.0',
+    version='1.8.1',
     url='https://github.com/sphinx-contrib/httpdomain',
     download_url='https://pypi.org/project/sphinxcontrib-httpdomain/',
     license='BSD',
