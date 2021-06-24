@@ -17,7 +17,6 @@ import collections
 
 from docutils.parsers.rst import directives, Directive
 
-from sphinx.util import force_decode
 from sphinx.util.docstrings import prepare_docstring
 from sphinx.pycode import ModuleAnalyzer
 
@@ -236,9 +235,6 @@ class AutoflaskBase(Directive):
             if view_func and view_func.__doc__:
                 view_doc = view_func.__doc__
 
-            if not isinstance(view_doc, six.text_type):
-                analyzer = ModuleAnalyzer.for_module(view.__module__)
-                view_doc = force_decode(view_doc, analyzer.encoding)
 
             if not view_doc and 'include-empty-docstring' not in self.options:
                 continue
