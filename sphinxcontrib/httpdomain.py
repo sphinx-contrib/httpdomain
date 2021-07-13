@@ -21,10 +21,11 @@ from pygments.util import ClassNotFound
 from sphinx import addnodes
 from sphinx.roles import XRefRole
 from sphinx.domains import Domain, ObjType, Index
+from sphinx.domains.python import PyTypedField
 from sphinx.directives import ObjectDescription, directives
 from sphinx.util import logging
 from sphinx.util.nodes import make_refnode
-from sphinx.util.docfields import GroupedField, TypedField
+from sphinx.util.docfields import GroupedField
 from sphinx.util.docutils import Reporter, LoggingReporter
 from sphinx.locale import _
 
@@ -266,30 +267,31 @@ def http_resource_anchor(method, path):
 class HTTPResource(ObjectDescription):
 
     doc_field_types = [
-        TypedField('parameter', label='Parameters',
-                   names=('param', 'parameter', 'arg', 'argument'),
-                   typerolename='obj', typenames=('paramtype', 'type')),
-        TypedField('jsonparameter', label='JSON Parameters',
-                   names=('jsonparameter', 'jsonparam', 'json'),
-                   typerolename='obj', typenames=('jsonparamtype', 'jsontype')),
-        TypedField('requestjsonobject', label='Request JSON Object',
-                   names=('reqjsonobj', 'reqjson', '<jsonobj', '<json'),
-                   typerolename='obj', typenames=('reqjsonobj', '<jsonobj')),
-        TypedField('requestjsonarray', label='Request JSON Array of Objects',
-                   names=('reqjsonarr', '<jsonarr'),
-                   typerolename='obj',
-                   typenames=('reqjsonarrtype', '<jsonarrtype')),
-        TypedField('responsejsonobject', label='Response JSON Object',
-                   names=('resjsonobj', 'resjson', '>jsonobj', '>json'),
-                   typerolename='obj', typenames=('resjsonobj', '>jsonobj')),
-        TypedField('responsejsonarray', label='Response JSON Array of Objects',
-                   names=('resjsonarr', '>jsonarr'),
-                   typerolename='obj',
-                   typenames=('resjsonarrtype', '>jsonarrtype')),
-        TypedField('queryparameter', label='Query Parameters',
-                   names=('queryparameter', 'queryparam', 'qparam', 'query'),
-                   typerolename='obj',
-                   typenames=('queryparamtype', 'querytype', 'qtype')),
+        PyTypedField('parameter', label='Parameters',
+                     names=('param', 'parameter', 'arg', 'argument'),
+                     typerolename='obj', typenames=('paramtype', 'type')),
+        PyTypedField('jsonparameter', label='JSON Parameters',
+                     names=('jsonparameter', 'jsonparam', 'json'),
+                     typerolename='obj',
+                     typenames=('jsonparamtype', 'jsontype')),
+        PyTypedField('requestjsonobject', label='Request JSON Object',
+                     names=('reqjsonobj', 'reqjson', '<jsonobj', '<json'),
+                     typerolename='obj', typenames=('reqjsonobj', '<jsonobj')),
+        PyTypedField('requestjsonarray', label='Request JSON Array of Objects',
+                     names=('reqjsonarr', '<jsonarr'),
+                     typerolename='obj',
+                     typenames=('reqjsonarrtype', '<jsonarrtype')),
+        PyTypedField('responsejsonobject', label='Response JSON Object',
+                     names=('resjsonobj', 'resjson', '>jsonobj', '>json'),
+                     typerolename='obj', typenames=('resjsonobj', '>jsonobj')),
+        PyTypedField('responsejsonarray',
+                     label='Response JSON Array of Objects',
+                     names=('resjsonarr', '>jsonarr'), typerolename='obj',
+                     typenames=('resjsonarrtype', '>jsonarrtype')),
+        PyTypedField('queryparameter', label='Query Parameters',
+                     names=('queryparameter', 'queryparam', 'qparam', 'query'),
+                     typerolename='obj',
+                     typenames=('queryparamtype', 'querytype', 'qtype')),
         GroupedField('formparameter', label='Form Parameters',
                      names=('formparameter', 'formparam', 'fparam', 'form')),
         GroupedField('requestheader', label='Request Headers',
