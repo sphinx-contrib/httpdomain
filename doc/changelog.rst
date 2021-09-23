@@ -6,12 +6,15 @@ Changelog
 Version 1.8.0
 `````````````
 
-To be released.
+Released on September 23, 2020
 
 - Make the generated routing table referencable using the 'routingtable'
   label. [:pull:`19` by David Douard]
 - Add support for parallel sphinx builds. Increases sphinx version requirement to 1.6
   [:pull:`31` by Daniel Hofmann]
+- Remove references to the generic ``:py:obj:`` role [:pull:`54` by Stephen Finucane]
+- Remove imports and calls to depracated function force_decode who was removed
+  starting with sphinx 4.0 [:pull:`49` by Florian Masy]
 - Be explicit about what versions of Python are supports (2.7, and 3.5+). This will
   be the last version to support Python 2.7 and 3.5, version 2.0 will require 3.6+.
 
