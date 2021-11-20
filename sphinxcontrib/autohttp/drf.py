@@ -134,6 +134,11 @@ class AutoDRFDirective(Directive):
         #     links =
 
     def get_schema_lines(self, schema, titles_level):
+        # Generate the links of the actual level.
+        if schema.links:
+            for link_name, link in schema.links.items():
+                yield from self.get_link_lines(link_name, link)
+        # Visit recursively others levels and generate links if exists.
         if schema.data:
             for title, sub_schema in schema.data.items():
                 if titles_level:
@@ -143,9 +148,6 @@ class AutoDRFDirective(Directive):
                     yield ''
                 yield from self.get_schema_lines(sub_schema, (titles_level + 1) if titles_level else None)
             # yield from chain(*map(lambda x: chain_routes(x), schema.data.values()))
-        elif schema.links:
-            for link_name, link in schema.links.items():
-                yield from self.get_link_lines(link_name, link)
 
     def get_link_lines(self, link_name, link):
         for line in http_directive(link.action, link.url, link.description):
