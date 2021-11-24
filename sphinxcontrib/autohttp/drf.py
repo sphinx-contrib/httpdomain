@@ -93,6 +93,16 @@ def get_schema_generator_class():
             class EndpointEnumerator(HttpDomainEndpointEnumerator):
                 modules = self.modules
             return EndpointEnumerator
+
+        def _get_paths_and_endpoints(self, request):
+            """Add ``swagger_fake_view`` to every api view.
+            """
+            paths, view_endpoints = super()._get_paths_and_endpoints(request)
+            for view_endpoint in view_endpoints:
+                path, method, view = view_endpoint
+                setattr(view, 'swagger_fake_view', True)
+            return paths, view_endpoints
+
     return HttpDomainSchemaGenerator
 
 
