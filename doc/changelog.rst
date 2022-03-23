@@ -13,7 +13,7 @@ Released on September 23, 2020
 - Add support for parallel sphinx builds. Increases sphinx version requirement to 1.6
   [:pull:`31` by Daniel Hofmann]
 - Remove references to the generic ``:py:obj:`` role [:pull:`54` by Stephen Finucane]
-- Remove imports and calls to depracated function force_decode who was removed
+- Remove imports and calls to deprecated function force_decode who was removed
   starting with sphinx 4.0 [:pull:`49` by Florian Masy]
 - Be explicit about what versions of Python are supports (2.7, and 3.5+). This will
   be the last version to support Python 2.7 and 3.5, version 2.0 will require 3.6+.
@@ -24,7 +24,7 @@ Version 1.7.0
 
 Released on July 1, 2018.
 
-- Implemented ``:autoquickref:`` option that use available informations to
+- Implemented ``:autoquickref:`` option that use available information to
   build a ``quickref``. [:pull:`9` by Alexandre Bonnetain]
 - Improved :mod:`sphinxcontrib.autohttp.tornado` compatibility with Tornado
   4.5 and newer. `Tornado 4.5 <http://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`_
