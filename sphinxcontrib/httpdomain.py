@@ -10,6 +10,7 @@
 """
 
 import re
+import os
 
 from docutils import nodes
 
@@ -798,6 +799,10 @@ def register_routingtable_as_label(app, document):
 def setup(app):
     app.add_domain(HTTPDomain)
     app.connect('doctree-read', register_routingtable_as_label)
+
+    package_dir = os.path.abspath(path.dirname(__file__))
+    locale_dir = os.path.join(package_dir, '.')
+    app.add_message_catalog('httpdomain', locale_dir)
 
     try:
         get_lexer_by_name('http')
