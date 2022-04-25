@@ -801,7 +801,7 @@ def setup(app):
     app.connect('doctree-read', register_routingtable_as_label)
 
     package_dir = os.path.abspath(os.path.dirname(__file__))
-    locale_dir = os.path.join(package_dir, '.')
+    locale_dir = os.path.join(package_dir, 'locale')
     app.add_message_catalog('httpdomain', locale_dir)
 
     try:

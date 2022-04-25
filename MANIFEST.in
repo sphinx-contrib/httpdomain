@@ -1,4 +1,4 @@
 include README
 include LICENSE
 include CHANGES.*
-include sphinxcontrib/httpdomain.pot
+recursive-include sphinxcontrib *.pot *.po *.mo
