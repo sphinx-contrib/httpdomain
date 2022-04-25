@@ -533,7 +533,7 @@ class HTTPXRefHeaderRole(XRefRole):
 class HTTPIndex(Index):
 
     name = 'routingtable'
-    localname = 'HTTP Routing Table'
+    localname = _('HTTP Routing Table')
     shortname = 'routing table'
 
     def __init__(self, *args, **kwargs):
@@ -810,7 +810,7 @@ def setup(app):
         app.add_lexer('http', HTTPLexer())
     app.add_config_value('http_index_ignore_prefixes', [], None)
     app.add_config_value('http_index_shortname', 'routing table', True)
-    app.add_config_value('http_index_localname', 'HTTP Routing Table', True)
+    app.add_config_value('http_index_localname', _('HTTP Routing Table'), True)
     app.add_config_value('http_strict_mode', True, None)
     app.add_config_value('http_headers_ignore_prefixes', ['X-'], None)
     return {"parallel_read_safe": True,
