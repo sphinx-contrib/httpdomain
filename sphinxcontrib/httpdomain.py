@@ -713,7 +713,7 @@ class HTTPDomain(Domain):
             self_data = self.data[typ]
             other_data = otherdata[typ]
             for entry_point_name, entry_point_data in other_data.items():
-                if entry_point_name in self_data:
+                if entry_point_name in self_data and entry_point_data != self_data[entry_point_name]:
                     logger.warning('duplicate HTTP %s method definition %s in %s, '
                                    'other instance is in %s' %
                                    (typ, entry_point_name,
