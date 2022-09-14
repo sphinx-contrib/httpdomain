@@ -73,7 +73,7 @@ class IETFRef(DocRef):
     """Represents a reference to the specific IETF RFC."""
 
     def __init__(self, rfc, section):
-        url = 'https://tools.ietf.org/html/rfc{0:d}'.format(rfc)
+        url = 'https://www.rfc-editor.org/rfc/rfc{0:d}'.format(rfc)
         super(IETFRef, self).__init__(url, 'section-', section)
 
 
@@ -498,13 +498,13 @@ class HTTPXRefStatusRole(XRefRole):
         elif code == 418:
             url = 'https://www.ietf.org/rfc/rfc2324.txt'
         elif code == 429:
-            url = 'https://tools.ietf.org/html/rfc6585#section-4'
+            url = 'https://www.rfc-editor.org/rfc/rfc6585#section-4'
         elif code == 449:
             url = 'https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-wdv/83ecf19f-e0f8-4706-aae5-ba618f52f100'
         elif code == 451:
             url = 'https://www.ietf.org/rfc/rfc7725.txt'
         elif code in WEBDAV_STATUS_CODES:
-            url = 'https://tools.ietf.org/html/rfc4918#section-11.%d' % (WEBDAV_STATUS_CODES.index(code) + 1)
+            url = 'https://www.rfc-editor.org/rfc/rfc4918#section-11.%d' % (WEBDAV_STATUS_CODES.index(code) + 1)
         elif code in HTTP_STATUS_CODES:
             url = 'https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html' \
                   '#sec10.' + ('%d.%d' % (code // 100, 1 + code % 100))
