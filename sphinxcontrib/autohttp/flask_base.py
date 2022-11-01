@@ -72,7 +72,6 @@ def parse_rule(rule):
 
 
 def translate_werkzeug_rule(rule):
-    from werkzeug.routing import parse_rule
     buf = six.StringIO()
     for conv, arg, var in parse_rule(rule):
         if conv:
