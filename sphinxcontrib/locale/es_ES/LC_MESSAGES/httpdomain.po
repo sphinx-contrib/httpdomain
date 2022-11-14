@@ -1,0 +1,68 @@
+# Spanish (Spain) translations for PROJECT.
+# Copyright (C) 2022 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-04-19 11:04+0200\n"
+"PO-Revision-Date: 2022-04-25 10:40+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es_ES\n"
+"Language-Team: es_ES <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: sphinxcontrib/httpdomain.py:271
+msgid "Parameters"
+msgstr "Parámetros"
+
+#: sphinxcontrib/httpdomain.py:274
+msgid "JSON Parameters"
+msgstr "Parámetros JSON"
+
+#: sphinxcontrib/httpdomain.py:277
+msgid "Request JSON Object"
+msgstr "Objeto JSON de solicitud"
+
+#: sphinxcontrib/httpdomain.py:280
+msgid "Request JSON Array of Objects"
+msgstr "Lista de objetos JSON de solicitud"
+
+#: sphinxcontrib/httpdomain.py:283
+msgid "Response JSON Object"
+msgstr "Objeto JSON de respuesta"
+
+#: sphinxcontrib/httpdomain.py:286
+msgid "Response JSON Array of Objects"
+msgstr "Lista de objetos JSON de respuesta"
+
+#: sphinxcontrib/httpdomain.py:289
+msgid "Query Parameters"
+msgstr "Parámetros de consulta"
+
+#: sphinxcontrib/httpdomain.py:292
+msgid "Form Parameters"
+msgstr "Parámetros de Forma"
+
+#: sphinxcontrib/httpdomain.py:294
+msgid "Request Headers"
+msgstr "Encabezados de solicitud"
+
+#: sphinxcontrib/httpdomain.py:297
+msgid "Response Headers"
+msgstr "Encabezados de respuesta"
+
+#: sphinxcontrib/httpdomain.py:300
+msgid "Status Codes"
+msgstr "Códigos de Status"
+
+#: sphinxcontrib/httpdomain.py:794
+msgid "HTTP Routing Table"
+msgstr "Tabla de enrutamiento HTTP"
+

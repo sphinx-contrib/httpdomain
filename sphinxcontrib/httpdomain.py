@@ -10,6 +10,7 @@
 """
 
 import re
+import os
 
 from docutils import nodes
 
@@ -26,7 +27,8 @@ from sphinx.util import logging
 from sphinx.util.nodes import make_refnode
 from sphinx.util.docfields import GroupedField, TypedField
 from sphinx.util.docutils import Reporter, LoggingReporter
-from sphinx.locale import _
+from sphinx.locale import get_translation
+_ = get_translation('httpdomain')
 
 logger = logging.getLogger(__name__)
 
@@ -186,59 +188,59 @@ HEADER_REFS = {
 
 
 HTTP_STATUS_CODES = {
-    100: 'Continue',
-    101: 'Switching Protocols',
-    102: 'Processing',
-    200: 'OK',
-    201: 'Created',
-    202: 'Accepted',
-    203: 'Non Authoritative Information',
-    204: 'No Content',
-    205: 'Reset Content',
-    206: 'Partial Content',
-    207: 'Multi Status',
-    226: 'IM Used',              # see RFC 3229
-    300: 'Multiple Choices',
-    301: 'Moved Permanently',
-    302: 'Found',
-    303: 'See Other',
-    304: 'Not Modified',
-    305: 'Use Proxy',
-    307: 'Temporary Redirect',
-    400: 'Bad Request',
-    401: 'Unauthorized',
-    402: 'Payment Required',     # unused
-    403: 'Forbidden',
-    404: 'Not Found',
-    405: 'Method Not Allowed',
-    406: 'Not Acceptable',
-    407: 'Proxy Authentication Required',
-    408: 'Request Timeout',
-    409: 'Conflict',
-    410: 'Gone',
-    411: 'Length Required',
-    412: 'Precondition Failed',
-    413: 'Request Entity Too Large',
-    414: 'Request URI Too Long',
-    415: 'Unsupported Media Type',
-    416: 'Requested Range Not Satisfiable',
-    417: 'Expectation Failed',
-    418: "I'm a teapot",        # see RFC 2324
-    422: 'Unprocessable Entity',
-    423: 'Locked',
-    424: 'Failed Dependency',
-    426: 'Upgrade Required',
-    429: 'Too Many Requests',
-    449: 'Retry With',           # proprietary MS extension
-    451: 'Unavailable For Legal Reasons',
-    500: 'Internal Server Error',
-    501: 'Not Implemented',
-    502: 'Bad Gateway',
-    503: 'Service Unavailable',
-    504: 'Gateway Timeout',
-    505: 'HTTP Version Not Supported',
-    507: 'Insufficient Storage',
-    510: 'Not Extended'
+    100: _('Continue'),
+    101: _('Switching Protocols'),
+    102: _('Processing'),
+    200: _('OK'),
+    201: _('Created'),
+    202: _('Accepted'),
+    203: _('Non Authoritative Information'),
+    204: _('No Content'),
+    205: _('Reset Content'),
+    206: _('Partial Content'),
+    207: _('Multi Status'),
+    226: _('IM Used'),              # see RFC 3229
+    300: _('Multiple Choices'),
+    301: _('Moved Permanently'),
+    302: _('Found'),
+    303: _('See Other'),
+    304: _('Not Modified'),
+    305: _('Use Proxy'),
+    307: _('Temporary Redirect'),
+    400: _('Bad Request'),
+    401: _('Unauthorized'),
+    402: _('Payment Required'),     # unused
+    403: _('Forbidden'),
+    404: _('Not Found'),
+    405: _('Method Not Allowed'),
+    406: _('Not Acceptable'),
+    407: _('Proxy Authentication Required'),
+    408: _('Request Timeout'),
+    409: _('Conflict'),
+    410: _('Gone'),
+    411: _('Length Required'),
+    412: _('Precondition Failed'),
+    413: _('Request Entity Too Large'),
+    414: _('Request URI Too Long'),
+    415: _('Unsupported Media Type'),
+    416: _('Requested Range Not Satisfiable'),
+    417: _('Expectation Failed'),
+    418: _("I'm a teapot"),        # see RFC 2324
+    422: _('Unprocessable Entity'),
+    423: _('Locked'),
+    424: _('Failed Dependency'),
+    426: _('Upgrade Required'),
+    429: _('Too Many Requests'),
+    449: _('Retry With'),           # proprietary MS extension
+    451: _('Unavailable For Legal Reasons'),
+    500: _('Internal Server Error'),
+    501: _('Not Implemented'),
+    502: _('Bad Gateway'),
+    503: _('Service Unavailable'),
+    504: _('Gateway Timeout'),
+    505: _('HTTP Version Not Supported'),
+    507: _('Insufficient Storage'),
+    510: _('Not Extended')
 }
 
 WEBDAV_STATUS_CODES = [207, 422, 423, 424, 507]
@@ -266,36 +268,36 @@ def http_resource_anchor(method, path):
 class HTTPResource(ObjectDescription):
 
     doc_field_types = [
-        TypedField('parameter', label='Parameters',
+        TypedField('parameter', label=_('Parameters'),
                    names=('param', 'parameter', 'arg', 'argument'),
                    typenames=('paramtype', 'type')),
-        TypedField('jsonparameter', label='JSON Parameters',
+        TypedField('jsonparameter', label=_('JSON Parameters'),
                    names=('jsonparameter', 'jsonparam', 'json'),
                    typenames=('jsonparamtype', 'jsontype')),
-        TypedField('requestjsonobject', label='Request JSON Object',
+        TypedField('requestjsonobject', label=_('Request JSON Object'),
                    names=('reqjsonobj', 'reqjson', '<jsonobj', '<json'),
                    typenames=('reqjsonobj', '<jsonobj')),
-        TypedField('requestjsonarray', label='Request JSON Array of Objects',
+        TypedField('requestjsonarray', label=_('Request JSON Array of Objects'),
                    names=('reqjsonarr', '<jsonarr'),
                    typenames=('reqjsonarrtype', '<jsonarrtype')),
-        TypedField('responsejsonobject', label='Response JSON Object',
+        TypedField('responsejsonobject', label=_('Response JSON Object'),
                    names=('resjsonobj', 'resjson', '>jsonobj', '>json'),
                    typenames=('resjsonobj', '>jsonobj')),
-        TypedField('responsejsonarray', label='Response JSON Array of Objects',
+        TypedField('responsejsonarray', label=_('Response JSON Array of Objects'),
                    names=('resjsonarr', '>jsonarr'),
                    typenames=('resjsonarrtype', '>jsonarrtype')),
-        TypedField('queryparameter', label='Query Parameters',
+        TypedField('queryparameter', label=_('Query Parameters'),
                    names=('queryparameter', 'queryparam', 'qparam', 'query'),
                    typenames=('queryparamtype', 'querytype', 'qtype')),
-        GroupedField('formparameter', label='Form Parameters',
+        GroupedField('formparameter', label=_('Form Parameters'),
                      names=('formparameter', 'formparam', 'fparam', 'form')),
-        GroupedField('requestheader', label='Request Headers',
+        GroupedField('requestheader', label=_('Request Headers'),
                      rolename='header',
                      names=('<header', 'reqheader', 'requestheader')),
-        GroupedField('responseheader', label='Response Headers',
+        GroupedField('responseheader', label=_('Response Headers'),
                      rolename='header',
                      names=('>header', 'resheader', 'responseheader')),
-        GroupedField('statuscode', label='Status Codes',
+        GroupedField('statuscode', label=_('Status Codes'),
                      rolename='statuscode',
                      names=('statuscode', 'status', 'code'))
     ]
@@ -531,7 +533,7 @@ class HTTPXRefHeaderRole(XRefRole):
 class HTTPIndex(Index):
 
     name = 'routingtable'
-    localname = 'HTTP Routing Table'
+    localname = _('HTTP Routing Table')
     shortname = 'routing table'
 
     def __init__(self, *args, **kwargs):
@@ -798,13 +800,17 @@ def setup(app):
     app.add_domain(HTTPDomain)
     app.connect('doctree-read', register_routingtable_as_label)
 
+    package_dir = os.path.abspath(os.path.dirname(__file__))
+    locale_dir = os.path.join(package_dir, 'locale')
+    app.add_message_catalog('httpdomain', locale_dir)
+
     try:
         get_lexer_by_name('http')
     except ClassNotFound:
         app.add_lexer('http', HTTPLexer())
     app.add_config_value('http_index_ignore_prefixes', [], None)
     app.add_config_value('http_index_shortname', 'routing table', True)
-    app.add_config_value('http_index_localname', 'HTTP Routing Table', True)
+    app.add_config_value('http_index_localname', _('HTTP Routing Table'), True)
     app.add_config_value('http_strict_mode', True, None)
     app.add_config_value('http_headers_ignore_prefixes', ['X-'], None)
     return {"parallel_read_safe": True,

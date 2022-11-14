@@ -1,0 +1,279 @@
+# Translations template for PROJECT.
+# Copyright (C) 2022 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-04-19 11:04+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: sphinxcontrib/httpdomain.py:191
+msgid "Continue"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:192
+msgid "Switching Protocols"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:193
+msgid "Processing"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:194
+msgid "OK"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:195
+msgid "Created"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:196
+msgid "Accepted"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:197
+msgid "Non Authoritative Information"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:198
+msgid "No Content"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:199
+msgid "Reset Content"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:200
+msgid "Partial Content"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:201
+msgid "Multi Status"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:202
+msgid "IM Used"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:203
+msgid "Multiple Choices"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:204
+msgid "Moved Permanently"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:205
+msgid "Found"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:206
+msgid "See Other"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:207
+msgid "Not Modified"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:208
+msgid "Use Proxy"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:209
+msgid "Temporary Redirect"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:210
+msgid "Bad Request"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:211
+msgid "Unauthorized"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:212
+msgid "Payment Required"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:213
+msgid "Forbidden"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:214
+msgid "Not Found"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:215
+msgid "Method Not Allowed"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:216
+msgid "Not Acceptable"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:217
+msgid "Proxy Authentication Required"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:218
+msgid "Request Timeout"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:219
+msgid "Conflict"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:220
+msgid "Gone"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:221
+msgid "Length Required"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:222
+msgid "Precondition Failed"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:223
+msgid "Request Entity Too Large"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:224
+msgid "Request URI Too Long"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:225
+msgid "Unsupported Media Type"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:226
+msgid "Requested Range Not Satisfiable"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:227
+msgid "Expectation Failed"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:228
+msgid "I'm a teapot"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:229
+msgid "Unprocessable Entity"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:230
+msgid "Locked"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:231
+msgid "Failed Dependency"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:232
+msgid "Upgrade Required"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:233
+msgid "Too Many Requests"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:234
+msgid "Retry With"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:235
+msgid "Unavailable For Legal Reasons"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:236
+msgid "Internal Server Error"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:237
+msgid "Not Implemented"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:238
+msgid "Bad Gateway"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:239
+msgid "Service Unavailable"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:240
+msgid "Gateway Timeout"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:241
+msgid "HTTP Version Not Supported"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:242
+msgid "Insufficient Storage"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:243
+msgid "Not Extended"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:271
+msgid "Parameters"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:274
+msgid "JSON Parameters"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:277
+msgid "Request JSON Object"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:280
+msgid "Request JSON Array of Objects"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:283
+msgid "Response JSON Object"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:286
+msgid "Response JSON Array of Objects"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:289
+msgid "Query Parameters"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:292
+msgid "Form Parameters"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:294
+msgid "Request Headers"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:297
+msgid "Response Headers"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:300
+msgid "Status Codes"
+msgstr ""
+
+#: sphinxcontrib/httpdomain.py:794
+msgid "HTTP Routing Table"
+msgstr ""
+
