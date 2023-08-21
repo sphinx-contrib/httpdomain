@@ -3,6 +3,14 @@
 Changelog
 ---------
 
+Version 2.0.0
+`````````````
+
+Unreleased
+
+- Drop support for Python 2.7. Removes dependency on six.
+
+
 Version 1.8.0
 `````````````
 
