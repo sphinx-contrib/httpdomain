@@ -10,6 +10,7 @@ unreleased
 
 - Add support for Python 3.7 up to 3.12.
 - Drop support for Python 3.6 and older.
+- Switch to implicit (native) namespace for ``sphinxcontrib``.
 
 
 Version 1.8.0
