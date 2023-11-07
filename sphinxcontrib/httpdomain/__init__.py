@@ -82,7 +82,7 @@ class IETFRef(DocRef):
 class EventSourceRef(DocRef):
 
     def __init__(self, section):
-        url = 'https://www.w3.org/TR/eventsource/'
+        url = 'https://html.spec.whatwg.org/multipage/server-sent-events.html'
         super(EventSourceRef, self).__init__(url, section, '')
 
 

@@ -266,16 +266,16 @@ texinfo_documents = [
 extlinks = {
     'pull': (
         'https://github.com/sphinx-contrib/httpdomain/pulls/%s',
-        'pull request #'),
+        'pull request #%s'),
     'issue': (
         'https://github.com/sphinx-contrib/httpdomain/issues/%s',
-        'issue #'),
+        'issue #%s'),
     'oldpull': (
         'https://bitbucket.org/birkenfeld/sphinx-contrib/pull-requests/%s/',
-        'old pull request #'),
+        'old pull request #%s'),
     'oldissue': (
         'https://bitbucket.org/birkenfeld/sphinx-contrib/issues/%s/',
-        'old issue #')
+        'old issue #%s')
 }
 
 # Suppress nonlocal image warning
