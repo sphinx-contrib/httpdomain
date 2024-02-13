@@ -11,7 +11,6 @@ unreleased
 - Add support for Python 3.7 up to 3.12.
 - Drop support for Python 3.6 and older.
 
-
 Version 1.8.0
 `````````````
 

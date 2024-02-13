@@ -13,7 +13,6 @@ from __future__ import absolute_import
 
 import re
 import itertools
-import six
 
 from docutils import nodes
 from docutils.parsers.rst import directives, Directive
