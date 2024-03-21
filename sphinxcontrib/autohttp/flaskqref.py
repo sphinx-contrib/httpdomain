@@ -16,8 +16,11 @@ from docutils.statemachine import ViewList
 
 from sphinxcontrib import httpdomain
 from sphinx.util.nodes import nested_parse_with_titles
+from sphinx.locale import get_translation
 
 from .flask import AutoflaskBase
+
+_ = get_translation('httpdomain')
 
 
 class QuickReferenceFlaskDirective(AutoflaskBase):
@@ -28,9 +31,9 @@ class QuickReferenceFlaskDirective(AutoflaskBase):
               '    :widths: 20 45 35',
               '    :header-rows: 1',
               '',
-              '    * - Resource',
-              '      - Operation',
-              '      - Description'
+              '    * - ' + _('Resource'),
+              '      - ' + _('Operation'),
+              '      - ' + _('Description')
             ]
 
     def run(self):
