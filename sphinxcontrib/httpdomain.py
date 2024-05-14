@@ -508,8 +508,8 @@ class HTTPXRefStatusRole(XRefRole):
         elif code in WEBDAV_STATUS_CODES:
             url = 'https://www.rfc-editor.org/rfc/rfc4918#section-11.%d' % (WEBDAV_STATUS_CODES.index(code) + 1)
         elif code in HTTP_STATUS_CODES:
-            url = 'https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html' \
-                  '#sec10.' + ('%d.%d' % (code // 100, 1 + code % 100))
+            url = 'https://www.rfc-editor.org/rfc/rfc7231.html' \
+                  '#section-6.' + ('%d.%d' % (1 + (code // 100), 1 + code % 100))
         else:
             url = ''
         node = nodes.reference(rawsource, '%d %s' % (code, status), refuri=url)
