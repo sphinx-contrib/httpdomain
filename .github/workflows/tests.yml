@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         os:
-        - ["ubuntu", "ubuntu-20.04"]
+        - ["ubuntu", "ubuntu-24.04"]
         config:
         # [Python version, tox env]
         - ["3.7",   "py37"]
@@ -23,13 +23,14 @@ jobs:
         - ["3.10",  "py310"]
         - ["3.11",  "py311"]
         - ["3.12",  "py312"]
+        - ["3.13",  "py313"]
 
     runs-on: ${{ matrix.os[1] }}
     name: ${{ matrix.config[1] }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.config[0] }}
     - name: Pip cache
