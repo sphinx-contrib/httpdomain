@@ -1,6 +1,4 @@
 -e .
 bottle >= 0.11.0
 Flask >= 0.11
-#Sphinx[websupport] >= 1.6
-#sphinxcontrib-websupport >= 1.0.1
 tornado
