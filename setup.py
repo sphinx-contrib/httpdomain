@@ -4,11 +4,17 @@ from __future__ import with_statement
 from setuptools import setup, find_packages
 
 
-requires = [
+install_requires = [
     'Sphinx >= 6.0',
     'six',
 ]
 
+dev_requires = test_requires = docs_requires = [
+    'Flask',
+    'bottle',
+    'tornado',
+    'pytest',
+]
 
 def readme():
     try:
@@ -52,6 +58,9 @@ setup(
     platforms='any',
     packages=find_packages(),
     include_package_data=True,
-    install_requires=requires,
+    install_requires=install_requires,
+    dev_requires=dev_requires,
+    docs_requires=docs_requires,
+    test_requires=test_requires,
     namespace_packages=['sphinxcontrib'],
 )
