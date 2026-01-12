@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 
 requires = [
-    'Sphinx >= 1.6',
+    'Sphinx >= 6.0',
     'six',
 ]
 
@@ -29,7 +29,7 @@ setup(
     description='Sphinx domain for documenting HTTP APIs',
     long_description=readme(),
     zip_safe=False,
-    python_requires='>=3.7',
+    python_requires='>=3.8',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
@@ -39,12 +39,13 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
+        'Programming Language :: Python :: 3.14',
         'Topic :: Documentation',
         'Topic :: Utilities',
     ],
