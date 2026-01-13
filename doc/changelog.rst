@@ -8,8 +8,35 @@ Version 2.0.0
 
 unreleased
 
-- Add support for Python 3.7 up to 3.12.
-- Drop support for Python 3.6 and older.
+
+Breaking changes
+................
+
+- Drop support for Python 3.9 and older.
+
+
+Major changes
+.............
+
+- Add support for Python 3.10 up to 3.14.
+- Updated :file:`setup.py` with newer Sphinx version and reorganized dependencies (``dev_requires``, ``docs_requires``, ``test_requires``, and ``install_requires``).
+- Adjusted a unit test regular expression for :file:`bottle_test.py`.
+
+
+Internal
+........
+
+- Added Dependabot configuration.
+- Replaced Travis CI with GitHub workflows for continuous integration checks.
+
+
+Documentation
+.............
+
+- Simplified and updated documentation requirements in :file:`rtd-requires.txt`.
+- Added a :file:`.readthedocs.yaml` configuration for Read the Docs builds.
+- Added omitted change log entries for v1.8.1.
+- Adjusted Sphinx configuration and example regex usage in conf.py.
 
 
 Version 1.8.1
