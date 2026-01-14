@@ -4,6 +4,7 @@
 .cache
 .pytest_cache
 .tox
+.venv
 build
 dist
 doc/_build
