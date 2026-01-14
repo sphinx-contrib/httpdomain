@@ -9,10 +9,9 @@
     :license: BSD, see LICENSE for details.
 
 """
-
+import io
 import re
 import itertools
-import six
 import collections
 
 from docutils.parsers.rst import directives, Directive
@@ -72,7 +71,7 @@ def parse_rule(rule):
 
 
 def translate_werkzeug_rule(rule):
-    buf = six.StringIO()
+    buf = io.StringIO()
     for conv, arg, var in parse_rule(rule):
         if conv:
             buf.write('(')
@@ -90,7 +89,7 @@ def get_routes(app, endpoint=None, order=None):
     endpoints = []
     for rule in app.url_map.iter_rules(endpoint):
         url_with_endpoint = (
-            six.text_type(next(app.url_map.iter_rules(rule.endpoint))),
+            str(next(app.url_map.iter_rules(rule.endpoint))),
             rule.endpoint
         )
         if url_with_endpoint not in endpoints:
@@ -128,7 +127,7 @@ def cleanup_methods(methods):
 def quickref_directive(method, path, content, blueprint=None, auto=False):
     rcomp = re.compile(r"^\s*.. :quickref:\s*(?P<quick>.*)$")
     method = method.lower().strip()
-    if isinstance(content, six.string_types):
+    if isinstance(content, str):
         content = content.splitlines()
     description = ""
     name = ""

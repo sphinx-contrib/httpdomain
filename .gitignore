@@ -7,4 +7,5 @@
 .venv
 build
 dist
+.idea/
 doc/_build
