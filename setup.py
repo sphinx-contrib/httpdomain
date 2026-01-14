@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import with_statement
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 
 install_requires = [
@@ -53,11 +53,10 @@ setup(
         'Topic :: Utilities',
     ],
     platforms='any',
-    packages=find_packages(),
+    packages=['sphinxcontrib.autohttp', 'sphinxcontrib.httpdomain'],
     include_package_data=True,
     install_requires=install_requires,
     dev_requires=dev_requires,
     docs_requires=docs_requires,
     test_requires=test_requires,
-    namespace_packages=['sphinxcontrib'],
 )

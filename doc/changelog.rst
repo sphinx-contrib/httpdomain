@@ -13,6 +13,7 @@ Breaking changes
 ................
 
 - Drop support for Python 3.9 and older.
+- Switch to implicit (native) namespace for ``sphinxcontrib``.
 
 
 Major changes
