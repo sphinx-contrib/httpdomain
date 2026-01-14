@@ -8,8 +8,48 @@ Version 2.0.0
 
 unreleased
 
-- Add support for Python 3.7 up to 3.12.
-- Drop support for Python 3.6 and older.
+
+Breaking changes
+................
+
+- Drop support for Python 3.9 and older.
+- Switch to implicit (native) namespace for ``sphinxcontrib``.
+
+
+Major changes
+.............
+
+- Add support for Python 3.10 up to 3.14.
+- Updated :file:`setup.py` with newer Sphinx version and reorganized dependencies (``dev_requires``, ``docs_requires``, ``test_requires``, and ``install_requires``).
+- Adjusted a unit test regular expression for :file:`bottle_test.py`.
+
+
+Internal
+........
+
+- Added Dependabot configuration.
+- Replaced Travis CI with GitHub workflows for continuous integration checks.
+- Drop dependency on ``six`` libary.
+
+
+Documentation
+.............
+
+- Simplified and updated documentation requirements in :file:`rtd-requires.txt`.
+- Added a :file:`.readthedocs.yaml` configuration for Read the Docs builds.
+- Added omitted change log entries for v1.8.1.
+- Adjusted Sphinx configuration and example regex usage in conf.py.
+
+
+Version 1.8.1
+`````````````
+
+Released on November 14, 2022
+
+- Add translations for French and Spanish. [by @olivier-heurtier]
+- multicore: Fix false positive warnings in ``merge_domaindata``. [:pull:`59` by Ryan Northey]
+- Copy ``parse_rule`` since it was removed in werkzeug 2.2. [:pull:`61` by Ash Berlin-Taylor]
+- Update URLs for RFCs. [:pull:`63` by Michal Čihař]
 
 
 Version 1.8.0
@@ -24,7 +64,7 @@ Released on September 23, 2020
 - Remove references to the generic ``:py:obj:`` role [:pull:`54` by Stephen Finucane]
 - Remove imports and calls to deprecated function force_decode who was removed
   starting with sphinx 4.0 [:pull:`49` by Florian Masy]
-- Be explicit about what versions of Python are supports (2.7, and 3.5+). This will
+- Be explicit about what versions of Python are supported (2.7, and 3.5+). This will
   be the last version to support Python 2.7 and 3.5, version 2.0 will require 3.6+.
 
 

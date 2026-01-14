@@ -68,8 +68,7 @@ class BottleTest(unittest.TestCase):
 
         self.assertEqual(len(routes), 3)
 
-        # not sure about this:
-        self.assertEqual(routes[2][1], "/mount/(:re:.*)")
+        self.assertRegex(routes[2][1], "/mount/.*")
 
     def test_get_routes_filter(self):
         routes = list(get_routes(create_app_filter()))

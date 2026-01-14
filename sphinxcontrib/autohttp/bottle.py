@@ -11,7 +11,7 @@
 """
 
 import re
-import six
+import io
 
 from docutils import nodes
 from docutils.parsers.rst import directives, Directive
@@ -26,7 +26,7 @@ from sphinxcontrib.autohttp.common import http_directive, import_object
 
 
 def translate_bottle_rule(app, rule):
-    buf = six.StringIO()
+    buf = io.StringIO()
     if hasattr(app.router, "parse_rule"):
         iterator = app.router.parse_rule(rule)  # bottle 0.11
     else:
