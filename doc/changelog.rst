@@ -28,6 +28,7 @@ Internal
 
 - Added Dependabot configuration.
 - Replaced Travis CI with GitHub workflows for continuous integration checks.
+- Drop dependency on ``six`` libary.
 
 
 Documentation
@@ -48,6 +49,7 @@ Released on November 14, 2022
 - multicore: Fix false positive warnings in ``merge_domaindata``. [:pull:`59` by Ryan Northey]
 - Copy ``parse_rule`` since it was removed in werkzeug 2.2. [:pull:`61` by Ash Berlin-Taylor]
 - Update URLs for RFCs. [:pull:`63` by Michal Čihař]
+
 
 Version 1.8.0
 `````````````
