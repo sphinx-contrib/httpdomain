@@ -351,6 +351,21 @@ class HTTPResource(ObjectDescription):
     def get_index_text(self, modname, name):
         return ''
 
+    def _object_hierarchy_parts(self, sig_node):
+        if 'fullname' not in sig_node:
+            return ()
+        path = sig_node.get('path')
+        method = sig_node.get('method')
+        if not path or not sig_node:
+            return ()
+        return tuple(path.split('/')) + (method, sig_node['fullname'])
+
+    def _toc_entry_name(self, sig_node):
+        if not sig_node.get('_toc_parts'):
+            return ''
+
+        return sig_node['_toc_parts'][-1]
+
 
 class HTTPOptions(HTTPResource):
 
