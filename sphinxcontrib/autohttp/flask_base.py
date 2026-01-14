@@ -125,7 +125,7 @@ def cleanup_methods(methods):
 
 
 def quickref_directive(method, path, content, blueprint=None, auto=False):
-    rcomp = re.compile("^\s*.. :quickref:\s*(?P<quick>.*)$")
+    rcomp = re.compile(r"^\s*.. :quickref:\s*(?P<quick>.*)$")
     method = method.lower().strip()
     if isinstance(content, str):
         content = content.splitlines()
