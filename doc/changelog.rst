@@ -29,6 +29,7 @@ Internal
 
 - Added Dependabot configuration.
 - Replaced Travis CI with GitHub workflows for continuous integration checks.
+- Drop dependency on ``six`` libary.
 
 
 Documentation

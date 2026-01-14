@@ -6,7 +6,6 @@ from setuptools import setup
 
 install_requires = [
     'Sphinx >= 6.0',
-    'six',
 ]
 
 dev_requires = test_requires = docs_requires = [
