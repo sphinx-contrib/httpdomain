@@ -22,7 +22,7 @@ Major changes
 - Add support for Python 3.10 up to 3.14.
 - Updated :file:`setup.py` with newer Sphinx version and reorganized dependencies (``dev_requires``, ``docs_requires``, ``test_requires``, and ``install_requires``).
 - Adjusted a unit test regular expression for :file:`bottle_test.py`.
-- Use MDN docs for information about HTTP status codes instead of w3.org
+- Use MDN docs for information about HTTP status codes instead of w3.org.
 
 
 Internal
