@@ -495,21 +495,10 @@ class HTTPXRefStatusRole(XRefRole):
             return report_invalid_code()
         elif status is None:
             return report_unknown_code()
-        elif code == 226:
-            url = 'https://www.ietf.org/rfc/rfc3229.txt'
-        elif code == 418:
-            url = 'https://www.ietf.org/rfc/rfc2324.txt'
-        elif code == 429:
-            url = 'https://www.rfc-editor.org/rfc/rfc6585#section-4'
         elif code == 449:
             url = 'https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-wdv/83ecf19f-e0f8-4706-aae5-ba618f52f100'
-        elif code == 451:
-            url = 'https://www.ietf.org/rfc/rfc7725.txt'
-        elif code in WEBDAV_STATUS_CODES:
-            url = 'https://www.rfc-editor.org/rfc/rfc4918#section-11.%d' % (WEBDAV_STATUS_CODES.index(code) + 1)
-        elif code in HTTP_STATUS_CODES:
-            url = 'https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html' \
-                  '#sec10.' + ('%d.%d' % (code // 100, 1 + code % 100))
+        elif code in HTTP_STATUS_CODES or code in WEBDAV_STATUS_CODES:
+            url = f"https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/{code}"
         else:
             url = ''
         node = nodes.reference(rawsource, '%d %s' % (code, status), refuri=url)
