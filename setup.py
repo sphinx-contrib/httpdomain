@@ -39,6 +39,7 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
         'Environment :: Web Environment',
+        'Framework :: Sphinx :: Domain',
         'Framework :: Sphinx :: Extension',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
