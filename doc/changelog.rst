@@ -40,7 +40,8 @@ Documentation
 - Simplified and updated documentation requirements in :file:`rtd-requires.txt`.
 - Added a :file:`.readthedocs.yaml` configuration for Read the Docs builds.
 - Added omitted change log entries for v1.8.1.
-- Adjusted Sphinx configuration and example regex usage in conf.py.
+- Adjusted Sphinx configuration and example regex usage in :file:`conf.py`.
+- Support passing in ``SPHINXOPTS`` as an environment variable, such as ``set SPHINXOPTS="-j auto -n" && make html``.
 
 
 Version 1.8.1
