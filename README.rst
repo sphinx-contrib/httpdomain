@@ -16,6 +16,6 @@
 This contrib extension, ``sphinxcontrib.httpdomain``, provides a Sphinx
 domain for describing HTTP APIs.
 
-You can find the documentation from the following URL:
+You can find the documentation at the following URL:
 
-https://sphinxcontrib-httpdomain.readthedocs.io/
+https://sphinxcontrib-httpdomain.readthedocs.io/en/stable/
