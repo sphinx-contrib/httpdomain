@@ -57,8 +57,4 @@ build-backend = "uv_build"
 
 [tool.uv.build-backend]
 namespace = true
-module-name = [
-    "sphinxcontrib.autohttp",
-    "sphinxcontrib.httpdomain",
-]
-module-root = ""
+module-name = "sphinxcontrib"
