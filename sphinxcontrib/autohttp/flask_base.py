@@ -85,13 +85,15 @@ def translate_werkzeug_rule(rule):
     return buf.getvalue()
 
 
-def get_routes(app, endpoint=None, order=None):
+def get_routes(app, endpoint=None, order=None, url_regexp=None):
     endpoints = []
     for rule in app.url_map.iter_rules(endpoint):
         url_with_endpoint = (
             str(next(app.url_map.iter_rules(rule.endpoint))),
             rule.endpoint
         )
+        if url_regexp and not url_regexp.match(url_with_endpoint[0]):
+            continue
         if url_with_endpoint not in endpoints:
             endpoints.append(url_with_endpoint)
     if order == 'path':
@@ -173,6 +175,7 @@ class AutoflaskBase(Directive):
                    'undoc-modules': directives.unchanged,
                    'undoc-static': directives.unchanged,
                    'include-empty-docstring': directives.unchanged,
+                   'url_regexp': directives.unchanged,
                    'autoquickref': directives.flag}
 
     @property
@@ -231,6 +234,13 @@ class AutoflaskBase(Directive):
             return frozenset()
         return frozenset(re.split(r'\s*,\s*', groupby))
 
+    @property
+    def url_regexp(self):
+        url_regexp = self.options.get('url_regexp', None)
+        if url_regexp:
+            return re.compile(url_regexp)
+        return None
+
     def inspect_routes(self, app):
         """Inspects the views of Flask.
 
@@ -238,10 +248,10 @@ class AutoflaskBase(Directive):
         :returns: 4-tuple like ``(method, paths, view_func, view_doc)``
         """
         if self.endpoints:
-            routes = itertools.chain(*[get_routes(app, endpoint, self.order)
+            routes = itertools.chain(*[get_routes(app, endpoint, self.order, url_regexp=self.url_regexp)
                                        for endpoint in self.endpoints])
         else:
-            routes = get_routes(app, order=self.order)
+            routes = get_routes(app, order=self.order, url_regexp=self.url_regexp)
 
         for method, paths, endpoint in routes:
             try:
