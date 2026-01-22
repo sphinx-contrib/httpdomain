@@ -498,7 +498,7 @@ class HTTPXRefStatusRole(XRefRole):
         elif code == 449:
             url = 'https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-wdv/83ecf19f-e0f8-4706-aae5-ba618f52f100'
         elif code in HTTP_STATUS_CODES or code in WEBDAV_STATUS_CODES:
-            url = f"https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/{code}"
+            url = f"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/{code}"
         else:
             url = ''
         node = nodes.reference(rawsource, '%d %s' % (code, status), refuri=url)

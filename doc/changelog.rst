@@ -78,7 +78,7 @@ Released on July 1, 2018.
 - Implemented ``:autoquickref:`` option that use available information to
   build a ``quickref``. [:pull:`9` by Alexandre Bonnetain]
 - Improved :mod:`sphinxcontrib.autohttp.tornado` compatibility with Tornado
-  4.5 and newer. `Tornado 4.5 <http://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`_
+  4.5 and newer. `Tornado 4.5 <https://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`_
   introduced the ``Rule`` class and made ``URLSpec`` a subclass of it, so certain
   rule attributes required updating. [:issue:`7`, :pull:`11` by Robert Zeigler]
 
@@ -91,7 +91,7 @@ Released on March 3, 2018.
 - Remove references to the ``sphinx.util.compat`` module which was deprecated
   in Sphinx 1.6 and removed in 1.7.  [:issue:`5`, :pull:`4` by Jeremy Cline]
 - Made :mod:`sphinxcontrib.autohttp.tornado` compatible with Tornado 4.5 and
-  newer.  `Tornado 4.5 <http://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`_
+  newer.  `Tornado 4.5 <https://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`_
   removed the ``handlers`` attribute from ``tornado.web.Application``.
   [:pull:`3` by Dave Shawley]
 
@@ -157,7 +157,7 @@ Released on August 13, 2015.
 - Now :mod:`sphinxcontrib.autohttp.flask` supports multiple paths for
   endpoints using same HTTP method.  [:oldpull:`97` by Christian Felder]
 
-.. _CORS: http://www.w3.org/TR/cors/
+.. _CORS: https://fetch.spec.whatwg.org/#http-cors-protocol
 
 
 Version 1.3.0
@@ -194,7 +194,7 @@ Released on March 31, 2014.
 - Fixed broken Python 2.6 compatibility.  [:oldpull:`41` by Kien Pham]
 - Added missing link to six_ dependency.
 
-.. _six: https://six.readthedocs.io//
+.. _six: https://six.readthedocs.io/
 
 
 Version 1.2.0
@@ -223,7 +223,7 @@ Released on August 8, 2013.
   arguments.  [:oldpull:`33` by Michael Twomey]
 
 .. _patch: https://github.com/jalaziz/sphinxcontrib-httpdomain
-.. _Bottle: http://bottlepy.org/
+.. _Bottle: https://bottlepy.org/docs/stable/
 
 
 Version 1.1.8

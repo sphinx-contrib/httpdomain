@@ -3,17 +3,28 @@
 :mod:`sphinxcontrib.httpdomain` --- Sphinx domain for documenting HTTP APIs
 ===========================================================================
 
-.. image:: https://badge.fury.io/py/sphinxcontrib-httpdomain.svg
-   :target: https://pypi.org/project/sphinxcontrib-httpdomain/
-   :alt: Latest PyPI version
+.. image:: https://img.shields.io/pypi/v/sphinxcontrib-httpdomain
+    :target: https://pypi.org/project/sphinxcontrib-httpdomain/
+    :alt: Latest PyPI version
 
-.. image:: https://readthedocs.org/projects/sphinxcontrib-httpdomain/badge/
-   :target: https://sphinxcontrib-httpdomain.readthedocs.io/
-   :alt: Documentation Status
+.. image:: https://img.shields.io/pypi/pyversions/sphinxcontrib-httpdomain
+    :target: https://pypi.org/project/sphinxcontrib-httpdomain/
+    :alt: Supported Python versions
 
-.. image:: https://travis-ci.org/sphinx-contrib/httpdomain.svg?branch=main
-   :alt: Build Status
-   :target: https://travis-ci.org/sphinx-contrib/httpdomain
+.. image:: https://app.readthedocs.org/projects/sphinxcontrib-httpdomain/badge/
+    :target: https://sphinxcontrib-httpdomain.readthedocs.io/en/stable/
+    :alt: Documentation status
+
+.. image:: https://github.com/sphinx-contrib/httpdomain/actions/workflows/tests.yml/badge.svg?branch=main
+    :alt: Build status
+    :target: https://github.com/sphinx-contrib/httpdomain/actions/workflows/tests.yml
+
+.. image:: https://img.shields.io/pypi/dm/sphinxcontrib-httpdomain
+    :alt: PyPI monthly downloads
+
+.. image:: https://img.shields.io/github/sponsors/stevepiercy
+    :target: https://github.com/sponsors/stevepiercy
+    :alt: GitHub Sponsors
 
 This contrib extension, :mod:`sphinxcontrib.httpdomain`, provides a Sphinx
 domain for describing HTTP APIs.
@@ -723,7 +734,7 @@ will be rendered as:
          includes members without docstrings, ``undoc-endpoints`` option has
          nothing to do with docstrings. It just excludes specified endpoints.
 
-         .. _undoc-members: http://www.sphinx-doc.org/en/stable/ext/autodoc.html#directive-automodule
+         .. _undoc-members: https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#directive-option-automodule-undoc-members
 
    ``blueprints``
       Only include specified blueprints in generated references.
@@ -787,7 +798,7 @@ will be rendered as:
 
       .. versionadded:: 1.1.2
 
-.. _Flask: http://flask.pocoo.org/
+.. _Flask: https://www.palletsprojects.com/projects/flask/
 
 
 .. module:: sphinxcontrib.autohttp.flaskqref
@@ -952,13 +963,13 @@ will be rendered as:
          includes members without docstrings, ``undoc-endpoints`` option has
          nothing to do with docstrings. It just excludes specified endpoints.
 
-         .. _undoc-members: http://www.sphinx-doc.org/en/stable/ext/autodoc.html#directive-automodule
+         .. _undoc-members: https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#directive-option-automodule-undoc-members
 
    ``include-empty-docstring``
       View functions that don't have docstring (:attr:`__doc__`) are excluded
       by default. If this flag option has given, they become included also.
 
-.. _Bottle: http://bottlepy.org/
+.. _Bottle: https://bottlepy.org/docs/stable/
 
 .. module:: sphinxcontrib.autohttp.tornado
 
@@ -1034,13 +1045,13 @@ will be rendered as:
          includes members without docstrings, ``undoc-endpoints`` option has
          nothing to do with docstrings. It just excludes specified endpoints.
 
-         .. _undoc-members: http://www.sphinx-doc.org/en/stable/ext/autodoc.html#directive-automodule
+         .. _undoc-members: https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#directive-option-automodule-undoc-members
 
    ``include-empty-docstring``
       View functions that don't have docstring (:attr:`__doc__`) are excluded
       by default. If this flag option has given, they become included also.
 
-.. _Tornado: http://www.tornadoweb.org/
+.. _Tornado: https://www.tornadoweb.org/en/stable/
 
 
 Author and License
