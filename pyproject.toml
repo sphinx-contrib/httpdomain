@@ -40,11 +40,22 @@ classifiers = [
     "Topic :: Documentation",
     "Topic :: Utilities",
 ]
-
 requires-python = ">=3.10"
 dependencies = [
     "sphinx>=6.0",
 ]
+
+
+[project.urls]
+Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
+Documentation = "https://sphinxcontrib-httpdomain.readthedocs.io/en/stable/"
+Download ="https://pypi.org/project/sphinxcontrib-httpdomain/"
+Funding = "https://github.com/sponsors/stevepiercy"
+Homepage = "https://github.com/sphinx-contrib/httpdomain"
+Issues = "https://github.com/sphinx-contrib/httpdomain/issues"
+# TODO: Releasenotes = ""
+Repository = "https://github.com/sphinx-contrib/httpdomain"
+
 
 [dependency-groups]
 dev = [
@@ -53,9 +64,6 @@ dev = [
     "pytest>=9.0.2",
     "tornado>=6.5.4",
 ]
-
-
-#dynamic = ["version"]
 
 
 [build-system]
