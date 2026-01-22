@@ -71,6 +71,10 @@ requires = ["uv_build >= 0.9.26, <0.10.0"]
 build-backend = "uv_build"
 
 
+[tool.uv]
+python-preference = "managed"
+
+
 [tool.uv.build-backend]
 namespace = true
 module-name = "sphinxcontrib"
