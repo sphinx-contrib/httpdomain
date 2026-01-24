@@ -9,4 +9,4 @@
 .venv
 build
 dist
-doc/_build
+_build
