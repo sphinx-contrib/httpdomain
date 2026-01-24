@@ -29,9 +29,10 @@ help:  # This help message
 
 # environment management
 .PHONY: dev
-dev:  ## Install required Python, create Python virtual environment, and install package requirements
+dev:  ## Install required Python, create Python virtual environment, install tox-uv plugin, and install package requirements
 	@uv python install "$(PYTHONVERSION)"
 	@uv venv --python "$(PYTHONVERSION)"
+	@uv tool install tox --with tox-uv
 	@uv sync
 
 .PHONY: sync

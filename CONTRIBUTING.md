@@ -42,13 +42,59 @@ Change your working directory to the cloned repository.
 cd httpdomain
 ```
 
-Then install a supported Python version for development, create a Python virtual environment, install requirements for development, and install the package in development mode with a single command.
+Then install a supported Python version for development, create a Python virtual environment, install requirements for development, install [tox](https://tox.wiki/en/stable/) and the [tox-uv](https://github.com/tox-dev/tox-uv>) plugin for running tests, and install httpdomain in development mode with a single command.
 
 ```shell
 make dev
 ```
 
-uv tool install tox --with tox-uv
+## Make commands
+
+For a list of available Make commands, run the following command.
+
+```shell
+make help
+```
+
+The most common commands are listed below.
+
+Rebuild Sphinx documentation on changes, with live-reload in the browser.
+
+```shell
+make livehtml
+```
+
+Delete the documentation build directory.
+
+```shell
+make clean
+```
+
+Delete the documentation build directory and delete and initialize the Python virtual environment.
+
+```shell
+make init
+```
+
+
+## Build and test
+
+httpdomain uses tox to both build the documentation and run tests.
+
+To build the documentation and run tests across all supported Python versions, using the following command.
+
+```shell
+tox
+```
+
+To run tests for a specific Python version, use the following command, replacing `py314` with the desired version number.
+
+```shell
+tox -e py314
+```
+
+> [!NOTE]  
+> `py314` is the only tox environment that also runs the link checker.
 
 
 ## Pull request requirements
