@@ -42,7 +42,7 @@ Change your working directory to the cloned repository.
 cd httpdomain
 ```
 
-Then install a supported Python version for development, create a Python virtual environment, install requirements for development, install [tox](https://tox.wiki/en/stable/) and the [tox-uv](https://github.com/tox-dev/tox-uv>) plugin for running tests, and install httpdomain in development mode with a single command.
+Then install a supported Python version for development, create a Python virtual environment, install requirements for development, install [tox](https://tox.wiki/en/stable/) and the [tox-uv](https://github.com/tox-dev/tox-uv) plugin for running tests, and install httpdomain in development mode with a single command.
 
 ```shell
 make dev
