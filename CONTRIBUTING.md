@@ -84,13 +84,13 @@ httpdomain uses tox to both build the documentation and run tests.
 To build the documentation and run tests across all supported Python versions, using the following command.
 
 ```shell
-tox
+tox r
 ```
 
 To run tests for a specific Python version, use the following command, replacing `py314` with the desired version number.
 
 ```shell
-tox -e py314
+tox r -e py314
 ```
 
 > [!NOTE]  
