@@ -12,35 +12,41 @@ unreleased
 Breaking changes
 ................
 
-- Drop support for Python 3.9 and older.
-- Switch to implicit (native) namespace for ``sphinxcontrib``.
+- Dropped support for Python 3.9 and older. [:pull:`85` by @stevepiercy]
+- Switched to implicit (native) namespace for ``sphinxcontrib``. [:pull:`75` by @icemac]
 
 
 Major changes
 .............
 
-- Add support for Python 3.10 up to 3.14.
-- Updated :file:`setup.py` with newer Sphinx version and reorganized dependencies (``dev_requires``, ``docs_requires``, ``test_requires``, and ``install_requires``).
-- Adjusted a unit test regular expression for :file:`bottle_test.py`.
-- Use MDN docs for information about HTTP status codes instead of w3.org.
+- Added support for Python 3.10 up to 3.14.[:pull:`85` by @stevepiercy]
+- Adjusted a unit test regular expression for :file:`bottle_test.py`. [:pull:`85` by @stevepiercy]
+- Use MDN documentation for information about HTTP status codes instead of ``w3.org``. [:pull:`78` by @jamesrobson-secondmind]
 
 
 Internal
 ........
 
-- Added Dependabot configuration.
-- Replaced Travis CI with GitHub workflows for continuous integration checks.
-- Drop dependency on ``six`` libary.
-- Updated translations for FR and ES languages.
+- Added Dependabot configuration. [:pull:`85` by @stevepiercy]
+- Replaced Travis CI with GitHub workflows for continuous integration checks. [:pull:`85` by @stevepiercy]
+- Dropped dependency on ``six`` libary. [:pull:`72` by @WAKayser]
+- Updated translations for FR and ES languages. [:pull:`77` by @nils-van-zuijlen]
+- Reorganized the repository structure to modern standards.
+  This included moving source files into a ``src`` directory, renaming ``doc`` to ``docs``, and other refinements. [:pull:`91` by @stevepiercy]
+- Replaced setuptools with :file:`pyproject.toml` configuration for modern project management. [:pull:`91` by @stevepiercy]
+- Changed to use uv for development and continuous integration. [:pull:`91` by @stevepiercy]
+- Moved the Makefile from the documentation directory to the root of the repository, and added a suite of commands for development and testing the package. [:pull:`91` by @stevepiercy]
 
 
 Documentation
 .............
 
-- Simplified and updated documentation requirements in :file:`rtd-requires.txt`.
-- Added a :file:`.readthedocs.yaml` configuration for Read the Docs builds.
-- Added omitted change log entries for v1.8.1.
-- Adjusted Sphinx configuration and example regex usage in conf.py.
+- Simplified and updated documentation requirements in :file:`rtd-requires.txt`. [:pull:`85` by @stevepiercy]
+- Added a :file:`.readthedocs.yaml` configuration for Read the Docs builds. [:pull:`85` by @stevepiercy]
+- Added omitted change log entries for v1.8.1. [:pull:`85` by @stevepiercy]
+- Adjusted Sphinx configuration and example regex usage in :file:`conf.py`. [:pull:`85` by @stevepiercy]
+- Added :file:`CONTRIBUTING.md` to encourage contributions. [:pull:`91` by @stevepiercy]
+- Fixed broken links and redirecting links. [:pull:`91` by @stevepiercy]
 
 
 Version 1.8.1
@@ -48,7 +54,7 @@ Version 1.8.1
 
 Released on November 14, 2022
 
-- Add translations for French and Spanish. [by @olivier-heurtier]
+- Add translations for French and Spanish. [:pull:`57` by @olivier-heurtier]
 - multicore: Fix false positive warnings in ``merge_domaindata``. [:pull:`59` by Ryan Northey]
 - Copy ``parse_rule`` since it was removed in werkzeug 2.2. [:pull:`61` by Ash Berlin-Taylor]
 - Update URLs for RFCs. [:pull:`63` by Michal Čihař]
