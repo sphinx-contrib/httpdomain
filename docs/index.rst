@@ -1074,4 +1074,4 @@ __ https://github.com/sphinx-contrib
 .. _httpdomain: https://github.com/sphinx-contrib/httpdomain
 
 
-.. include:: changelog.rst
+.. include:: ../CHANGELOG.rst

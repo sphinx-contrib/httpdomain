@@ -101,8 +101,7 @@ tox r -e py314
 
 Before submitting your pull request, ensure you have met the following requirements.
 
-1.  Add a changelog entry to `docs/changelog.rst`.
+1.  Add a change log entry to `CHANGELOG.rst`.
 1.  Add a test which proves your fix and passes.
 1.  Run all tests to ensure your changes don't break any existing functionality.
 1.  Add or edit documentation, both as docstrings and narrative documentation, as necessary.
-
