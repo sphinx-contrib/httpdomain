@@ -2,10 +2,11 @@
 *.pyc
 .*.swp
 .cache
+.idea/
 .pytest_cache
+.python-version
 .tox
 .venv
 build
 dist
-.idea/
-doc/_build
+_build

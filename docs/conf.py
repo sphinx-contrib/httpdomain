@@ -11,11 +11,18 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 from __future__ import print_function
+#TODO: from pathlib import Path
 
 import os
-import os.path
 import sys
 
+
+#TODO: update API docs from source for livehtml.
+# Does not update :statuscode: or any other directive defined in source,
+# for which stop and restart livehtml.
+# HERE = Path(__file__).parent
+# SRC = HERE.parent / "src" / "sphinxcontrib"
+# sys.path.insert(0, str(SRC))
 
 if os.environ.get('READTHEDOCS'):
     print()
