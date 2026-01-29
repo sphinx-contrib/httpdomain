@@ -305,6 +305,7 @@ class HTTPResource(ObjectDescription):
     option_spec = {
         'deprecated': directives.flag,
         'noindex': directives.flag,
+        'addtoc': directives.flag,
         'synopsis': lambda x: x,
     }
 
@@ -349,6 +350,25 @@ class HTTPResource(ObjectDescription):
                 'deprecated' in self.options)
 
     def get_index_text(self, modname, name):
+        return ''
+
+    def _object_hierarchy_parts(self, sig_node):
+        if 'addtoc' in self.options:
+            if 'fullname' not in sig_node:
+                return ()
+            path = sig_node.get('path')
+            method = sig_node.get('method')
+            if not path or not sig_node:
+                return ()
+            return tuple(path.split('/')) + (method, sig_node['fullname'])
+        return ()
+
+    def _toc_entry_name(self, sig_node):
+        if 'addtoc' in self.options:
+            if not sig_node.get('_toc_parts'):
+                return ''
+
+            return sig_node['_toc_parts'][-1]
         return ''
 
 
