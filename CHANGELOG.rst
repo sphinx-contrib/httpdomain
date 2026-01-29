@@ -22,6 +22,7 @@ Major changes
 - Added support for Python 3.10 up to 3.14.[:pull:`85` by @stevepiercy]
 - Adjusted a unit test regular expression for :file:`bottle_test.py`. [:pull:`85` by @stevepiercy]
 - Use MDN documentation for information about HTTP status codes instead of ``w3.org``. [:pull:`78` by @jamesrobson-secondmind]
+- Add ``:addtoc:`` flag to registrer entry for page-level table-of-contents [:pull:`80` by @sevdog]
 
 
 Internal
