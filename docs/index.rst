@@ -313,6 +313,15 @@ Additionally, you may specify custom options to the directives:
       .. http:get:: /users/(int:user_id)/posts/(tag)
          :synopsis: Returns posts by the specified tag for the user
 
+``addtoc``
+   Adds element to page level table-of-contents.
+
+   .. sourcecode:: rst
+
+      .. http:get:: /users/(int:user_id)/posts/(tag)
+         :addtoc:
+
+   .. versionadded:: 2.0.0
 
 .. _resource-fields:
 

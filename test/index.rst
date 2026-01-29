@@ -79,6 +79,9 @@ Options
    :deprecated:
    :synopsis: Something special, but use PUT instead
 
+.. http:options:: /baz
+   :addtoc:
+
 Roles
 ~~~~~
 
