@@ -314,7 +314,7 @@ Additionally, you may specify custom options to the directives:
          :synopsis: Returns posts by the specified tag for the user
 
 ``addtoc``
-   Adds element to page level table-of-contents.
+   Adds HTTP API endpoint elements to the page-level table of contents.
 
    .. sourcecode:: rst
 
