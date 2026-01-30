@@ -19,6 +19,7 @@ I18NSPHINXOPTS  = $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) .
 #TODO: VALEFILES       := $(shell find $(DOCS_DIR) -type f -name "*.md" -print)
 #TODO: VALEOPTS        ?=
 PYTHONVERSION   = >=3.10,<3.15
+VERSION := $(shell uv version --short)
 
 # Add the following 'help' target to your Makefile
 # And add help text after each target name starting with '\#\#'
@@ -224,9 +225,14 @@ rtd-prepare:  ## Prepare environment on Read the Docs
 rtd-pr-preview: rtd-prepare dev ## Build pull request preview on Read the Docs
 	cd $(DOCS_DIR) && $(SPHINXBUILD) -b html $(ALLSPHINXOPTS) ${READTHEDOCS_OUTPUT}/html/
 
-#TODO .PHONY: release
-#release: dev compile  ## Release with zest.releaser
-#	@uv run fullrelease
+.PHONY: dist
+dist:  ## Clean dist, then build the project
+	@git add .
+	@git commit -m "Release $(VERSION)"
+	@git tag $(VERSION)
+	@git push origin $(VERSION)
+	@rm -rf dist
+	@uv build
 
 .PHONY: all
 all: clean linkcheck html  ## Clean docs build, then run linkcheck, and build html
