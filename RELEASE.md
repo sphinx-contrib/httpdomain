@@ -33,11 +33,4 @@ Publish the project.
 uv publish
 ```
 
-Create a git tag of the version, and push it.
-
-```shell
-git tag <version>
-git push origin <version>
-```
-
-Navigate to the [releases page](https://github.com/sphinx-contrib/httpdomain/releases) to publish the release.
+Finally, navigate to the [New release page](https://github.com/sphinx-contrib/httpdomain/releases/new) on GitHub to publish the tagged release.
