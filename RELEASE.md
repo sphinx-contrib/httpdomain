@@ -28,9 +28,10 @@ make dist
 ```
 
 Publish the project.
+You'll need your personal access token from PyPI.
 
 ```shell
-uv publish
+uv publish --username __token__
 ```
 
 Finally, navigate to the [New release page](https://github.com/sphinx-contrib/httpdomain/releases/new) on GitHub to publish the tagged release.
