@@ -230,7 +230,7 @@ dist:  ## Clean dist, then build the project
 	@git add .
 	@git commit -m "Release $(VERSION)"
 	@git tag $(VERSION)
-	@git push origin $(VERSION)
+	@git push
 	@rm -rf dist
 	@uv build
 
