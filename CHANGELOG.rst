@@ -6,8 +6,7 @@ Changelog
 Version 2.0.0
 `````````````
 
-unreleased
-
+Released on February 4, 2026
 
 Breaking changes
 ................
