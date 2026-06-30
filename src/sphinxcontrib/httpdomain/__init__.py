@@ -230,6 +230,7 @@ HTTP_STATUS_CODES = {
     422: 'Unprocessable Entity',
     423: 'Locked',
     424: 'Failed Dependency',
+    425: 'Too Early',           # RFC 8470
     426: 'Upgrade Required',
     429: 'Too Many Requests',
     449: 'Retry With',           # proprietary MS extension
