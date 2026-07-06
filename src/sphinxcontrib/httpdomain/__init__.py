@@ -310,6 +310,23 @@ class HTTPResource(ObjectDescription):
     }
 
     method = NotImplemented
+    noindex = False
+
+    def run(self):
+        # ObjectDescription.run() skips add_target_and_index() entirely when
+        # the noindex option is set, which would drop the per-page anchor
+        # along with the global registration. Anchors are per-document ids
+        # and cannot collide across pages, so pop the option before running
+        # the base class and gate only the registration in
+        # add_target_and_index().
+        self.noindex = 'noindex' in self.options
+        self.options.pop('noindex', None)
+        nodes = super().run()
+        if self.noindex:
+            for node in nodes:
+                if isinstance(node, addnodes.desc):
+                    node['noindex'] = node['no-index'] = True
+        return nodes
 
     def handle_signature(self, sig, signode):
         method = self.method.upper() + ' '
@@ -343,7 +360,7 @@ class HTTPResource(ObjectDescription):
 
     def add_target_and_index(self, name_cls, sig, signode):
         signode['ids'].append(http_resource_anchor(*name_cls[1:]))
-        if 'noindex' not in self.options:
+        if not self.noindex:
             self.env.domaindata['http'][self.method][sig] = (
                 self.env.docname,
                 self.options.get('synopsis', ''),
