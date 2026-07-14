@@ -426,12 +426,12 @@ nicely:
 
       :>json boolean status: Operation status
 
-``requestheader``, ``reqheader``, ``>header``
+``requestheader``, ``reqheader``, ``<header``
    Description of request header field.
 
    .. versionadded:: 1.1.9
 
-``responseheader``, ``resheader``, ``<header``
+``responseheader``, ``resheader``, ``>header``
    Description of response header field.
 
    .. versionadded:: 1.1.9
