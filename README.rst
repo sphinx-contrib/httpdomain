@@ -24,8 +24,8 @@
     :target: https://github.com/sponsors/stevepiercy
     :alt: GitHub Sponsors
 
-This contrib extension, ``sphinxcontrib.httpdomain``, provides a Sphinx
-domain for describing HTTP APIs.
+This contrib extension, ``sphinxcontrib.httpdomain``, provides Sphinx domains
+for describing HTTP APIs and WebSocket connections.
 
 You can find the documentation at the following URL:
 
