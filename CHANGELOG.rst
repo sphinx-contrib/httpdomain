@@ -6,11 +6,13 @@ Changelog
 Unreleased
 ``````````
 
-
 Major changes
 .............
 
 - Keep the per-page signature anchor and permalink when ``:noindex:`` is set; only the global route registration is skipped. [:pull:`112` by @ggiesen]
+- Added a ``websocket`` domain for documenting bidirectional WebSocket
+  connections, including tests, usage documentation, project meta information,
+  and translations. [:issue:`25`, :pull:`115` by @gryphon2411]
 
 
 Minor changes
@@ -32,7 +34,6 @@ Minor changes
 - Bump tornado from 6.5.4 to 6.5.5 :pull:`105`
 - Add QUERY method and Accept-Query header [:pull:`114` by @rnewson]
 - Added and corrected HTTP status codes and messages 308, 414, and 425. [:pull:`114` by @apteryks]
-
 
 Version 2.0.0
 `````````````
