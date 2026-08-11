@@ -291,4 +291,6 @@ suppress_warnings = ['image.nonlocal_uri']
 linkcheck_ignore = [
     # Don't check old links to Bitbucket
     r'^https://bitbucket\.org/birkenfeld/sphinx-contrib/(issues|pull-requests)/\d+/',  # noqa: E501
+    # The following site has imposed 403 forbidden responses, link is valid
+    'https://datatracker.ietf.org/doc/html/',
 ]
