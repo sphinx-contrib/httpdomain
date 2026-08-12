@@ -43,7 +43,7 @@ sys.path.insert(
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 
-def get_version_from_toml():
+def get_version_from_toml() -> str:
     """
     Returns the version from the pyproject.toml file.
     Supports PEP 621 formats. Works with Python 3.10+.
