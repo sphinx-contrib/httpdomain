@@ -48,20 +48,15 @@ def get_version_from_toml() -> str:
     Returns the version from the :file:`pyproject.toml` file.
     Supports :pep:`621` formats. Works with Python 3.10+.
     """
-    path = os.path.join(os.path.dirname(__file__), '..', 'pyproject.toml')
-    version = "2.0.0"
-    try: 
-        if sys.version_info >= (3, 11): 
-            import tomllib
-        else: 
-            import tomli as tomllib
+    path = os.path.join(os.path.dirname(__file__), "..", "pyproject.toml")
+    if sys.version_info >= (3, 11):
+        import tomllib
+    else:
+        import tomli as tomllib
 
-        with open(path, "rb") as f:
-            data = tomllib.load(f)
-            return str(data.get("project", {}).get("version", version))
-    except Exception as e:
-        pass
-    return version
+    with open(path, "rb") as f:
+        data = tomllib.load(f)
+        return str(data.get("project", {}).get("version"))
 
 # -- General configuration -----------------------------------------------------
 
