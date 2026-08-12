@@ -91,8 +91,6 @@ copyright = u'2011, Hong Minhee'
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
-# The short X.Y version.
-version = '1.8'
 # The full version, including alpha/beta/rc tags.
 release = get_version_from_toml()
 
