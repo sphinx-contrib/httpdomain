@@ -11,13 +11,12 @@
 """
 
 import re
-import six
+import io
 
 from docutils import nodes
 from docutils.parsers.rst import directives, Directive
 from docutils.statemachine import ViewList
 
-from sphinx.util import force_decode
 from sphinx.util.nodes import nested_parse_with_titles
 from sphinx.util.docstrings import prepare_docstring
 from sphinx.pycode import ModuleAnalyzer
@@ -27,7 +26,7 @@ from sphinxcontrib.autohttp.common import http_directive, import_object
 
 
 def translate_bottle_rule(app, rule):
-    buf = six.StringIO()
+    buf = io.StringIO()
     if hasattr(app.router, "parse_rule"):
         iterator = app.router.parse_rule(rule)  # bottle 0.11
     else:
@@ -89,11 +88,10 @@ class AutobottleDirective(Directive):
                 continue
             view = target.callback
             docstring = view.__doc__ or ''
-            if not isinstance(docstring, six.text_type):
-                analyzer = ModuleAnalyzer.for_module(view.__module__)
-                docstring = force_decode(docstring, analyzer.encoding)
+            
             if not docstring and 'include-empty-docstring' not in self.options:
                 continue
+            
             docstring = prepare_docstring(docstring)
             for line in http_directive(method, path, docstring):
                 yield line

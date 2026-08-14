@@ -8,9 +8,8 @@
     :license: BSD, see LICENSE for details.
 
 """
-import six
-from six.moves import builtins
-from six.moves import reduce
+from functools import reduce
+import builtins
 
 def import_object(import_name):
     module_name, expr = import_name.split(':', 1)
@@ -24,10 +23,10 @@ def import_object(import_name):
 
 def http_directive(method, path, content):
     method = method.lower().strip()
-    if isinstance(content, six.string_types):
+    if isinstance(content, str):
         content = content.splitlines()
     yield ''
-    paths = [path] if isinstance(path, six.string_types) else path
+    paths = [path] if isinstance(path, str) else path
     for path in paths:
         yield '.. http:{method}:: {path}'.format(**locals())
     yield ''

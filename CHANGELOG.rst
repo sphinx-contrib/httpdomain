@@ -3,15 +3,117 @@
 Changelog
 ---------
 
+Unreleased
+``````````
+
+
+Major changes
+.............
+
+- Keep the per-page signature anchor and permalink when ``:noindex:`` is set; only the global route registration is skipped. [:pull:`112` by @ggiesen]
+
+
+Minor changes
+.............
+
+- Fix author email format. [:issue:`99` by @gboutry and @stevepiercy]
+- Drop deprecated license classifier. [:issue:`101` by @gboutry]
+- Bump urllib3 from 2.6.3 to 2.7.0 :pull:`122`
+- Bump idna from 3.11 to 3.15 :pull:`121`
+- Bump werkzeug from 3.1.5 to 3.1.6 :pull:`120`
+- Bump flask from 3.1.2 to 3.1.3 :pull:`119`
+- Bump tornado from 6.5.5 to 6.5.7 :pull:`117`
+- Bump starlette from 0.52.1 to 1.3.1 :pull:`118`
+- Bump pytest from 9.0.2 to 9.0.3 :pull:`109`
+- Bump pygments from 2.19.2 to 2.20.0 :pull:`108`
+- Bump requests from 2.32.5 to 2.33.0 :pull:`106`
+- Bump tornado from 6.5.4 to 6.5.5 :pull:`105`
+
+
+Version 2.0.0
+`````````````
+
+Released on February 4, 2026
+
+
+Breaking changes
+................
+
+- Dropped support for Python 3.9 and older. [:pull:`85` by @stevepiercy]
+- Switched to implicit (native) namespace for ``sphinxcontrib``. [:pull:`75` by @icemac]
+
+
+Major changes
+.............
+
+- Keep the per-page signature anchor and permalink when ``:noindex:`` is set; only the global route registration is skipped. [:pull:`112` by @ggiesen]
+- Added support for Python 3.10 up to 3.14.[:pull:`85` by @stevepiercy]
+- Adjusted a unit test regular expression for :file:`bottle_test.py`. [:pull:`85` by @stevepiercy]
+- Use MDN documentation for information about HTTP status codes instead of ``w3.org``. [:pull:`78` by @jamesrobson-secondmind]
+- Added ``:addtoc:`` option for ``http`` directives to register HTTP API endpoints and display them in the page-level table of contents. [:pull:`80` by @sevdog]
+
+
+Internal
+........
+
+- Added Dependabot configuration. [:pull:`85` by @stevepiercy]
+- Replaced Travis CI with GitHub workflows for continuous integration checks. [:pull:`85` by @stevepiercy]
+- Dropped dependency on ``six`` libary. [:pull:`72` by @WAKayser]
+- Updated translations for FR and ES languages. [:pull:`77` by @nils-van-zuijlen]
+- Reorganized the repository structure to modern standards.
+  This included moving source files into a ``src`` directory, renaming ``doc`` to ``docs``, and other refinements. [:pull:`91` by @stevepiercy]
+- Replaced setuptools with :file:`pyproject.toml` configuration for modern project management. [:pull:`91` by @stevepiercy]
+- Changed to use uv for development and continuous integration. [:pull:`91` by @stevepiercy]
+- Moved the Makefile from the documentation directory to the root of the repository, and added a suite of commands for development and testing the package. [:pull:`91` by @stevepiercy]
+
+
+Documentation
+.............
+
+- Simplified and updated documentation requirements in :file:`rtd-requires.txt`. [:pull:`85` by @stevepiercy]
+- Added a :file:`.readthedocs.yaml` configuration for Read the Docs builds. [:pull:`85` by @stevepiercy]
+- Added omitted change log entries for v1.8.1. [:pull:`85` by @stevepiercy]
+- Adjusted Sphinx configuration and example regex usage in :file:`conf.py`. [:pull:`85` by @stevepiercy]
+- Added :file:`CONTRIBUTING.md` to encourage contributions. [:pull:`91` by @stevepiercy]
+- Fixed broken links and redirecting links. [:pull:`91` by @stevepiercy]
+
+
+Version 1.8.1
+`````````````
+
+Released on November 14, 2022
+
+- Add translations for French and Spanish. [:pull:`57` by @olivier-heurtier]
+- multicore: Fix false positive warnings in ``merge_domaindata``. [:pull:`59` by Ryan Northey]
+- Copy ``parse_rule`` since it was removed in werkzeug 2.2. [:pull:`61` by Ash Berlin-Taylor]
+- Update URLs for RFCs. [:pull:`63` by Michal Čihař]
+
+
+Version 1.8.0
+`````````````
+
+Released on September 23, 2020
+
+- Make the generated routing table referencable using the 'routingtable'
+  label. [:pull:`19` by David Douard]
+- Add support for parallel sphinx builds. Increases sphinx version requirement to 1.6
+  [:pull:`31` by Daniel Hofmann]
+- Remove references to the generic ``:py:obj:`` role [:pull:`54` by Stephen Finucane]
+- Remove imports and calls to deprecated function force_decode who was removed
+  starting with sphinx 4.0 [:pull:`49` by Florian Masy]
+- Be explicit about what versions of Python are supported (2.7, and 3.5+). This will
+  be the last version to support Python 2.7 and 3.5, version 2.0 will require 3.6+.
+
+
 Version 1.7.0
 `````````````
 
 Released on July 1, 2018.
 
-- Implemented ``:autoquickref:`` option that use available informations to
+- Implemented ``:autoquickref:`` option that use available information to
   build a ``quickref``. [:pull:`9` by Alexandre Bonnetain]
 - Improved :mod:`sphinxcontrib.autohttp.tornado` compatibility with Tornado
-  4.5 and newer. `Tornado 4.5 <http://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`_
+  4.5 and newer. `Tornado 4.5 <https://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`_
   introduced the ``Rule`` class and made ``URLSpec`` a subclass of it, so certain
   rule attributes required updating. [:issue:`7`, :pull:`11` by Robert Zeigler]
 
@@ -24,7 +126,7 @@ Released on March 3, 2018.
 - Remove references to the ``sphinx.util.compat`` module which was deprecated
   in Sphinx 1.6 and removed in 1.7.  [:issue:`5`, :pull:`4` by Jeremy Cline]
 - Made :mod:`sphinxcontrib.autohttp.tornado` compatible with Tornado 4.5 and
-  newer.  `Tornado 4.5 <http://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`_
+  newer.  `Tornado 4.5 <https://www.tornadoweb.org/en/stable/releases/v4.5.0.html>`_
   removed the ``handlers`` attribute from ``tornado.web.Application``.
   [:pull:`3` by Dave Shawley]
 
@@ -90,7 +192,7 @@ Released on August 13, 2015.
 - Now :mod:`sphinxcontrib.autohttp.flask` supports multiple paths for
   endpoints using same HTTP method.  [:oldpull:`97` by Christian Felder]
 
-.. _CORS: http://www.w3.org/TR/cors/
+.. _CORS: https://fetch.spec.whatwg.org/#http-cors-protocol
 
 
 Version 1.3.0
@@ -156,7 +258,7 @@ Released on August 8, 2013.
   arguments.  [:oldpull:`33` by Michael Twomey]
 
 .. _patch: https://github.com/jalaziz/sphinxcontrib-httpdomain
-.. _Bottle: http://bottlepy.org/
+.. _Bottle: https://bottlepy.org/docs/stable/
 
 
 Version 1.1.8

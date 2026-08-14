@@ -1,24 +1,30 @@
-.. sphinxcontrib-httpdomain documentation master file, created by
-   sphinx-quickstart on Thu Jun  2 13:27:52 2011.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 .. module:: sphinxcontrib.httpdomain
 
 :mod:`sphinxcontrib.httpdomain` --- Sphinx domain for documenting HTTP APIs
 ===========================================================================
 
-.. image:: https://badge.fury.io/py/sphinxcontrib-httpdomain.svg
-   :target: https://pypi.org/project/sphinxcontrib-httpdomain/
-   :alt: Latest PyPI version
+.. image:: https://img.shields.io/pypi/v/sphinxcontrib-httpdomain
+    :target: https://pypi.org/project/sphinxcontrib-httpdomain/
+    :alt: Latest PyPI version
 
-.. image:: https://readthedocs.org/projects/sphinxcontrib-httpdomain/badge/
-   :target: https://sphinxcontrib-httpdomain.readthedocs.io/
-   :alt: Documentation Status
+.. image:: https://img.shields.io/pypi/pyversions/sphinxcontrib-httpdomain
+    :target: https://pypi.org/project/sphinxcontrib-httpdomain/
+    :alt: Supported Python versions
 
-.. image:: https://travis-ci.org/sphinx-contrib/httpdomain.svg?branch=master
-   :alt: Build Status
-   :target: https://travis-ci.org/sphinx-contrib/httpdomain
+.. image:: https://app.readthedocs.org/projects/sphinxcontrib-httpdomain/badge/
+    :target: https://sphinxcontrib-httpdomain.readthedocs.io/en/stable/
+    :alt: Documentation status
+
+.. image:: https://github.com/sphinx-contrib/httpdomain/actions/workflows/tests.yml/badge.svg?branch=main
+    :alt: Build status
+    :target: https://github.com/sphinx-contrib/httpdomain/actions/workflows/tests.yml
+
+.. image:: https://img.shields.io/pypi/dm/sphinxcontrib-httpdomain
+    :alt: PyPI monthly downloads
+
+.. image:: https://img.shields.io/github/sponsors/stevepiercy
+    :target: https://github.com/sponsors/stevepiercy
+    :alt: GitHub Sponsors
 
 This contrib extension, :mod:`sphinxcontrib.httpdomain`, provides a Sphinx
 domain for describing HTTP APIs.
@@ -31,7 +37,7 @@ domain for describing HTTP APIs.
    Module :mod:`sphinxcontrib.autohttp.flask`
       Reflection for Flask_ webapps.
 
-   Module :mod:`sphinxcontrib.autohttp.flaskqref` 
+   Module :mod:`sphinxcontrib.autohttp.flaskqref`
       Quick reference rendering with :mod:`sphinxcontrib.autohttp.flask`
 
    Module :mod:`sphinxcontrib.autohttp.bottle`
@@ -205,6 +211,14 @@ will render like:
 
     :http:get:`/users/(int:user_id)/posts/(tag)`
 
+If you want to reference the generated routing table, you can use:
+
+.. sourcecode:: rst
+
+   :ref:`routingtable`
+
+.. versionadded:: 1.8.0
+
 
 .. _directives:
 
@@ -299,6 +313,15 @@ Additionally, you may specify custom options to the directives:
       .. http:get:: /users/(int:user_id)/posts/(tag)
          :synopsis: Returns posts by the specified tag for the user
 
+``addtoc``
+   Adds HTTP API endpoint elements to the page-level table of contents.
+
+   .. sourcecode:: rst
+
+      .. http:get:: /users/(int:user_id)/posts/(tag)
+         :addtoc:
+
+   .. versionadded:: 2.0.0
 
 .. _resource-fields:
 
@@ -720,7 +743,7 @@ will be rendered as:
          includes members without docstrings, ``undoc-endpoints`` option has
          nothing to do with docstrings. It just excludes specified endpoints.
 
-         .. _undoc-members: http://www.sphinx-doc.org/en/stable/ext/autodoc.html#directive-automodule
+         .. _undoc-members: https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#directive-option-automodule-undoc-members
 
    ``blueprints``
       Only include specified blueprints in generated references.
@@ -784,7 +807,7 @@ will be rendered as:
 
       .. versionadded:: 1.1.2
 
-.. _Flask: http://flask.pocoo.org/
+.. _Flask: https://www.palletsprojects.com/projects/flask/
 
 
 .. module:: sphinxcontrib.autohttp.flaskqref
@@ -797,7 +820,7 @@ will be rendered as:
 This generates a quick API reference table for the route documentation
 produced by :mod:`sphinxcontrib.autohttp.flask`
 
-To use it, both :mod:`sphinxcontrib.autohttp.flask` and :mod:`sphinxcontrib.autohttp.flaskqref` need to be added into the extensions 
+To use it, both :mod:`sphinxcontrib.autohttp.flask` and :mod:`sphinxcontrib.autohttp.flaskqref` need to be added into the extensions
 of your configuration (:file:`conf.py`) file::
 
     extensions = ['sphinxcontrib.autohttp.flask',
@@ -832,7 +855,7 @@ The table is grouped and sorted by <resource>.
 
 ``<resource>``
    This is the resource name of the operation.  The name maybe the same for a number
-   of operations and enables grouping these together. 
+   of operations and enables grouping these together.
 
 ``<short description>``
    A brief description what the operation does.
@@ -850,8 +873,8 @@ For example:
         """User profile page.
 
         .. :quickref: User; Get Profile Page
-     
-        my docco here   
+
+        my docco here
         """
         return 'hi, ' + user
 
@@ -949,13 +972,13 @@ will be rendered as:
          includes members without docstrings, ``undoc-endpoints`` option has
          nothing to do with docstrings. It just excludes specified endpoints.
 
-         .. _undoc-members: http://www.sphinx-doc.org/en/stable/ext/autodoc.html#directive-automodule
+         .. _undoc-members: https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#directive-option-automodule-undoc-members
 
    ``include-empty-docstring``
       View functions that don't have docstring (:attr:`__doc__`) are excluded
       by default. If this flag option has given, they become included also.
 
-.. _Bottle: http://bottlepy.org/
+.. _Bottle: https://bottlepy.org/docs/stable/
 
 .. module:: sphinxcontrib.autohttp.tornado
 
@@ -1031,13 +1054,13 @@ will be rendered as:
          includes members without docstrings, ``undoc-endpoints`` option has
          nothing to do with docstrings. It just excludes specified endpoints.
 
-         .. _undoc-members: http://www.sphinx-doc.org/en/stable/ext/autodoc.html#directive-automodule
+         .. _undoc-members: https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#directive-option-automodule-undoc-members
 
    ``include-empty-docstring``
       View functions that don't have docstring (:attr:`__doc__`) are excluded
       by default. If this flag option has given, they become included also.
 
-.. _Tornado: http://www.tornadoweb.org/
+.. _Tornado: https://www.tornadoweb.org/en/stable/
 
 
 Author and License
@@ -1060,4 +1083,4 @@ __ https://github.com/sphinx-contrib
 .. _httpdomain: https://github.com/sphinx-contrib/httpdomain
 
 
-.. include:: changelog.rst
+.. include:: ../CHANGELOG.rst

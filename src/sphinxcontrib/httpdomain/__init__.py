@@ -10,6 +10,7 @@
 """
 
 import re
+import os
 
 from docutils import nodes
 
@@ -22,18 +23,28 @@ from sphinx import addnodes
 from sphinx.roles import XRefRole
 from sphinx.domains import Domain, ObjType, Index
 from sphinx.directives import ObjectDescription, directives
+from sphinx.util import logging
 from sphinx.util.nodes import make_refnode
 from sphinx.util.docfields import GroupedField, TypedField
+from sphinx.util.docutils import Reporter, LoggingReporter
+from sphinx.locale import get_translation
+_ = get_translation('httpdomain')
 
-# The env.get_doctree() lookup results in a pickle.load() call which is
-# expensive enough to dominate the runtime entirely when the number of endpoints
-# and references is large enough. The doctrees are generated during the read-
-# phase and we can cache their lookup during the write-phase significantly
-# improving performance.
-# Currently sphinxcontrib-httpdomain does not declare to support parallel read
-# support (parallel_read_safe is the default False) so we can simply use a
-# module global to hold the cache.
-_doctree_cache = {}
+logger = logging.getLogger(__name__)
+
+
+class DummyDocument(object):
+    """Used where the signature requires a docutils.node.Document but only its reporter
+    is being used.
+
+    Up until the current Sphinx 2.3.1 calls to env.get_doctree() (which would get
+    us said docutils.node.Document) result in pickle.load() calls which are expensive
+    enough to dominate the runtime entirely when the number of endpoints and references
+    is large enough.
+    """
+
+    def __init__(self, reporter):
+        self.reporter = reporter
 
 
 class DocRef(object):
@@ -64,14 +75,14 @@ class IETFRef(DocRef):
     """Represents a reference to the specific IETF RFC."""
 
     def __init__(self, rfc, section):
-        url = 'https://tools.ietf.org/html/rfc{0:d}'.format(rfc)
+        url = 'https://www.rfc-editor.org/info/rfc{0:d}'.format(rfc)
         super(IETFRef, self).__init__(url, 'section-', section)
 
 
 class EventSourceRef(DocRef):
 
     def __init__(self, section):
-        url = 'https://www.w3.org/TR/eventsource/'
+        url = 'https://html.spec.whatwg.org/multipage/server-sent-events.html'
         super(EventSourceRef, self).__init__(url, section, '')
 
 
@@ -257,39 +268,36 @@ def http_resource_anchor(method, path):
 class HTTPResource(ObjectDescription):
 
     doc_field_types = [
-        TypedField('parameter', label='Parameters',
+        TypedField('parameter', label=_('Parameters'),
                    names=('param', 'parameter', 'arg', 'argument'),
-                   typerolename='obj', typenames=('paramtype', 'type')),
-        TypedField('jsonparameter', label='JSON Parameters',
+                   typenames=('paramtype', 'type')),
+        TypedField('jsonparameter', label=_('JSON Parameters'),
                    names=('jsonparameter', 'jsonparam', 'json'),
-                   typerolename='obj', typenames=('jsonparamtype', 'jsontype')),
-        TypedField('requestjsonobject', label='Request JSON Object',
+                   typenames=('jsonparamtype', 'jsontype')),
+        TypedField('requestjsonobject', label=_('Request JSON Object'),
                    names=('reqjsonobj', 'reqjson', '<jsonobj', '<json'),
-                   typerolename='obj', typenames=('reqjsonobj', '<jsonobj')),
-        TypedField('requestjsonarray', label='Request JSON Array of Objects',
+                   typenames=('reqjsonobj', '<jsonobj')),
+        TypedField('requestjsonarray', label=_('Request JSON Array of Objects'),
                    names=('reqjsonarr', '<jsonarr'),
-                   typerolename='obj',
                    typenames=('reqjsonarrtype', '<jsonarrtype')),
-        TypedField('responsejsonobject', label='Response JSON Object',
+        TypedField('responsejsonobject', label=_('Response JSON Object'),
                    names=('resjsonobj', 'resjson', '>jsonobj', '>json'),
-                   typerolename='obj', typenames=('resjsonobj', '>jsonobj')),
-        TypedField('responsejsonarray', label='Response JSON Array of Objects',
+                   typenames=('resjsonobj', '>jsonobj')),
+        TypedField('responsejsonarray', label=_('Response JSON Array of Objects'),
                    names=('resjsonarr', '>jsonarr'),
-                   typerolename='obj',
                    typenames=('resjsonarrtype', '>jsonarrtype')),
-        TypedField('queryparameter', label='Query Parameters',
+        TypedField('queryparameter', label=_('Query Parameters'),
                    names=('queryparameter', 'queryparam', 'qparam', 'query'),
-                   typerolename='obj',
                    typenames=('queryparamtype', 'querytype', 'qtype')),
-        GroupedField('formparameter', label='Form Parameters',
+        GroupedField('formparameter', label=_('Form Parameters'),
                      names=('formparameter', 'formparam', 'fparam', 'form')),
-        GroupedField('requestheader', label='Request Headers',
+        GroupedField('requestheader', label=_('Request Headers'),
                      rolename='header',
                      names=('<header', 'reqheader', 'requestheader')),
-        GroupedField('responseheader', label='Response Headers',
+        GroupedField('responseheader', label=_('Response Headers'),
                      rolename='header',
                      names=('>header', 'resheader', 'responseheader')),
-        GroupedField('statuscode', label='Status Codes',
+        GroupedField('statuscode', label=_('Status Codes'),
                      rolename='statuscode',
                      names=('statuscode', 'status', 'code'))
     ]
@@ -297,10 +305,28 @@ class HTTPResource(ObjectDescription):
     option_spec = {
         'deprecated': directives.flag,
         'noindex': directives.flag,
+        'addtoc': directives.flag,
         'synopsis': lambda x: x,
     }
 
     method = NotImplemented
+    noindex = False
+
+    def run(self):
+        # ObjectDescription.run() skips add_target_and_index() entirely when
+        # the noindex option is set, which would drop the per-page anchor
+        # along with the global registration. Anchors are per-document ids
+        # and cannot collide across pages, so pop the option before running
+        # the base class and gate only the registration in
+        # add_target_and_index().
+        self.noindex = 'noindex' in self.options
+        self.options.pop('noindex', None)
+        nodes = super().run()
+        if self.noindex:
+            for node in nodes:
+                if isinstance(node, addnodes.desc):
+                    node['noindex'] = node['no-index'] = True
+        return nodes
 
     def handle_signature(self, sig, signode):
         method = self.method.upper() + ' '
@@ -334,13 +360,32 @@ class HTTPResource(ObjectDescription):
 
     def add_target_and_index(self, name_cls, sig, signode):
         signode['ids'].append(http_resource_anchor(*name_cls[1:]))
-        if 'noindex' not in self.options:
+        if not self.noindex:
             self.env.domaindata['http'][self.method][sig] = (
                 self.env.docname,
                 self.options.get('synopsis', ''),
                 'deprecated' in self.options)
 
     def get_index_text(self, modname, name):
+        return ''
+
+    def _object_hierarchy_parts(self, sig_node):
+        if 'addtoc' in self.options:
+            if 'fullname' not in sig_node:
+                return ()
+            path = sig_node.get('path')
+            method = sig_node.get('method')
+            if not path or not sig_node:
+                return ()
+            return tuple(path.split('/')) + (method, sig_node['fullname'])
+        return ()
+
+    def _toc_entry_name(self, sig_node):
+        if 'addtoc' in self.options:
+            if not sig_node.get('_toc_parts'):
+                return ''
+
+            return sig_node['_toc_parts'][-1]
         return ''
 
 
@@ -409,6 +454,9 @@ class HTTPXRefRole(XRefRole):
         if not has_explicit_title:
             title = self.method.upper() + ' ' + title
         return title, target
+
+    def result_nodes(self, document, env, node, is_ref):
+        return [node], []
 
 
 class HTTPXRefMethodRole(XRefRole):
@@ -484,21 +532,10 @@ class HTTPXRefStatusRole(XRefRole):
             return report_invalid_code()
         elif status is None:
             return report_unknown_code()
-        elif code == 226:
-            url = 'https://www.ietf.org/rfc/rfc3229.txt'
-        elif code == 418:
-            url = 'https://www.ietf.org/rfc/rfc2324.txt'
-        elif code == 429:
-            url = 'https://tools.ietf.org/html/rfc6585#section-4'
         elif code == 449:
             url = 'https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-wdv/83ecf19f-e0f8-4706-aae5-ba618f52f100'
-        elif code == 451:
-            url = 'https://www.ietf.org/rfc/rfc7725.txt'
-        elif code in WEBDAV_STATUS_CODES:
-            url = 'https://tools.ietf.org/html/rfc4918#section-11.%d' % (WEBDAV_STATUS_CODES.index(code) + 1)
-        elif code in HTTP_STATUS_CODES:
-            url = 'https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html' \
-                  '#sec10.' + ('%d.%d' % (code // 100, 1 + code % 100))
+        elif code in HTTP_STATUS_CODES or code in WEBDAV_STATUS_CODES:
+            url = f"https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/{code}"
         else:
             url = ''
         node = nodes.reference(rawsource, '%d %s' % (code, status), refuri=url)
@@ -522,7 +559,7 @@ class HTTPXRefHeaderRole(XRefRole):
 class HTTPIndex(Index):
 
     name = 'routingtable'
-    localname = 'HTTP Routing Table'
+    localname = _('HTTP Routing Table')
     shortname = 'routing table'
 
     def __init__(self, *args, **kwargs):
@@ -573,17 +610,17 @@ class HTTPDomain(Domain):
     label = 'HTTP'
 
     object_types = {
-        'options': ObjType('options', 'options', 'obj'),
-        'head': ObjType('head', 'head', 'obj'),
-        'post': ObjType('post', 'post', 'obj'),
-        'get': ObjType('get', 'get', 'obj'),
-        'put': ObjType('put', 'put', 'obj'),
-        'patch': ObjType('patch', 'patch', 'obj'),
-        'delete': ObjType('delete', 'delete', 'obj'),
-        'trace': ObjType('trace', 'trace', 'obj'),
-        'connect': ObjType('connect', 'connect', 'obj'),
-        'copy': ObjType('copy', 'copy', 'obj'),
-        'any': ObjType('any', 'any', 'obj')
+        'options': ObjType('options', 'options'),
+        'head': ObjType('head', 'head'),
+        'post': ObjType('post', 'post'),
+        'get': ObjType('get', 'get'),
+        'put': ObjType('put', 'put'),
+        'patch': ObjType('patch', 'patch'),
+        'delete': ObjType('delete', 'delete'),
+        'trace': ObjType('trace', 'trace'),
+        'connect': ObjType('connect', 'connect'),
+        'copy': ObjType('copy', 'copy'),
+        'any': ObjType('any', 'any')
     }
 
     directives = {
@@ -653,10 +690,10 @@ class HTTPDomain(Domain):
             if role is None:
                 return None
 
-            if fromdocname not in _doctree_cache:
-                _doctree_cache[fromdocname] = env.get_doctree(fromdocname)
-            doctree = _doctree_cache[fromdocname]
-
+            reporter = LoggingReporter(env.doc2path(fromdocname),
+                                       report_level=Reporter.WARNING_LEVEL,
+                                       halt_level=Reporter.SEVERE_LEVEL)
+            doctree = DummyDocument(reporter)
             resnode = role.result_nodes(doctree, env, node, None)[0][0]
             if isinstance(resnode, addnodes.pending_xref):
                 text = node[0][0]
@@ -691,6 +728,27 @@ class HTTPDomain(Domain):
                 anchor = http_resource_anchor(method, path)
                 yield (path, path, method, info[0], anchor, 1)
 
+    def merge_domaindata(self, docnames, otherdata):
+        """Merge domaindata from the workers/chunks when they return.
+
+        Called once per parallelization chunk.
+        Only used when sphinx is run in parallel mode.
+
+        :param docnames: a Set of the docnames that are part of the current chunk to merge
+        :param otherdata: the partial data calculated by the current chunk
+        """
+        for typ in self.object_types:
+            self_data = self.data[typ]
+            other_data = otherdata[typ]
+            for entry_point_name, entry_point_data in other_data.items():
+                if entry_point_name in self_data and entry_point_data != self_data[entry_point_name]:
+                    logger.warning('duplicate HTTP %s method definition %s in %s, '
+                                   'other instance is in %s' %
+                                   (typ, entry_point_name,
+                                    self.env.doc2path(other_data[entry_point_name][0]),
+                                    self.env.doc2path(self_data[entry_point_name][0])))
+                else:
+                    self_data[entry_point_name] = entry_point_data
 
 class HTTPLexer(RegexLexer):
     """Lexer for HTTP sessions."""
@@ -757,8 +815,20 @@ class HTTPLexer(RegexLexer):
     }
 
 
+def register_routingtable_as_label(app, document):
+    labels = app.env.domaindata['std']['labels']
+    labels['routingtable'] = 'http-routingtable', '', _('HTTP Routing Table')
+    anonlabels = app.env.domaindata['std']['anonlabels']
+    anonlabels['routingtable'] = 'http-routingtable', ''
+
+
 def setup(app):
     app.add_domain(HTTPDomain)
+    app.connect('doctree-read', register_routingtable_as_label)
+
+    package_dir = os.path.abspath(os.path.dirname(__file__))
+    locale_dir = os.path.join(package_dir, 'locale')
+    app.add_message_catalog('httpdomain', locale_dir)
 
     try:
         get_lexer_by_name('http')
@@ -766,6 +836,8 @@ def setup(app):
         app.add_lexer('http', HTTPLexer())
     app.add_config_value('http_index_ignore_prefixes', [], None)
     app.add_config_value('http_index_shortname', 'routing table', True)
-    app.add_config_value('http_index_localname', 'HTTP Routing Table', True)
+    app.add_config_value('http_index_localname', _('HTTP Routing Table'), True)
     app.add_config_value('http_strict_mode', True, None)
     app.add_config_value('http_headers_ignore_prefixes', ['X-'], None)
+    return {"parallel_read_safe": True,
+            "parallel_write_safe": True}

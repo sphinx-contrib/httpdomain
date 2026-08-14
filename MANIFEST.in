@@ -1,3 +1,4 @@
 include README
 include LICENSE
 include CHANGES.*
+recursive-include sphinxcontrib *.pot *.po *.mo

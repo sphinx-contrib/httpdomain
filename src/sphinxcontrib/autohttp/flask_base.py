@@ -9,24 +9,69 @@
     :license: BSD, see LICENSE for details.
 
 """
-
+import io
 import re
 import itertools
-import six
 import collections
 
 from docutils.parsers.rst import directives, Directive
 
-from sphinx.util import force_decode
 from sphinx.util.docstrings import prepare_docstring
 from sphinx.pycode import ModuleAnalyzer
 
 from sphinxcontrib.autohttp.common import http_directive, import_object
 
+RE_PARSE_RULE = re.compile(
+    r"""
+    (?P<static>[^<]*)                           # static rule data
+    <
+    (?:
+        (?P<converter>[a-zA-Z_][a-zA-Z0-9_]*)   # converter name
+        (?:\((?P<args>.*?)\))?                  # converter arguments
+        \:                                      # variable delimiter
+    )?
+    (?P<variable>[a-zA-Z_][a-zA-Z0-9_]*)        # variable name
+    >
+    """,
+    re.VERBOSE,
+)
+
+
+def parse_rule(rule):
+    """
+    Parse a rule and return it as generator. Each iteration yields tuples in the form
+    ``(converter, arguments, variable)``. If the converter is `None` it's a static
+    url part, otherwise it's a dynamic one.
+    Note: This originally lived in werkzeug.routing.parse_rule until it was removed
+    in werkzeug 2.2.0.
+    """
+    pos = 0
+    end = len(rule)
+    do_match = RE_PARSE_RULE.match
+    used_names = set()
+    while pos < end:
+        m = do_match(rule, pos)
+        if m is None:
+            break
+        data = m.groupdict()
+        if data["static"]:
+            yield None, None, data["static"]
+        variable = data["variable"]
+        converter = data["converter"] or "default"
+        if variable in used_names:
+            raise ValueError(f"variable name {variable!r} used twice.")
+        used_names.add(variable)
+        yield converter, data["args"] or None, variable
+        pos = m.end()
+    if pos < end:
+        remaining = rule[pos:]
+        if ">" in remaining or "<" in remaining:
+            raise ValueError(f"malformed url rule: {rule!r}")
+        yield None, None, remaining
+
 
 def translate_werkzeug_rule(rule):
-    from werkzeug.routing import parse_rule
-    buf = six.StringIO()
+    buf = io.StringIO()
     for conv, arg, var in parse_rule(rule):
         if conv:
             buf.write('(')
@@ -44,7 +89,7 @@ def get_routes(app, endpoint=None, order=None):
     endpoints = []
     for rule in app.url_map.iter_rules(endpoint):
         url_with_endpoint = (
-            six.text_type(next(app.url_map.iter_rules(rule.endpoint))),
+            str(next(app.url_map.iter_rules(rule.endpoint))),
             rule.endpoint
         )
         if url_with_endpoint not in endpoints:
@@ -80,9 +125,9 @@ def cleanup_methods(methods):
 
 
 def quickref_directive(method, path, content, blueprint=None, auto=False):
-    rcomp = re.compile("^\s*.. :quickref:\s*(?P<quick>.*)$")
+    rcomp = re.compile(r"^\s*.. :quickref:\s*(?P<quick>.*)$")
     method = method.lower().strip()
-    if isinstance(content, six.string_types):
+    if isinstance(content, str):
         content = content.splitlines()
     description = ""
     name = ""
@@ -236,9 +281,6 @@ class AutoflaskBase(Directive):
             if view_func and view_func.__doc__:
                 view_doc = view_func.__doc__
 
-            if not isinstance(view_doc, six.text_type):
-                analyzer = ModuleAnalyzer.for_module(view.__module__)
-                view_doc = force_decode(view_doc, analyzer.encoding)
 
             if not view_doc and 'include-empty-docstring' not in self.options:
                 continue
