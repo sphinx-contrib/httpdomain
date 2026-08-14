@@ -17,6 +17,7 @@ Minor changes
 .............
 
 - Fix author email format. [:issue:`99` by @gboutry and @stevepiercy]
+- Drop deprecated license classifier. [:issue:`101` by @gboutry]
 
 
 Version 2.0.0
