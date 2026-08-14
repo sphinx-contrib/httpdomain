@@ -3,10 +3,26 @@
 Changelog
 ---------
 
+Unreleased
+``````````
+
+
+Major changes
+.............
+
+- Keep the per-page signature anchor and permalink when ``:noindex:`` is set; only the global route registration is skipped. [:pull:`112` by @ggiesen]
+
+
+Minor changes
+.............
+
+- Fix author email format. [:issue:`99` by @gboutry and @stevepiercy]
+
+
 Version 2.0.0
 `````````````
 
-unreleased
+Released on February 4, 2026
 
 
 Breaking changes
@@ -19,6 +35,7 @@ Breaking changes
 Major changes
 .............
 
+- Keep the per-page signature anchor and permalink when ``:noindex:`` is set; only the global route registration is skipped. [:pull:`112` by @ggiesen]
 - Added support for Python 3.10 up to 3.14.[:pull:`85` by @stevepiercy]
 - Adjusted a unit test regular expression for :file:`bottle_test.py`. [:pull:`85` by @stevepiercy]
 - Use MDN documentation for information about HTTP status codes instead of ``w3.org``. [:pull:`78` by @jamesrobson-secondmind]
