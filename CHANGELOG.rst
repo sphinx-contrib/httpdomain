@@ -18,6 +18,16 @@ Minor changes
 
 - Fix author email format. [:issue:`99` by @gboutry and @stevepiercy]
 - Drop deprecated license classifier. [:issue:`101` by @gboutry]
+- Bump urllib3 from 2.6.3 to 2.7.0 :pull:`122`
+- Bump idna from 3.11 to 3.15 :pull:`121`
+- Bump werkzeug from 3.1.5 to 3.1.6 :pull:`120`
+- Bump flask from 3.1.2 to 3.1.3 :pull:`119`
+- Bump tornado from 6.5.5 to 6.5.7 :pull:`117`
+- Bump starlette from 0.52.1 to 1.3.1 :pull:`118`
+- Bump pytest from 9.0.2 to 9.0.3 :pull:`109`
+- Bump pygments from 2.19.2 to 2.20.0 :pull:`108`
+- Bump requests from 2.32.5 to 2.33.0 :pull:`106`
+- Bump tornado from 6.5.4 to 6.5.5 :pull:`105`
 
 
 Version 2.0.0
