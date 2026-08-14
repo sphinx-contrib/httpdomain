@@ -16,7 +16,7 @@ Major changes
 Minor changes
 .............
 
-- Fix author email format. [ by @gboutry and @stevepiercy]
+- Fix author email format. [:issue:`99` by @gboutry and @stevepiercy]
 
 
 Version 2.0.0
