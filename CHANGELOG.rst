@@ -13,6 +13,12 @@ Major changes
 - Keep the per-page signature anchor and permalink when ``:noindex:`` is set; only the global route registration is skipped. [:pull:`112` by @ggiesen]
 
 
+Minor changes
+.............
+
+- Fix author email format. [ by @gboutry and @stevepiercy]
+
+
 Version 2.0.0
 `````````````
 
