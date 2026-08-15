@@ -16,6 +16,7 @@ Major changes
 Minor changes
 .............
 
+- Read version from pyproject.toml [:pull:`104` by @0jc1 and @stevepiercy]
 - Fix author email format. [:issue:`99` by @gboutry and @stevepiercy]
 - Drop deprecated license classifier. [:issue:`101` by @gboutry]
 - Use ``--allow-existing`` argument in the ``dev`` make target to avoid recreating a virtual environment with uv. [:pull:`123` by @stevepiercy]
