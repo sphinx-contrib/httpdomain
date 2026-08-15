@@ -32,7 +32,7 @@ help:  # This help message
 .PHONY: dev
 dev:  ## Install required Python, create Python virtual environment, install tox-uv plugin, and install package requirements
 	@uv python install "$(PYTHONVERSION)"
-	@uv venv --python "$(PYTHONVERSION)"
+	@uv venv --allow-existing --python "$(PYTHONVERSION)"
 	@uv tool install tox --with tox-uv
 	@uv sync
 

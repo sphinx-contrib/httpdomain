@@ -18,6 +18,7 @@ Minor changes
 
 - Fix author email format. [:issue:`99` by @gboutry and @stevepiercy]
 - Drop deprecated license classifier. [:issue:`101` by @gboutry]
+- Use ``--allow-existing`` argument in the ``dev`` make target to avoid recreating a virtual environment with uv. [:pull:`123` by @stevepiercy]
 - Bump urllib3 from 2.6.3 to 2.7.0 :pull:`122`
 - Bump idna from 3.11 to 3.15 :pull:`121`
 - Bump werkzeug from 3.1.5 to 3.1.6 :pull:`120`
