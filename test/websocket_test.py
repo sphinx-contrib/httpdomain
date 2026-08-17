@@ -24,7 +24,7 @@ def write_project(tmp_path, sources, language='en', toc_object_entries=True):
         "extensions = ['sphinxcontrib.httpdomain']\n"
         "master_doc = 'index'\n"
         "project = 'WebSocket test project'\n"
-        "html_theme = 'alabaster'\n"
+        "html_theme = 'sphinxdoc'\n"
         "language = %r\n"
         "toc_object_entries = %r\n" % (language, toc_object_entries),
         encoding='utf-8',

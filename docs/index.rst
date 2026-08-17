@@ -26,7 +26,7 @@
     :target: https://github.com/sponsors/stevepiercy
     :alt: GitHub Sponsors
 
-This contrib extension, :mod:`sphinxcontrib.httpdomain`, provides a Sphinx
+This contrib extension, :mod:`sphinxcontrib.httpdomain`, provides Sphinx
 domains for describing HTTP APIs and WebSocket connections.
 
 .. seealso::
@@ -220,83 +220,11 @@ If you want to reference the generated routing table, you can use:
 .. versionadded:: 1.8.0
 
 
-.. _websocket-connections:
-
-WebSocket connections
----------------------
-
-The ``websocket`` domain documents a bidirectional WebSocket connection.  Its
-path is the exact leading-slash application path, including any typed
-placeholder; put the scheme and host in surrounding prose.  Directions are
-always relative to the documented WebSocket server: ``server-message`` entries
-are sent by that server, and ``client-message`` entries are received by it.
-
-.. sourcecode:: rst
-
-   .. websocket:connection:: /chat/(str:room)
-      :synopsis: Join a chat room.
-      :addtoc:
-
-      Clients join a room, then exchange application-defined messages.
-
-      :param string room: room identifier
-      :query string token: optional access token
-      :server-message joined: confirms that the client joined the room
-      :server-message message: delivers a room message
-      :client-message send: sends a room message
-
-The directive renders as:
-
-   .. websocket:connection:: /chat/(str:room)
-      :synopsis: Join a chat room.
-      :addtoc:
-
-      Clients join a room, then exchange application-defined messages.
-
-      :param string room: room identifier
-      :query string token: optional access token
-      :server-message joined: confirms that the client joined the room
-      :server-message message: delivers a room message
-      :client-message send: sends a room message
-
-Use the exact same path to create a cross-reference:
-
-.. sourcecode:: rst
-
-   :websocket:connection:`/chat/(str:room)`
-   :websocket:connection:`Chat connection </chat/(str:room)>`
-
-You can reference the generated index with
-``:ref:`websocket-routingtable```.
-
-Options
-```````
-
-``deprecated``
-   Marks the connection as deprecated in the WebSocket routing table.
-
-``synopsis``
-   Adds a short description to the WebSocket routing table.
-
-``addtoc``
-   Adds the connection to the page-level table of contents.
-
-``noindex``
-   Renders the connection without adding it to the WebSocket routing table or
-   object inventory.  A ``noindex`` connection cannot be cross-referenced or
-   added to the page-level table of contents.
-
-Only ``param``, ``query``, ``server-message``, and ``client-message`` are
-WebSocket fields.  Message names are author-defined identifiers, not schemas
-or protocol events.  HTTP handshake fields, ``http:ws`` and ``ws`` aliases,
-event aliases, schemas, frames, close codes, subprotocols, framework
-discovery, and AsyncAPI are outside this first implementation.
-
-
 .. _directives:
+.. _http-directives:
 
-Directives
-----------
+HTTP directives
+---------------
 
 .. rst:directive:: .. http:options:: path
 
@@ -355,8 +283,10 @@ Directives
    .. versionadded:: 1.3.0
 
 
-Options
-```````
+.. _http-options:
+
+HTTP options
+````````````
 
 .. versionadded:: 1.3.0
 
@@ -1134,6 +1064,81 @@ will be rendered as:
       by default. If this flag option has given, they become included also.
 
 .. _Tornado: https://www.tornadoweb.org/en/stable/
+
+
+.. _websocket-connections:
+
+WebSocket connections
+---------------------
+
+The ``websocket`` domain documents a bidirectional WebSocket connection.  Its
+path is the exact leading-slash application path, including any typed
+placeholder; put the scheme and host in surrounding prose.  Directions are
+always relative to the documented WebSocket server: ``server-message`` entries
+are sent by that server, and ``client-message`` entries are received by it.
+
+.. sourcecode:: rst
+
+   .. websocket:connection:: /chat/(str:room)
+      :synopsis: Join a chat room.
+      :addtoc:
+
+      Clients join a room, then exchange application-defined messages.
+
+      :param string room: room identifier
+      :query string token: optional access token
+      :server-message joined: confirms that the client joined the room
+      :server-message message: delivers a room message
+      :client-message send: sends a room message
+
+The directive renders as:
+
+   .. websocket:connection:: /chat/(str:room)
+      :synopsis: Join a chat room.
+      :addtoc:
+
+      Clients join a room, then exchange application-defined messages.
+
+      :param string room: room identifier
+      :query string token: optional access token
+      :server-message joined: confirms that the client joined the room
+      :server-message message: delivers a room message
+      :client-message send: sends a room message
+
+Use the exact same path to create a cross-reference:
+
+.. sourcecode:: rst
+
+   :websocket:connection:`/chat/(str:room)`
+   :websocket:connection:`Chat connection </chat/(str:room)>`
+
+You can reference the generated index with
+``:ref:`websocket-routingtable```.
+
+.. _websocket-options:
+
+WebSocket options
+`````````````````
+
+``deprecated``
+   Marks the connection as deprecated in the WebSocket routing table.
+
+``synopsis``
+   Adds a short description to the WebSocket routing table.
+
+``addtoc``
+   Adds the connection to the page-level table of contents.
+
+``noindex``
+   Renders the connection without adding it to the WebSocket routing table or
+   object inventory.  A ``noindex`` connection cannot be cross-referenced or
+   added to the page-level table of contents.
+
+Only ``param``, ``query``, ``server-message``, and ``client-message`` are
+WebSocket fields.  Message names are author-defined identifiers, not schemas
+or protocol events.  HTTP handshake fields, ``http:ws`` and ``ws`` aliases,
+event aliases, schemas, frames, close codes, subprotocols, framework
+discovery, and AsyncAPI are outside this first implementation.
 
 
 Author and License
