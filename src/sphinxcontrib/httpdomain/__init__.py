@@ -108,6 +108,7 @@ METHOD_REFS = {
     'trace': IETFRef(7231, '4.3.8'),
     'connect': IETFRef(7231, '4.3.6'),
     'copy': IETFRef(2518, 8.8),
+    'query': IETFRef(10008, 2),
     'any': ''
 }
 
@@ -119,6 +120,7 @@ HEADER_REFS = {
     'Accept-Charset': IETFRef(7231, '5.3.3'),
     'Accept-Encoding': IETFRef(7231, '5.3.4'),
     'Accept-Language': IETFRef(7231, '5.3.5'),
+    'Accept-Query': IETFRef(10008, 3),
     'Accept-Ranges': IETFRef(7233, 2.3),
     'Age': IETFRef(7234, 5.1),
     'Allow': IETFRef(7231, '7.4.1'),
