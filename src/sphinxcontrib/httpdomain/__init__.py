@@ -2,7 +2,7 @@
     sphinxcontrib.httpdomain
     ~~~~~~~~~~~~~~~~~~~~~~~~
 
-    The HTTP domain for documenting RESTful HTTP APIs.
+    Domains for documenting HTTP APIs and WebSocket connections.
 
     :copyright: Copyright 2011 by Hong Minhee
     :license: BSD, see LICENSE for details.
@@ -28,6 +28,8 @@ from sphinx.util.nodes import make_refnode
 from sphinx.util.docfields import GroupedField, TypedField
 from sphinx.util.docutils import Reporter, LoggingReporter
 from sphinx.locale import get_translation
+from ._path_signature import render_path_signature
+from .websocket import WebSocketDomain
 _ = get_translation('httpdomain')
 
 logger = logging.getLogger(__name__)
@@ -247,10 +249,6 @@ HTTP_STATUS_CODES = {
 
 WEBDAV_STATUS_CODES = [207, 422, 423, 424, 507]
 
-http_sig_param_re = re.compile(r'\((?:(?P<type>[^:)]+):)?(?P<name>[\w_]+)\)',
-                               re.VERBOSE)
-
-
 def sort_by_method(entries):
     def cmp(item):
         order = ['HEAD', 'GET', 'POST', 'PUT', 'DELETE', 'PATCH',
@@ -333,24 +331,7 @@ class HTTPResource(ObjectDescription):
     def handle_signature(self, sig, signode):
         method = self.method.upper() + ' '
         signode += addnodes.desc_name(method, method)
-        offset = 0
-        path = None
-        for match in http_sig_param_re.finditer(sig):
-            path = sig[offset:match.start()]
-            signode += addnodes.desc_name(path, path)
-            params = addnodes.desc_parameterlist()
-            typ = match.group('type')
-            if typ:
-                typ += ': '
-                params += addnodes.desc_annotation(typ, typ)
-            name = match.group('name')
-            params += addnodes.desc_parameter(name, name)
-            signode += params
-            offset = match.end()
-        if offset < len(sig):
-            path = sig[offset:len(sig)]
-            signode += addnodes.desc_name(path, path)
-        assert path is not None, 'no matches for sig: %s' % sig
+        path = render_path_signature(sig, signode)
         fullname = self.method.upper() + ' ' + path
         signode['method'] = self.method
         signode['path'] = sig
@@ -596,7 +577,7 @@ class HTTPIndex(Index):
             entries.append([
                 method.upper() + ' ' + path, 0, info[0],
                 http_resource_anchor(method, path),
-                '', 'Deprecated' if info[2] else '', info[1]
+                '', _('Deprecated') if info[2] else '', info[1]
             ])
         items = sorted(
             (path, sort_by_method(entries))
@@ -826,6 +807,7 @@ def register_routingtable_as_label(app, document):
 
 def setup(app):
     app.add_domain(HTTPDomain)
+    app.add_domain(WebSocketDomain)
     app.connect('doctree-read', register_routingtable_as_label)
 
     package_dir = os.path.abspath(os.path.dirname(__file__))
