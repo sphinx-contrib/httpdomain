@@ -629,6 +629,7 @@ dev = [
     { name = "pytest" },
     { name = "sphinx-autobuild", version = "2024.10.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "sphinx-autobuild", version = "2025.8.25", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "tomli", marker = "python_full_version < '3.11'" },
     { name = "tornado" },
 ]
 
@@ -641,6 +642,7 @@ dev = [
     { name = "flask", specifier = ">=3.1.2" },
     { name = "pytest", specifier = ">=9.0.2" },
     { name = "sphinx-autobuild", specifier = ">=2024.10.3" },
+    { name = "tomli", marker = "python_full_version < '3.11'", specifier = ">=2.0" },
     { name = "tornado", specifier = ">=6.5.4" },
 ]
 
