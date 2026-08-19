@@ -30,6 +30,7 @@ Minor changes
 - Bump pygments from 2.19.2 to 2.20.0 :pull:`108`
 - Bump requests from 2.32.5 to 2.33.0 :pull:`106`
 - Bump tornado from 6.5.4 to 6.5.5 :pull:`105`
+- Add QUERY method and Accept-Query header [:pull:`114` by @rnewson]
 
 
 Version 2.0.0
