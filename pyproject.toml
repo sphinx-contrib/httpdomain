@@ -19,8 +19,8 @@ maintainers = [
   { name = "Adam Turner"},
 ]
 authors = [
-  { name = "Hong Minhee", email = 'Hong Minhee <\x68\x6f\x6e\x67.minhee@\x67\x6d\x61\x69\x6c.com>' },
-  { name = "Ash Berlin-Taylor", email = "Ash Berlin-Taylor <ash_github@firemirror.com>" },
+  { name = "Hong Minhee", email = 'hong.minhee@gmail.com' },
+  { name = "Ash Berlin-Taylor", email = "ash_github@firemirror.com" },
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -29,7 +29,6 @@ classifiers = [
     "Framework :: Sphinx :: Domain",
     "Framework :: Sphinx :: Extension",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: BSD License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3.10",
@@ -63,12 +62,13 @@ dev = [
     "flask>=3.1.2",
     "pytest>=9.0.2",
     "sphinx-autobuild>=2024.10.3",
+    "tomli>=2.0; python_version < '3.11'",
     "tornado>=6.5.4",
 ]
 
 
 [build-system]
-requires = ["uv_build >= 0.9.26, <0.10.0"]
+requires = ["uv_build >= 0.9.26, < 0.13.0"]
 build-backend = "uv_build"
 
 

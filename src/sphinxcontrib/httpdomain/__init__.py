@@ -75,7 +75,7 @@ class IETFRef(DocRef):
     """Represents a reference to the specific IETF RFC."""
 
     def __init__(self, rfc, section):
-        url = 'https://www.rfc-editor.org/rfc/rfc{0:d}'.format(rfc)
+        url = 'https://www.rfc-editor.org/info/rfc{0:d}'.format(rfc)
         super(IETFRef, self).__init__(url, 'section-', section)
 
 
@@ -108,6 +108,7 @@ METHOD_REFS = {
     'trace': IETFRef(7231, '4.3.8'),
     'connect': IETFRef(7231, '4.3.6'),
     'copy': IETFRef(2518, 8.8),
+    'query': IETFRef(10008, 2),
     'any': ''
 }
 
@@ -119,6 +120,7 @@ HEADER_REFS = {
     'Accept-Charset': IETFRef(7231, '5.3.3'),
     'Accept-Encoding': IETFRef(7231, '5.3.4'),
     'Accept-Language': IETFRef(7231, '5.3.5'),
+    'Accept-Query': IETFRef(10008, 3),
     'Accept-Ranges': IETFRef(7233, 2.3),
     'Age': IETFRef(7234, 5.1),
     'Allow': IETFRef(7231, '7.4.1'),
@@ -312,6 +314,23 @@ class HTTPResource(ObjectDescription):
     }
 
     method = NotImplemented
+    noindex = False
+
+    def run(self):
+        # ObjectDescription.run() skips add_target_and_index() entirely when
+        # the noindex option is set, which would drop the per-page anchor
+        # along with the global registration. Anchors are per-document ids
+        # and cannot collide across pages, so pop the option before running
+        # the base class and gate only the registration in
+        # add_target_and_index().
+        self.noindex = 'noindex' in self.options
+        self.options.pop('noindex', None)
+        nodes = super().run()
+        if self.noindex:
+            for node in nodes:
+                if isinstance(node, addnodes.desc):
+                    node['noindex'] = node['no-index'] = True
+        return nodes
 
     def handle_signature(self, sig, signode):
         method = self.method.upper() + ' '
@@ -345,7 +364,7 @@ class HTTPResource(ObjectDescription):
 
     def add_target_and_index(self, name_cls, sig, signode):
         signode['ids'].append(http_resource_anchor(*name_cls[1:]))
-        if 'noindex' not in self.options:
+        if not self.noindex:
             self.env.domaindata['http'][self.method][sig] = (
                 self.env.docname,
                 self.options.get('synopsis', ''),
