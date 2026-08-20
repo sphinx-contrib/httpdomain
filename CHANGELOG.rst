@@ -31,6 +31,7 @@ Minor changes
 - Bump requests from 2.32.5 to 2.33.0 :pull:`106`
 - Bump tornado from 6.5.4 to 6.5.5 :pull:`105`
 - Add QUERY method and Accept-Query header [:pull:`114` by @rnewson]
+- Added and corrected HTTP status codes and messages 308, 414, and 425. [:pull:`114` by @apteryks]
 
 
 Version 2.0.0

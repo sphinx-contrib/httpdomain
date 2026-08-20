@@ -209,6 +209,7 @@ HTTP_STATUS_CODES = {
     304: 'Not Modified',
     305: 'Use Proxy',
     307: 'Temporary Redirect',
+    308: 'Permanent Redirect',
     400: 'Bad Request',
     401: 'Unauthorized',
     402: 'Payment Required',     # unused
@@ -223,7 +224,7 @@ HTTP_STATUS_CODES = {
     411: 'Length Required',
     412: 'Precondition Failed',
     413: 'Request Entity Too Large',
-    414: 'Request URI Too Long',
+    414: 'URI Too Long',
     415: 'Unsupported Media Type',
     416: 'Requested Range Not Satisfiable',
     417: 'Expectation Failed',
@@ -231,6 +232,7 @@ HTTP_STATUS_CODES = {
     422: 'Unprocessable Entity',
     423: 'Locked',
     424: 'Failed Dependency',
+    425: 'Too Early',           # RFC 8470
     426: 'Upgrade Required',
     429: 'Too Many Requests',
     449: 'Retry With',           # proprietary MS extension
