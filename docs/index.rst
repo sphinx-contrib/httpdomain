@@ -1,7 +1,7 @@
 .. module:: sphinxcontrib.httpdomain
 
 :mod:`sphinxcontrib.httpdomain` --- Sphinx domains for HTTP and WebSocket APIs
-================================================================================
+==============================================================================
 
 .. image:: https://img.shields.io/pypi/v/sphinxcontrib-httpdomain
     :target: https://pypi.org/project/sphinxcontrib-httpdomain/
