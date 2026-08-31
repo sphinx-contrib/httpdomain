@@ -75,6 +75,7 @@ Internal
 Documentation
 .............
 
+- Corrected the transposed ``<header`` and ``>header`` request and response aliases. [:issue:`24`]
 - Simplified and updated documentation requirements in :file:`rtd-requires.txt`. [:pull:`85` by @stevepiercy]
 - Added a :file:`.readthedocs.yaml` configuration for Read the Docs builds. [:pull:`85` by @stevepiercy]
 - Added omitted change log entries for v1.8.1. [:pull:`85` by @stevepiercy]
