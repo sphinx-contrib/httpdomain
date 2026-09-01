@@ -64,7 +64,7 @@ dev = [
     "pytest>=9.0.2",
     "sphinx-autobuild>=2024.10.3",
     "tomli>=2.0; python_version < '3.11'",
-    "tornado>=6.5.4",
+    "tornado>=6.5.8",
 ]
 
 
