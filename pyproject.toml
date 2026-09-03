@@ -42,7 +42,7 @@ classifiers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "sphinx>=6.0",
+    "sphinx>=8.1.3",
 ]
 
 
