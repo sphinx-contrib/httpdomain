@@ -33,6 +33,8 @@ Minor changes
 -   Add QUERY method and Accept-Query header [:pull:`114` by @rnewson]
 -   Updated uv-build requirement from <0.13.0,>=0.9.26 to >=0.12.16,<0.13.0. [:pull:`135`]
 -   Updated :file:`uv.lock` with the latest dependencies. Added ``lock`` as a new make target. Commented out unused targets for future implementation. [:pull:`136`]
+-   Bumped flask to version 3.1.3. Aligned Read the Docs dependencies with development environment. [:pull:`137`]
+
 
 Version 2.0.0
 `````````````
