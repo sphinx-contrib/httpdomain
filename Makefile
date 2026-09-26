@@ -40,6 +40,10 @@ dev:  ## Install required Python, create Python virtual environment, install tox
 sync:  ## Sync package requirements
 	@uv sync
 
+.PHONY: lock
+lock:  ## Update uv.lock with upgraded package requirements
+	@uv lock --upgrade
+
 .PHONY: init
 init: clean clean-python dev  ## Clean docs build directory and initialize Python virtual environment
 
@@ -202,15 +206,17 @@ linkcheckbroken: dev  ## Run linkcheck and show only broken links
 #	@echo
 #	@echo "Vale is finished; look for any errors in the above output."
 
-.PHONY: doctest
-doctest: dev  ## Run all doctests embedded in the documentation (if enabled)
-	cd $(DOCS_DIR) && $(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
-	@echo "Testing of doctests in the sources finished, look at the " \
-	      "results in $(BUILDDIR)/doctest/output.txt."
+# TODO: Requires `docs/conf.py` to enable `sphinx.ext.doctest` in `extensions`.
+#.PHONY: doctest
+#doctest: dev  ## Run all doctests embedded in the documentation (if enabled)
+#	cd $(DOCS_DIR) && $(SPHINXBUILD) -b doctest $(ALLSPHINXOPTS) $(BUILDDIR)/doctest
+#	@echo "Testing of doctests in the sources finished, look at the " \
+#	      "results in $(BUILDDIR)/doctest/output.txt."
 
 .PHONY: test
-test: clean linkcheckbroken doctest  ## Clean docs build, then run linkcheckbroken and doctest
-#test: clean vale linkcheckbroken doctest  ## Clean docs build, then run vale and linkcheckbroken
+test: clean html linkcheckbroken  ## Clean docs build, then run html and linkcheckbroken
+# TODO: enable vale and doctest
+#test: clean vale linkcheckbroken doctest  ## Clean docs build, then run html, vale, linkcheckbroken, and doctest
 # /test
 
 

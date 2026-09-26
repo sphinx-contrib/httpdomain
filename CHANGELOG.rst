@@ -6,34 +6,33 @@ Changelog
 Unreleased
 ``````````
 
+
 Major changes
 .............
 
-- Keep the per-page signature anchor and permalink when ``:noindex:`` is set; only the global route registration is skipped. [:pull:`112` by @ggiesen]
-- Added a ``websocket`` domain for documenting bidirectional WebSocket
-  connections, including tests, usage documentation, project meta information,
-  and translations. [:issue:`25`, :pull:`115` by @gryphon2411]
+-   Keep the per-page signature anchor and permalink when ``:noindex:`` is set; only the global route registration is skipped. [:pull:`112` by @ggiesen]
 
 
 Minor changes
 .............
 
-- Read version from :file:`pyproject.toml` for documentation. [:issue:`103` by @0jc1 and @stevepiercy]
-- Fix author email format. [:issue:`99` by @gboutry and @stevepiercy]
-- Drop deprecated license classifier. [:issue:`101` by @gboutry]
-- Use ``--allow-existing`` argument in the ``dev`` make target to avoid recreating a virtual environment with uv. [:pull:`123` by @stevepiercy]
-- Bump urllib3 from 2.6.3 to 2.7.0 :pull:`122`
-- Bump idna from 3.11 to 3.15 :pull:`121`
-- Bump werkzeug from 3.1.5 to 3.1.6 :pull:`120`
-- Bump flask from 3.1.2 to 3.1.3 :pull:`119`
-- Bump tornado from 6.5.5 to 6.5.7 :pull:`117`
-- Bump starlette from 0.52.1 to 1.3.1 :pull:`118`
-- Bump pytest from 9.0.2 to 9.0.3 :pull:`109`
-- Bump pygments from 2.19.2 to 2.20.0 :pull:`108`
-- Bump requests from 2.32.5 to 2.33.0 :pull:`106`
-- Bump tornado from 6.5.4 to 6.5.5 :pull:`105`
-- Add QUERY method and Accept-Query header [:pull:`114` by @rnewson]
-- Added and corrected HTTP status codes and messages 308, 414, and 425. [:pull:`114` by @apteryks]
+-   Read version from :file:`pyproject.toml` for documentation. [:issue:`103` by @0jc1 and @stevepiercy]
+-   Fix author email format. [:issue:`99` by @gboutry and @stevepiercy]
+-   Drop deprecated license classifier. [:issue:`101` by @gboutry]
+-   Use ``--allow-existing`` argument in the ``dev`` make target to avoid recreating a virtual environment with uv. [:pull:`123` by @stevepiercy]
+-   Bump urllib3 from 2.6.3 to 2.7.0. [:pull:`122`]
+-   Bump idna from 3.11 to 3.15. [:pull:`121`]
+-   Bump werkzeug from 3.1.5 to 3.1.6. [:pull:`120`]
+-   Bump flask from 3.1.2 to 3.1.3. [:pull:`119`]
+-   Bump tornado from 6.5.5 to 6.5.7. [:pull:`117`]
+-   Bump starlette from 0.52.1 to 1.3.1. [:pull:`118`]
+-   Bump pytest from 9.0.2 to 9.0.3. [:pull:`109`]
+-   Bump pygments from 2.19.2 to 2.20.0. [:pull:`108`]
+-   Bump requests from 2.32.5 to 2.33.0. [:pull:`106`]
+-   Bump tornado from 6.5.4 to 6.5.5. [:pull:`105`]
+-   Add QUERY method and Accept-Query header [:pull:`114` by @rnewson]
+-   Updated uv-build requirement from <0.13.0,>=0.9.26 to >=0.12.16,<0.13.0. [:pull:`135`]
+-   Updated :file:`uv.lock` with the latest dependencies. Added ``lock`` as a new make target. Commented out unused targets for future implementation. [:pull:`136`]
 
 Version 2.0.0
 `````````````
