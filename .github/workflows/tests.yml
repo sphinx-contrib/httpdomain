@@ -18,7 +18,7 @@ jobs:
         config:
         # [Python version, tox env]
         - ["3.10",  "py310"]
-        - ["3.10",  "py310-sphinx62"]
+        - ["3.10",  "py310-sphinx-version-smoke"]
         - ["3.11",  "py311"]
         - ["3.12",  "py312"]
         - ["3.13",  "py313"]
@@ -34,7 +34,7 @@ jobs:
       with:
         enable-cache: true
         # Install a specific version of uv.
-        version: "0.9.26"
+        version: "0.12.19"
         python-version: ${{ matrix.config[0] }}
 
     - name: Install tox

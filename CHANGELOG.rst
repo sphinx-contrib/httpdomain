@@ -7,6 +7,14 @@ Unreleased
 ``````````
 
 
+Breaking changes
+................
+
+-   Dropped support for Sphinx < 8.1.3.
+    Sphinx >= 8.1.3 is now required.
+    Sphinx v8.0.0 dropped support for Python 3.9, so this Sphinx version requirement is now explicit. [:pull:`128`]
+
+
 Major changes
 .............
 
@@ -37,6 +45,7 @@ Minor changes
 -   Bumped pytest from 9.0.2 to 9.1.1. [:pull:`129`]
 -   Bumped tornado from 6.5.8 to 6.5.10. [:pull:`134`]
 -   Bumped uv-build requirement from >=0.12.16,<0.13.0 to >=0.12.19,<0.13.0. [:pull:`138`]
+-   Updated the smoke test for Sphinx 8.1.3. [:pull:`128` by @stevepiercy]
 
 
 Version 2.0.0

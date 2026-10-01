@@ -1,4 +1,4 @@
-"""Minimal Sphinx 6.2 compatibility smoke test for the WebSocket domain."""
+"""Minimal Sphinx 8.1.3 compatibility smoke test for the WebSocket domain."""
 
 import subprocess
 import sys
@@ -10,7 +10,7 @@ import sphinx
 
 
 def main():
-    assert sphinx.__version__ == '6.2.1', sphinx.__version__
+    assert sphinx.__version__ == '8.1.3', sphinx.__version__
     with tempfile.TemporaryDirectory() as temporary_directory:
         root = Path(temporary_directory)
         source = root / 'source'
@@ -20,7 +20,7 @@ def main():
         (source / 'conf.py').write_text(
             "extensions = ['sphinxcontrib.httpdomain']\n"
             "master_doc = 'index'\n"
-            "project = 'Sphinx 6.2 smoke'\n",
+            "project = 'Sphinx 8.1.3 smoke'\n",
             encoding='utf-8',
         )
         (source / 'index.rst').write_text(textwrap.dedent("""
