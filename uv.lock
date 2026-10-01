@@ -714,7 +714,7 @@ dev = [
     { name = "pytest", specifier = ">=9.1.1" },
     { name = "sphinx-autobuild", specifier = ">=2024.10.3" },
     { name = "tomli", marker = "python_full_version < '3.11'", specifier = ">=2.0" },
-    { name = "tornado", specifier = ">=6.5.8" },
+    { name = "tornado", specifier = ">=6.5.10" },
 ]
 
 [[package]]
