@@ -34,6 +34,9 @@ Minor changes
 -   Updated uv-build requirement from <0.13.0,>=0.9.26 to >=0.12.16,<0.13.0. [:pull:`135`]
 -   Updated :file:`uv.lock` with the latest dependencies. Added ``lock`` as a new make target. Commented out unused targets for future implementation. [:pull:`136`]
 -   Bumped flask to version 3.1.3. Aligned Read the Docs dependencies with development environment. [:pull:`137`]
+-   Bumped pytest from 9.0.2 to 9.1.1. [:pull:`129`]
+-   Bumped tornado from 6.5.8 to 6.5.10. [:pull:`134`]
+-   Bumped uv-build requirement from >=0.12.16,<0.13.0 to >=0.12.19,<0.13.0. [:pull:`138`]
 
 
 Version 2.0.0
