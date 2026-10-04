@@ -5,11 +5,9 @@ import subprocess
 import sys
 import textwrap
 import zipfile
-from pathlib import Path
 
 import pytest
 
-from docutils import nodes
 from sphinx import addnodes
 from sphinx.util.inventory import InventoryFile
 
