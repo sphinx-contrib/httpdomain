@@ -65,12 +65,16 @@ def get_version_from_toml() -> str:
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinxcontrib.httpdomain', 'sphinxcontrib.autohttp.flask',
-              'sphinxcontrib.autohttp.flaskqref',
-              'sphinxcontrib.autohttp.bottle',
-              'sphinxcontrib.autohttp.tornado',
-              'sphinx.ext.extlinks']
-
+extensions = [
+    "sphinx.ext.extlinks",
+    "sphinx.ext.intersphinx",
+    "sphinxcontrib.autohttp.bottle",
+    "sphinxcontrib.autohttp.flask",
+    "sphinxcontrib.autohttp.flaskqref",
+    "sphinxcontrib.autohttp.tornado",
+    "sphinxcontrib.httpdomain",
+]
+    
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -302,9 +306,26 @@ extlinks = {
 # Suppress nonlocal image warning
 suppress_warnings = ['image.nonlocal_uri']
 
+# -- linkcheck builder configuration ----------------------------------
 linkcheck_ignore = [
     # Don't check old links to Bitbucket
-    r'^https://bitbucket\.org/birkenfeld/sphinx-contrib/(issues|pull-requests)/\d+/',  # noqa: E501
+    r"^https://bitbucket\.org/birkenfeld/sphinx-contrib/(issues|pull-requests)/\d+/",  # noqa: E501
     # The following site has imposed 403 forbidden responses, link is valid
-    'https://datatracker.ietf.org/doc/html/',
+    "https://datatracker.ietf.org/doc/html/",
 ]
+
+
+# -- sphinx.ext.intersphinx configuration ----------------------------------
+
+# This extension can generate automatic links to the documentation of objects
+# in other projects. Usage is simple: whenever Sphinx encounters a
+# cross-reference that has no matching target in the current documentation set,
+# it looks for targets in the documentation sets configured in
+# intersphinx_mapping. A reference like :py:class:`zipfile.ZipFile` can then
+# linkto the Python documentation for the ZipFile class, without you having to
+# specify where it is located exactly.
+#
+# https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html
+intersphinx_mapping = {
+    "sphinx": ("https://www.sphinx-doc.org/en/master/", None),
+}
