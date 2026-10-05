@@ -236,7 +236,7 @@ dist:  ## Clean dist, then build the project
 	@git add .
 	@git commit -m "Release $(VERSION)"
 	@git tag $(VERSION)
-	@git push  --atomic origin main $(VERSION)
+	@git push --atomic origin main $(VERSION)
 	@rm -rf dist
 	@uv build
 

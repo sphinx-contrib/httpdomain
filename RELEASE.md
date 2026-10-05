@@ -12,13 +12,13 @@ Find the correct command to bump the version from [uv's documentation](https://d
 Use `--dry-run` to check that the command will do what you expect.
 
 ```shell
-uv bump --dry-run <args>
+uv version --bump <args> --dry-run
 ```
 
 If it looks good, then drop the `--dry-run` flag, and run the command.
 
 ```shell
-uv bump <args>
+uv version --bump <args>
 ```
 
 Commit the changes, tag the commit, push to the repository, clean the `dist` directory, build the project.

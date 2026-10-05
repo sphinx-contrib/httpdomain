@@ -1,6 +1,6 @@
 [project]
 name = "sphinxcontrib-httpdomain"
-version = "2.0.0"
+version = "2.1.0"
 description = "Sphinx extension that provides domains for documenting HTTP and WebSocket APIs."
 keywords = [
   "Sphinx",
