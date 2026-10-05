@@ -49,6 +49,7 @@ Minor changes
 -   Bumped uv-build requirement from >=0.12.19,<0.13.0 to >=0.12.22,<0.13.0. [:pull:`139`]
 -   Updated the smoke test for Sphinx 8.1.3. [:pull:`128` by @stevepiercy]
 -   Moved linkcheck test to a separate environment so that the ``py314`` environment can be run separately. Refactored :file:`test` folder to :file:`tests`. Removed unused imports from :file:`websocket_test.py`. Added intersphinx to Sphinx configuration. [:pull:`140` by @stevepiercy]
+-   Use ``packaging`` to get the version for Sphinx. [:issue:`103` by @stevepiercy]
 
 
 Version 2.0.0
