@@ -19,6 +19,7 @@ Major changes
 .............
 
 -   Keep the per-page signature anchor and permalink when ``:noindex:`` is set; only the global route registration is skipped. [:pull:`112` by @ggiesen]
+-   Fixed the direction of the response and request indicators for headers and JSON fields. Added documentation and tests for JSON fields. Added intersphinx to Sphinx configuration. [:issue:`24` by @stevepiercy]
 
 
 Minor changes
