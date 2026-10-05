@@ -19,7 +19,7 @@ Major changes
 .............
 
 -   Keep the per-page signature anchor and permalink when ``:noindex:`` is set; only the global route registration is skipped. [:pull:`112` by @ggiesen]
--   Fixed the direction of the response and request indicators for headers and JSON fields. Added documentation and tests for JSON fields. Added intersphinx to Sphinx configuration. [:issue:`24` by @stevepiercy]
+-   Fixed the direction of the response and request indicators for headers and JSON fields. Added documentation and tests for JSON fields. [:issue:`24` by @stevepiercy]
 
 
 Minor changes
@@ -46,6 +46,7 @@ Minor changes
 -   Bumped pytest from 9.0.2 to 9.1.1. [:pull:`129`]
 -   Bumped tornado from 6.5.8 to 6.5.10. [:pull:`134`]
 -   Bumped uv-build requirement from >=0.12.16,<0.13.0 to >=0.12.19,<0.13.0. [:pull:`138`]
+-   Bumped uv-build requirement from >=0.12.19,<0.13.0 to >=0.12.22,<0.13.0. [:pull:`139`]
 -   Updated the smoke test for Sphinx 8.1.3. [:pull:`128` by @stevepiercy]
 -   Moved linkcheck test to a separate environment so that the ``py314`` environment can be run separately. Refactored :file:`test` folder to :file:`tests`. Removed unused imports from :file:`websocket_test.py`. Added intersphinx to Sphinx configuration. [:pull:`140` by @stevepiercy]
 
