@@ -331,28 +331,58 @@ Additionally, you may specify custom options to the directives:
 Resource Fields
 ---------------
 
-Inside HTTP resource description directives like :rst:dir:`get`,
-reStructuredText field lists with these fields are recognized and formatted
-nicely:
+Inside HTTP resource description directives such as :rst:dir:`get`, reStructuredText :doc:`field lists <sphinx:usage/restructuredtext/field-lists>` for the following fields are recognized and nicely formatted.
 
 ``param``, ``parameter``, ``arg``, ``argument``
    Description of URL parameter.
 
+   Example:
+
+   ..  sourcecode:: rst
+
+       ..  http:post:: /users/(int:user_id)/add/
+
+           :param title: the post title
+           :parameter body: the post body
+           :arg sticky: whether it's sticky or not
+           :argument publish: publication date
+
+   Rendering:
+
+   ..  http:post:: /users/(int:user_id)/add/
+
+       :param title: the post title
+       :parameter body: the post body
+       :arg sticky: whether it's sticky or not
+       :argument publish: publication date
+
 ``queryparameter``, ``queryparam``, ``qparam``, ``query``
    Description of parameter passed by request query string.
 
-   It optionally can be typed, all the query parameters will have obviously
-   string types though.  But it's useful if there's conventions for it.
+   It can be typed.
+   Although all the query parameters will be string types, it's useful if there are conventions for it.
 
    .. versionchanged:: 1.1.9
 
-      It can be typed e.g.:
+      It can be typed, for example:
 
-      .. sourcecode:: rst
+      ..  sourcecode:: rst
 
-         :query string title: the post title
-         :query string body: the post body
-         :query boolean sticky: whether it's sticky or not
+          ..  http:get:: /users/(int:user_id)/posts/view
+
+              :param string title: the post title
+              :parameter string body: the post body
+              :arg boolean sticky: whether it's sticky or not
+              :argument date publish: publication date
+
+      Rendering:
+
+      ..  http:get:: /users/(int:user_id)/posts/view
+
+          :param string title: the post title
+          :parameter string body: the post body
+          :arg boolean sticky: whether it's sticky or not
+          :argument date publish: publication date
 
 ``formparameter``, ``formparam``, ``fparam``, ``form``
    Description of parameter passed by request content body, encoded in
@@ -364,14 +394,15 @@ nicely:
    :mimetype:`application/json`.
 
    .. deprecated:: 1.3.0
-      Use ``reqjsonobj``/``reqjson``/``<jsonobj``/``<json`` and
-      ``reqjsonarr``/``<jsonarr`` instead.
+
+      Use ``reqjsonobj``/``reqjson``/``>jsonobj``/``>json`` and
+      ``reqjsonarr``/``>jsonarr`` instead.
 
    .. versionadded:: 1.1.8
 
    .. versionchanged:: 1.1.9
 
-      It can be typed e.g.:
+      It can be typed, for example:
 
       .. sourcecode:: rst
 
@@ -379,55 +410,119 @@ nicely:
          :jsonparam string body: the post body
          :jsonparam boolean sticky: whether it's sticky or not
 
-``reqjsonobj``, ``reqjson``, ``<jsonobj``, ``<json``
-   Description of a single field of JSON object passed by request body,
-   encoded in :mimetype:`application/json`. The key difference from ``json`` is
-   explicitly defined use-case (request/response) of the described object.
+``reqjsonobj``, ``reqjson``, ``>jsonobj``, ``>json``
+   Description of a single field of a JSON object passed in the request body, and encoded in :mimetype:`application/json`.
+   The key difference from ``json`` is that the request is explicitly defined in the described object.
 
-   .. sourcecode:: rst
+   Using the following JSON object, it can be typed as shown in the subsequent example.
 
-      :<json string title: the post title
-      :<json string body: the post body
-      :<json boolean sticky: whether it's sticky or not
+   ..  code-block:: json
+
+       {
+         "user_id": 1,
+         "post_id": 2
+       }
+
+   ..  code-block:: rst
+
+       ..  http:get:: /users/(int:user_id)/posts/(int:post_id)
+
+           :reqjson integer user_id: The user ID.
+           :>json integer post_id: The post ID.
+
+   Rendering:
+
+   ..  http:get:: /users/(int:user_id)/posts/(int:post_id)
+
+       :reqjson integer user_id: The user ID.
+       :>json integer post_id: The post ID.
+
+   Additionally, it can be typed as a JSON object.
+
+   ..  code-block:: rst
+
+       ..  http:get:: /users/(int:user_id)/posts/(int:post_id)
+
+           :reqjson reqjsonobj user_id: The user ID.
+           :>json >jsonobj post_id: The post ID.
+
+   Rendering:
+
+   ..  http:get:: /users/(int:user_id)/posts/(int:post_id)
+
+       :reqjson reqjsonobj user_id: The user ID.
+       :>json >jsonobj post_id: The post ID.
 
    .. versionadded:: 1.3.0
 
-``resjsonobj``, ``resjson``, ``>jsonobj``, ``>json``
-   Description of a single field of JSON object returned with response body,
-   encoded in :mimetype:`application/json`.
+``resjsonobj``, ``resjson``, ``<jsonobj``, ``<json``
+   Description of a single field of a JSON object returned in the response body, and encoded in :mimetype:`application/json`.
+   The key difference from ``json`` is that the response is explicitly defined in the described object.
 
-   .. sourcecode:: rst
+   ..  code-block:: rst
 
-      :>json boolean ok: Operation status
+       ..  http:get:: /users/(int:user_id)/posts/(int:post_id)
+
+           :resjson boolean ok: Operation status.
+           :<json integer error: Error code.
+
+   Rendering:
+
+   ..  http:get:: /users/(int:user_id)/posts/(int:post_id)
+
+       :resjson boolean ok: Operation status.
+       :<json integer error: Error code.
+
+   Additionally, it can be typed as a JSON object.
+
+   ..  code-block:: rst
+
+       ..  http:get:: /users/(int:user_id)/posts/(int:post_id)
+
+           :resjson resjsonobj ok: Operation status.
+           :<json <jsonobj error: Error code.
+
+   Rendering:
+
+   ..  http:get:: /users/(int:user_id)/posts/(int:post_id)
+
+       :resjson resjsonobj ok: Operation status.
+       :<json <jsonobj error: Error code.
 
    .. versionadded:: 1.3.0
 
-``reqjsonarr``, ``<jsonarr``
-``resjsonarr``, ``>jsonarr``
+``reqjsonarr``, ``>jsonarr``,
+``resjsonarr``, ``<jsonarr``
 
-   Similar to ``<json`` and ``>json`` respectively, but uses for describing
-   objects schema inside of returned array.
+   Similar to ``>json`` and ``<json``, respectively, but used for describing
+   object schema inside of the returned array.
 
-   Let's say, the response contains the following data:
+   Let's say the response contains the following data:
 
-   .. sourcecode:: javascript
+   .. sourcecode:: json
 
-      [{"id": "foo", "ok": true}, {"id": "bar", "error": "forbidden", "reason": "sorry"}]
+      [
+        {
+          "id": "foo",
+          "ok": true
+        },
+        {
+          "id": "bar",
+          "error": "forbidden",
+          "reason": "sorry"
+        }
+      ]
 
    Then we can describe it in the following way:
 
    .. sourcecode:: rst
 
-      :>jsonarr boolean ok: Operation status. Not present in case of error
-      :>jsonarr string id: Object ID
-      :>jsonarr string error: Error type
-      :>jsonarr string reason: Error reason
+      :<jsonarr boolean ok: Operation status. Not present in case of error
+      :<jsonarr string id: Object ID
+      :<jsonarr string error: Error type
+      :<jsonarr string reason: Error reason
 
    .. versionadded:: 1.3.0
-
-.. sourcecode:: rst
-
-      :>json boolean status: Operation status
 
 ``requestheader``, ``reqheader``, ``>header``
    Description of request header field.
