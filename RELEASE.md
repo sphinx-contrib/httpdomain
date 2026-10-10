@@ -34,4 +34,4 @@ You'll need your personal access token from PyPI.
 uv publish
 ```
 
-Finally, navigate to the [New release page](https://github.com/sphinx-contrib/httpdomain/releases) on GitHub to publish the tagged release.
+Finally, navigate to the [Releases page](https://github.com/sphinx-contrib/httpdomain/releases) on GitHub to publish the tagged release.
