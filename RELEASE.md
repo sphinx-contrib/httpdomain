@@ -1,5 +1,7 @@
 # Release sphinxcontrib-httpdomain
 
+Update `CHANGELOG.rst` at the root of the repository for the new release.
+
 Use uv and make to release sphinxcontrib-httpdomain.
 
 Check the current version.
