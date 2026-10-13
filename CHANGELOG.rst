@@ -3,8 +3,10 @@
 Changelog
 ---------
 
-Unreleased
-``````````
+Version 2.2.0
+`````````````
+
+Released on October 13, 2026
 
 Breaking changes
 ................
