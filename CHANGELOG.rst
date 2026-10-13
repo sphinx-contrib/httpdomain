@@ -6,6 +6,23 @@ Changelog
 Unreleased
 ``````````
 
+Breaking changes
+................
+
+
+Major changes
+.............
+
+
+Minor changes
+.............
+
+
+Version 2.1.0
+`````````````
+
+Released on October 5, 2026
+
 
 Breaking changes
 ................
