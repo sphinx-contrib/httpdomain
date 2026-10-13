@@ -48,7 +48,7 @@ dependencies = [
 
 
 [project.urls]
-Changelog = "https://github.com/me/spam/blob/master/CHANGELOG.md"
+Changelog = "https://sphinxcontrib-httpdomain.readthedocs.io/en/stable/#changelog"
 Documentation = "https://sphinxcontrib-httpdomain.readthedocs.io/en/stable/"
 Download ="https://pypi.org/project/sphinxcontrib-httpdomain/"
 Funding = "https://github.com/sponsors/stevepiercy"
