@@ -17,6 +17,8 @@ Major changes
 Minor changes
 .............
 
+-   Bumped uv-build requirement from >=0.12.22,<0.13.0 to >=0.12.22,<0.14.0. [:pull:`145`]
+
 
 Version 2.1.0
 `````````````
