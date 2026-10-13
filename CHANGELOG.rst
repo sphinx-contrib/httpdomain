@@ -13,6 +13,8 @@ Breaking changes
 Major changes
 .............
 
+-   Added support for Python 3.15. [:pull:`146`]
+
 
 Minor changes
 .............
