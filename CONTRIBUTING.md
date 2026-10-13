@@ -87,14 +87,14 @@ To build the documentation and run tests across all supported Python versions, u
 tox r
 ```
 
-To run tests for a specific Python version, use the following command, replacing `py314` with the desired version number.
+To run tests for a specific Python version, use the following command, replacing `py315` with the desired version number.
 
 ```shell
-tox r -e py314
+tox r -e py315
 ```
 
 > [!NOTE]  
-> `py314` is the only tox environment that also runs the link checker.
+> `py315` is the only tox environment that also runs the link checker.
 
 
 ## Pull request requirements
