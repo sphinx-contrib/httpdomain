@@ -3,6 +3,25 @@
 Changelog
 ---------
 
+Unreleased
+``````````
+
+
+Breaking changes
+................
+
+
+Major changes
+.............
+
+
+
+Minor changes
+.............
+
+-   Fixed link to change log in :file:`pyproject.toml`. [:issue:`150` by @nijel]
+
+
 Version 2.2.0
 `````````````
 
