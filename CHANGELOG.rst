@@ -3,6 +3,22 @@
 Changelog
 ---------
 
+Unreleased
+``````````
+
+
+Breaking changes
+................
+
+
+Major changes
+.............
+
+
+Minor changes
+.............
+
+
 Version 2.2.1
 `````````````
 
