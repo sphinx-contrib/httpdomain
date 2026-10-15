@@ -800,17 +800,19 @@ class HTTPLexer(RegexLexer):
     }
 
 
-def register_routingtable_as_label(app, document):
-    labels = app.env.domaindata['std']['labels']
+def register_routingtable_as_label(app, env, docnames):
+    # Register in the main environment: parallel readers only merge labels
+    # belonging to source documents, not generated index pages.
+    labels = env.domaindata['std']['labels']
     labels['routingtable'] = 'http-routingtable', '', _('HTTP Routing Table')
-    anonlabels = app.env.domaindata['std']['anonlabels']
+    anonlabels = env.domaindata['std']['anonlabels']
     anonlabels['routingtable'] = 'http-routingtable', ''
 
 
 def setup(app):
     app.add_domain(HTTPDomain)
     app.add_domain(WebSocketDomain)
-    app.connect('doctree-read', register_routingtable_as_label)
+    app.connect('env-before-read-docs', register_routingtable_as_label)
 
     package_dir = os.path.abspath(os.path.dirname(__file__))
     locale_dir = os.path.join(package_dir, 'locale')
