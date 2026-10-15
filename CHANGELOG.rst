@@ -18,6 +18,8 @@ Major changes
 Minor changes
 .............
 
+-   Fixed references to the HTTP routing table on clean parallel builds. [:issue:`58`]
+
 
 Version 2.2.1
 `````````````
