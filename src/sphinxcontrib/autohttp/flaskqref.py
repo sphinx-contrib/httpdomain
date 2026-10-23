@@ -11,6 +11,8 @@
 
 """
 
+from itertools import groupby
+
 from docutils import nodes
 from docutils.statemachine import ViewList
 
@@ -42,25 +44,18 @@ class QuickReferenceFlaskDirective(AutoflaskBase):
         result = ViewList()
         for line in QuickReferenceFlaskDirective.header:
             result.append(line, '<qrefflask>')
-        table={}
-        table_sorted_names=[]
+        rows = list(self.make_rst(qref=True))
+        if self.order != 'path':
+            # Keep the historical resource grouping unless endpoint order was
+            # requested. The base directive already supplies path order.
+            rows.sort(key=lambda row: row['name'])
 
-        for table_row in self.make_rst(qref=True):
-            name = table_row['name']
-            if table.get(name) is None:
-                table[name]=[]
-            table[name].append(table_row)
-            if name not in table_sorted_names:
-                table_sorted_names.append(name)
-
-        table_sorted_names.sort()
-
-        for name in table_sorted_names:
+        for name, resource_rows in groupby(rows, key=lambda row: row['name']):
             # Keep table display clean by not repeating duplicate
             # resource names and descriptions
             display_name = name
             previous_description=None
-            for row in table[name]:
+            for row in resource_rows:
                 result.append('    * - %s' % display_name, '<qrefflask>')
                 display_name =""
                 result.append(row['operation'], '<qrefflask>')

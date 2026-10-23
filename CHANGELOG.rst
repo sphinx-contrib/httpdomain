@@ -18,6 +18,9 @@ Major changes
 Minor changes
 .............
 
+-   Honor ``:order: path`` in ``qrefflask`` without regrouping endpoints by
+    resource name, matching ``autoflask`` ordering. [:issue:`33`]
+
 
 Version 2.2.1
 `````````````
