@@ -79,3 +79,4 @@ class QuickReferenceFlaskDirective(AutoflaskBase):
 def setup(app):
     app.setup_extension('sphinxcontrib.httpdomain')
     app.add_directive('qrefflask', QuickReferenceFlaskDirective)
+    return {"parallel_read_safe": True}

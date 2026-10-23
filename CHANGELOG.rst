@@ -18,6 +18,10 @@ Major changes
 Minor changes
 .............
 
+-   Declare the Bottle, Flask, Flask quick-reference, and Tornado autohttp
+    extensions safe for parallel reading. Their directives use the HTTP
+    domain's existing merge and purge support. [:issue:`15`]
+
 
 Version 2.2.1
 `````````````
