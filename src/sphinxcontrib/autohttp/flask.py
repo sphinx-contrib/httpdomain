@@ -42,3 +42,4 @@ class AutoflaskDirective(AutoflaskBase):
 def setup(app):
     app.setup_extension('sphinxcontrib.httpdomain')
     app.add_directive('autoflask', AutoflaskDirective)
+    return {"parallel_read_safe": True}
