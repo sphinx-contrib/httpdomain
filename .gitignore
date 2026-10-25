@@ -4,12 +4,9 @@
 .cache
 .idea/
 .pytest_cache
-temp_auto_push.bat
 .python-version
 .tox
 .venv
 build
 dist
 _build
-.gitignore
-branch_structure.json
