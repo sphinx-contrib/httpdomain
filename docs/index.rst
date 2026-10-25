@@ -933,6 +933,11 @@ of your configuration (:file:`conf.py`) file::
    to that of :mod:`sphinxcontrib.autohttp.flask` with the addition of the
    ``autoquickref`` option.
 
+   With ``:order: path``, the summary follows the same endpoint order as
+   ``autoflask``. Resource names and descriptions are omitted only for
+   consecutive repetitions, so a resource may appear in more than one group.
+   Without this option, the summary groups resources alphabetically.
+
 
 Basic usage
 ```````````
