@@ -109,3 +109,4 @@ class AutobottleDirective(Directive):
 def setup(app):
     app.setup_extension('sphinxcontrib.httpdomain')
     app.add_directive('autobottle', AutobottleDirective)
+    return {"parallel_read_safe": True}
